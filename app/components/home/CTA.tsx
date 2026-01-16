@@ -27,8 +27,9 @@ const CTA = () => {
               <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3">
                 Discover Amazing
               </p>
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-3 font-poppins">
-                Subscribe to the News
+              <h2 className="text-3xl lg:text-4xl font-semibold text-foreground mb-3 font-poppins">
+                Get notified about latest{" "}
+                <span className="text-[#8cd700]">offers & updates</span>
               </h2>
               <p className="text-zinc-700 text-sm lg:text-base mb-6 leading-relaxed">
                 Be aware of all discounts and bargains! Don&apos;t miss your
@@ -43,12 +44,12 @@ const CTA = () => {
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 px-4 py-2 border border-zinc-300 rounded-md text-sm focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+                  className="flex-1 px-4 py-2 border border-zinc-300 rounded-full text-sm focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
                   required
                 />
                 <button
                   type="submit"
-                  className="bg-white border border-zinc-300 hover:bg-zinc-50 text-zinc-900 font-semibold px-6 py-2 rounded-md transition-all text-sm flex items-center gap-2"
+                  className="bg-white border border-zinc-300 hover:bg-zinc-50 text-zinc-900 hover:text-[#8cd700] font-semibold px-6 py-2 rounded-full transition-all text-sm flex items-center gap-2"
                 >
                   <Mail size={16} />
                   Subscribe

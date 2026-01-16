@@ -1,17 +1,17 @@
 "use client";
 
 import Image from "next/image";
+import Button from "../common-ui/Button";
 import Link from "next/link";
 import {
-  Heart,
-  Smile,
-  Baby,
-  Droplet,
-  Zap,
-  Sun,
-  Wind,
-  Sparkles,
+  ArrowLeft,
+  ArrowRight,
+  LucideView,
+  Mail,
+  View,
+  ViewIcon,
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Category = () => {
   const categories = [
@@ -19,127 +19,102 @@ const Category = () => {
       id: 1,
       name: "Baby Care",
       description:
-        "Gentle and safe products designed for your precious little one",
-      icon: Smile,
-      color: "text-foreground",
-      bgColor: "bg-zinc-50",
-      borderColor: "border-zinc-200",
+        "Gentle and safe products designed for your precious little one. Everything your baby needs for comfort and care.",
+      image: "/categories/infant.png",
       link: "/shop/baby-care",
     },
     {
       id: 2,
       name: "Skincare",
-      description: "Premium skincare solutions for all skin types",
-      icon: Droplet,
-      color: "text-foreground",
-      bgColor: "bg-zinc-50",
-      borderColor: "border-zinc-200",
+      description:
+        "Premium skincare solutions for all skin types. Nourish and protect delicate baby skin.",
+      image: "/categories/lotion.png",
       link: "/shop/skincare",
     },
     {
       id: 3,
-      name: "Personal Care",
-      description: "Complete personal care range for daily use",
-      icon: Heart,
-      color: "text-foreground",
-      bgColor: "bg-zinc-50",
-      borderColor: "border-zinc-200",
-      link: "/shop/personal-care",
+      name: "Diapers",
+      description:
+        "Premium diapers and essential baby products. Comfort and protection in every use.",
+      image: "/categories/diaper3.png",
+      link: "/shop/diapers",
     },
     {
       id: 4,
-      name: "Hair Care",
-      description: "Specialized hair care treatments for all hair types",
-      icon: Sparkles,
-      color: "text-foreground",
-      bgColor: "bg-zinc-50",
-      borderColor: "border-zinc-200",
-      link: "/shop/hair-care",
-    },
-    {
-      id: 5,
-      name: "Wellness",
-      description: "Health and wellness products for daily wellness",
-      icon: Zap,
-      color: "text-foreground",
-      bgColor: "bg-zinc-50",
-      borderColor: "border-zinc-200",
-      link: "/shop/wellness",
-    },
-    {
-      id: 6,
-      name: "Organic",
-      description: "100% organic and natural products",
-      icon: Sun,
-      color: "text-foreground",
-      bgColor: "bg-zinc-50",
-      borderColor: "border-zinc-200",
-      link: "/shop/organic",
-    },
-    {
-      id: 7,
-      name: "Sensitive",
-      description: "Hypoallergenic products for sensitive skin",
-      icon: Wind,
-      color: "text-foreground",
-      bgColor: "bg-zinc-50",
-      borderColor: "border-zinc-200",
-      link: "/shop/sensitive",
-    },
-    {
-      id: 8,
-      name: "Premium",
-      description: "Luxury and premium collection",
-      icon: Baby,
-      color: "text-foreground",
-      bgColor: "bg-zinc-50",
-      borderColor: "border-zinc-200",
-      link: "/shop/premium",
+      name: "Strollers & Gear",
+      description:
+        "High-quality strollers and baby gear. Safe, durable, and designed for modern parents.",
+      image: "/categories/stroller.png",
+
+      link: "/shop/strollers",
     },
   ];
 
   return (
-    <section className="py-12 lg:py-16 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-5xl">
+    <section className="py-16 lg:py-24 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
         {/* Section Header */}
-        <div className="mb-10">
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground font-montserrat">
-            Explore our Category
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <h2 className="text-3xl lg:text-4xl font-semibold text-foreground font-poppins mb-4">
+            Explore our <span className="text-[#8cd700]">Categories</span>
           </h2>
-          <p>We&apos;re here to help you find the perfect products for your needs.</p>
-        </div>
+          <p className="text-md text-zinc-600 max-w-2xl">
+            Discover our curated selection of premium baby products designed to
+            support every stage of your parenting journey.
+          </p>
+        </motion.div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
-          {categories.map((category) => {
-            const IconComponent = category.icon;
-            return (
-              <Link key={category.id} href={category.link}>
-                <div
-                  className={`
-                    group ${category.bgColor} rounded-lg p-5 lg:p-6
-                    border border-zinc-200 transition-all duration-300
-                    hover:border-foreground hover:bg-foreground/5 cursor-pointer text-center
-                  `}
+        {/* Categories Grid - 2x2 Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-2">
+          {categories.map((category, index) => (
+            <motion.div
+              key={category.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="group rounded-xl overflow-hidden border border-zinc-200 transition-all duration-300 hover:shadow-lg hover:border-foreground/30 bg-zinc-50"
+            >
+              {/* Image Container */}
+              <div className="relative h-64 md:h-72 lg:h-64 overflow-hidden bg-zinc-100">
+                <Image
+                  src={category.image}
+                  alt={category.name}
+                  fill
+                  className="object-cover group-hover:scale-105 hover:transition-all hover:duration-500"
+                />
+              </div>
+
+              {/* Content Container */}
+              <div className="p-2 lg:p-4">
+                {/* Title */}
+                <h3 className="text-2xl lg:text-xl font-bold text-[#8cd700] font-montserrat mb-3">
+                  {category.name}
+                </h3>
+
+                {/* Description */}
+                <p className="text-sm text-zinc-600 mb-6 line-clamp-2">
+                  {category.description}
+                </p>
+
+                {/* Explore Button */}
+                <button
+                  type="submit"
+                  className="bg-foreground/10 border border-zinc-300 hover:bg-zinc-50 text-foreground hover:text-[#8cd700] font-semibold px-6 py-2 rounded-full transition-all text-sm flex items-center gap-2"
                 >
-                  {/* Icon */}
-                  <div className="flex justify-center mb-3">
-                    <IconComponent size={32} className={category.color} />
-                  </div>
-
-                  {/* Category Name */}
-                  <h3 className="text-sm lg:text-base font-semibold text-zinc-900 mb-2">
-                    {category.name}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-xs lg:text-sm text-zinc-600 line-clamp-2">
-                    {category.description}
-                  </p>
-                </div>
-              </Link>
-            );
-          })}
+                  View Products
+                  <ArrowRight size={16} />
+                </button>
+                {/* <Button content="Explore Category" link={category.link} /> */}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Facebook, Instagram, Music, MessageCircle } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   const footerSections = [
@@ -83,9 +84,9 @@ export default function Footer() {
         <div className="border-t border-zinc-200 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Newsletter */}
           <div>
-            <h3 className="text-sm font-semibold mb-4 text-zinc-900">
-              Newsletter
-            </h3>
+            <Link href="/" className="flex items-center shrink-0 mb-4">
+              <Image src="/logo.png" alt="Zuvara Logo" width={90} height={90} />
+            </Link>
             <p className="text-sm text-zinc-700 mb-4">
               Subscribe to get special offers and updates on new arrivals.
             </p>
@@ -184,22 +185,30 @@ export default function Footer() {
         </div>
 
         {/* Bottom Footer */}
-        <div className="border-t border-zinc-200 py-6 flex flex-col md:flex-row justify-between items-center text-xs text-zinc-700">
-          <p>&copy; Copyright © 2025 Zuvara.com.np. All rights reserved.</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <Link href="#" className="hover:text-zinc-900 transition">
+        <div className="border-t border-zinc-200 py-6 flex flex-col md:flex-row justify-between items-center text-xs text-zinc-700 group">
+          <p>&copy; Copyright © 2025 Zuvara.com.np. All rights reserved.</p>{" "}
+          <div className="flex gap-4">
+            <Link href="#" className="hover:text-foreground! transition text-zinc-400!">
               Terms & Conditions
             </Link>
-            <Link href="#" className="hover:text-zinc-900 transition">
+            <Link href="#" className="hover:text-foreground! transition text-zinc-400!">
               Privacy Policy
             </Link>
+          </div>
+          <div className="flex gap-6 mt-4 md:mt-0">
             <Link
-              href="https://webxnepal.com"
+              href="https://webxnepal.com/"
               target="_blank"
-              className="hover:text-zinc-900 transition "
+              className="hover:text-zinc-900 transition flex gap-2 items-center"
             >
               Design and Developed by{" "}
-              <span className="font-semibold text-blue-400!">WebX</span>
+              <Image
+                src="/webx.png"
+                alt="WebX Nepal Logo"
+                width={50}
+                height={90}
+                className="font-semibold group-hover:scale-105 transition-transform"
+              />
             </Link>
           </div>
         </div>

@@ -2,12 +2,17 @@
 
 import Image from "next/image";
 
-const BigImage = () => {
+type BigImageProps = {
+  src: string;
+  alt: string;
+};
+
+const BigImage = ({ src, alt }: BigImageProps) => {
   return (
-    <section className="relative w-full h-96 lg:h-[120vh] bg-cover bg-center bg-no-repeat">
+    <section className="relative w-full max-w-5xl mx-auto px-6 h-52 lg:h-120 bg-cover bg-center bg-no-repeat">
       <Image
-        src="/baby/happy-baby.png"
-        alt="Big Image"
+        src={src}
+        alt={alt}
         fill
         className="object-cover object-top"
         priority

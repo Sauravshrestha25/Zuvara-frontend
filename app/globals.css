@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@font-face {
+  font-family: "BabyFont";
+  src: url("/font/baby-font.otf") format("opentype");
+}
 
 :root {
   --background: #ffffff;
@@ -32,6 +36,10 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.baby{
+  font-family: "BabyFont", sans-serif;
 }
 
 a {

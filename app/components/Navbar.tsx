@@ -1,12 +1,10 @@
 "use client";
 
+import { Icon } from "@iconify-icon/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
   const menuItems = [
     { label: "Products", href: "#" },
     { label: "Baby Care", href: "#" },
@@ -27,14 +25,11 @@ export default function Navbar() {
   return (
     <>
       {/* Desktop Navbar */}
-      <nav className="hidden lg:block fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center items-center h-16 gap-16">
+      <nav className="hidden lg:block fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-zinc-200">
+        <div className="px-4 sm:px-6 lg:px-6 max-w-5xl mx-auto">
+          <div className="flex justify-between items-center h-16 gap-16">
             {/* Logo - Left */}
-            <Link
-              href="/"
-              className="flex items-center shrink-0"
-            >
+            <Link href="/" className="flex items-center shrink-0">
               <Image src="/logo.png" alt="Zuvara Logo" width={90} height={90} />
             </Link>
 
@@ -44,7 +39,7 @@ export default function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="text-sm text-gray-700 hover:text-black transition whitespace-nowrap"
+                  className="text-sm text-zinc-700 hover:text-black transition whitespace-nowrap"
                 >
                   {item.label}
                 </Link>
@@ -52,42 +47,15 @@ export default function Navbar() {
             </div>
 
             {/* Right side actions */}
-            <div className="flex items-center gap-6 ">
+            <div className="flex items-center gap-4 ">
               {/* Search Icon */}
-              <button className="p-2 hover:text-gray-900 transition">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
+              <button className=" hover:text-zinc-900 transition">
+                <Icon icon="si:search-duotone" width="24" height="24" />
               </button>
 
               {/* Shopping Bag Icon */}
-              <button className="p-2 hover:text-gray-900 transition relative">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                  />
-                </svg>
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                  0
-                </span>
+              <button className="hover:text-zinc-900 transition relative">
+                <Icon icon="logos:whatsapp-icon" width="24" height="24" />
               </button>
             </div>
           </div>
@@ -95,7 +63,7 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Navbar - Top */}
-      <nav className="lg:hidden fixed top-0 w-full z-50 bg-white border-b border-gray-200 h-14">
+      <nav className="lg:hidden fixed top-0 w-full z-50 bg-white border-b border-zinc-200 h-14">
         <div className="flex justify-between items-center h-full px-4">
           {/* Logo */}
           <Link href="/" className="flex items-center">
@@ -125,16 +93,16 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Bottom Navigation - App Style */}
-      <nav className="lg:hidden fixed bottom-0 w-full z-50 bg-white border-t border-gray-200">
+      <nav className="lg:hidden fixed bottom-0 w-full z-50 bg-white border-t border-zinc-200">
         <div className="flex justify-around items-center h-20 px-2">
           {mobileMenuItems.map((item) => (
             <Link
               key={item.label}
               href={item.href}
-              className="flex flex-col items-center justify-center gap-1 py-2 px-4 rounded-lg hover:bg-gray-100 transition flex-1"
+              className="flex flex-col items-center justify-center gap-1 py-2 px-4 rounded-lg hover:bg-zinc-100 transition flex-1"
             >
               <div className="text-2xl">{item.icon}</div>
-              <span className="text-xs text-gray-700 font-medium">
+              <span className="text-xs text-zinc-700 font-medium">
                 {item.label}
               </span>
               {item.badge !== undefined && item.badge > 0 && (

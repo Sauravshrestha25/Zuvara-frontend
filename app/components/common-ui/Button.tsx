@@ -1,10 +1,15 @@
 import Link from "next/link";
 
-const Button = ({ content }: { content: string }) => {
+interface ButtonProps {
+  content: string;
+  link: string;
+}
+
+const Button = ({ content, link }: ButtonProps) => {
   return (
-    <div>
+    <div className="w-fit">
       <Link
-        href="#"
+        href={link}
         className="inline-block bg-foreground hover:bg-teal-800 text-white! font-semibold px-6 py-3 transition rounded-full"
       >
         {content}
