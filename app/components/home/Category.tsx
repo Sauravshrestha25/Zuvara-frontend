@@ -27,7 +27,7 @@ const Category = () => {
       name: "Diapers",
       description:
         "Premium diapers and essential baby products. Comfort and protection in every use.",
-      image: "/categories/diaper3.png",
+      image: "/categories/diaper2.png",
       link: "/shop/diapers",
     },
     {
@@ -43,7 +43,7 @@ const Category = () => {
 
   return (
     <section className="py-4 lg:py-8 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-4 lg:px-6 max-w-7xl">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -53,7 +53,8 @@ const Category = () => {
           className="mb-8"
         >
           <h2 className="text-3xl lg:text-4xl font-semibold text-foreground font-poppins mb-4">
-            Explore our <span className="text-[#8cd700] italic">Categories</span>
+            Explore our{" "}
+            <span className="text-[#8cd700] italic">Categories</span>
           </h2>
           <p className="text-md text-zinc-600 max-w-2xl">
             Discover our curated selection of premium baby products designed to
@@ -70,7 +71,7 @@ const Category = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group rounded-xl overflow-hidden border border-zinc-200 transition-all duration-300 hover:shadow-md hover:border-[#8cd700] bg-zinc-50"
+              className="group rounded-xl overflow-hidden border border-transparent transition-all duration-300 hover:border-[#8cd700] bg-zinc-50"
             >
               {/* Image Container */}
               <div className="relative h-64 md:h-72 lg:h-64 overflow-hidden bg-zinc-100">
@@ -78,7 +79,7 @@ const Category = () => {
                   src={category.image}
                   alt={category.name}
                   fill
-                  className="object-cover group-hover:scale-105 hover:transition-all hover:duration-500"
+                  className="object-cover hover:transition-all hover:duration-500"
                 />
               </div>
 

@@ -16,17 +16,26 @@ export default function Navbar() {
   ];
 
   const mobileMenuItems = [
-    { label: "Home", href: "#", icon: "🏠" },
-    { label: "Search", href: "#", icon: "🔍" },
-    { label: "Cart", href: "#", icon: "🛍️", badge: 0 },
-    { label: "Account", href: "#", icon: "👤" },
+    { label: "Home", href: "/", icon: "material-symbols:home-rounded" },
+    { label: "Search", href: "#", icon: "iconamoon:search-light" },
+    {
+      label: "Cart",
+      href: "#",
+      icon: "fluent:cart-20-filled",
+      badge: 1,
+    },
+    {
+      label: "WhatsApp",
+      href: "https://wa.me/9801018656",
+      icon: "logos:whatsapp-icon",
+    },
   ];
 
   return (
     <>
       {/* Desktop Navbar */}
       <nav className="hidden lg:block fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md border-b border-zinc-200">
-        <div className="px-4 sm:px-6 lg:px-6 max-w-5xl mx-auto">
+        <div className="px-4 sm:px-6 lg:px-6 max-w-7xl mx-auto">
           <div className="flex justify-between items-center h-16 gap-16">
             {/* Logo - Left */}
             <Link href="/" className="flex items-center shrink-0">
@@ -63,31 +72,21 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Navbar - Top */}
-      <nav className="lg:hidden fixed top-0 w-full z-50 bg-white border-b border-zinc-200 h-14">
+      <nav className="lg:hidden fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200 h-14">
         <div className="flex justify-between items-center h-full px-4">
+          {/* Humburger */}
+          <Icon
+            icon="material-symbols:menu-rounded"
+            className="text-3xl font-semibold"
+          />
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <Image src="/logo.png" alt="Zuvara Logo" width={40} height={40} />
+            <Image src="/logo.png" alt="Zuvara Logo" width={90} height={90} />
           </Link>
-
-          {/* Title */}
-          <h1 className="text-lg font-semibold">Zuvara</h1>
 
           {/* Search Icon */}
           <button className="p-2">
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+            <Icon icon="iconamoon:search-light" width="24" height="24" />
           </button>
         </div>
       </nav>
@@ -101,7 +100,12 @@ export default function Navbar() {
               href={item.href}
               className="flex flex-col items-center justify-center gap-1 py-2 px-4 rounded-lg hover:bg-zinc-100 transition flex-1"
             >
-              <div className="text-2xl">{item.icon}</div>
+              <Icon
+                icon={item.icon}
+                width="24"
+                height="24"
+                className="text-2xl"
+              />
               <span className="text-xs text-zinc-700 font-medium">
                 {item.label}
               </span>
@@ -117,7 +121,6 @@ export default function Navbar() {
 
       {/* Spacers for fixed navbars */}
       <div className="h-14 lg:h-16" />
-      <div className="lg:hidden h-20" />
     </>
   );
 }

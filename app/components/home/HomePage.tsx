@@ -7,9 +7,9 @@ import { Icon } from "@iconify-icon/react";
 
 export default function HomePage() {
   return (
-    <section className="relative w-full h-screen overflow-hidden flex">
+    <section className="relative w-full h-[90vh] md:h-screen lg:h-screen overflow-hidden flex">
       {/* Background Image - Right Side */}
-      <div className="absolute right-0 top-0 w-full lg:w-1/2 h-screen lg:h-screen overflow-hidden">
+      <div className="absolute right-0 top-0 w-full lg:w-1/2 h-[45vh] md:h-screen lg:h-screen overflow-hidden">
         <Image
           src="/baby/baby-mom.png"
           alt="Happy Baby"
@@ -19,16 +19,16 @@ export default function HomePage() {
           priority
         />
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-linear-to-l from-transparent via-transparent to-white" />
+        <div className="absolute inset-0 bg-linear-to-l from-transparent via-transparent to-white " />
       </div>
       {/* Content - Left Side */}
-      <div className="relative z-10 w-full flex flex-col justify-center mx-auto! px-4 sm:px-6 lg:px-6 max-w-5xl text-left">
+      <div className="relative z-10 w-full flex flex-col justify-end mb-16 md:mb-0 md:justify-center mx-auto! px-4 sm:px-6 lg:px-6 max-w-7xl text-left">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-4xl lg:text-7xl mb-4  text-foreground font-medium font-poppins"
+          className="text-4xl lg:text-7xl mb-2 md:mb-4  text-foreground font-medium font-poppins"
         >
           Your child needs
           <br />
@@ -39,7 +39,7 @@ export default function HomePage() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-lg text-zinc-700 mb-4 max-w-xl"
+          className="text-lg text-zinc-700 mb-2 md:mb-4 max-w-xl"
         >
           Trusted by newly married couples around the world, focusing on comfort
           and safety for your heart and healthy baby.
@@ -63,7 +63,7 @@ export default function HomePage() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="mt-12 flex flex-col gap-2"
+          className="mt-4 md:mt-12 flex flex-col gap-2"
         >
           <div className="flex items-center gap-2">
             <div className="flex items-center justify-center">
@@ -92,9 +92,9 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             viewport={{ once: true }}
-            className="mt-8 pt-6 border-t border-zinc-200"
+            className="mt-4 md:mt-8 pt-4 border-t border-zinc-200"
           >
-            <p className="text-xs font-semibold text-[#8cd700] uppercase tracking-wider mb-4">
+            <p className="text-xs font-semibold text-[#8cd700] uppercase tracking-wider mb-2 md:mb-4">
               Trusted Partners
             </p>
             <div className="flex items-center overflow-hidden w-full">

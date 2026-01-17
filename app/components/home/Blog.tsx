@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, User } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import Button from "../common-ui/Button";
 
 const Blog = () => {
@@ -69,17 +69,17 @@ const Blog = () => {
 
   return (
     <section className="py-4 lg:py-8 bg-white">
-      <div className="container mx-auto px-4 sm:px-4 lg:px-6 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-4 lg:px-6 max-w-7xl">
         {/* Section Header */}
-        <div className="flex justify-between items-center ">
+        <div className="flex flex-col md:flex-row gap-4 mb-4 md:mb-0 justify-between item-start md:items-center ">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="mb-8"
+            className="md:mb-8"
           >
-            <h2 className="text-xl lg:text-4xl font-semibold text-foreground font-poppins">
+            <h2 className="text-2xl lg:text-4xl font-semibold text-foreground font-poppins">
               Expert Insights on{" "}
               <span className="text-[#8cd700] italic">Health & Care</span>
             </h2>
@@ -109,7 +109,7 @@ const Blog = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group rounded-xl overflow-hidden border border-zinc-200 hover:border-[#8cd700] hover:shadow-lg transition-all duration-300 flex flex-col h-full bg-white"
+              className="group rounded-xl overflow-hidden border border-transparent hover:border-[#8cd700] transition-all duration-300 flex flex-col h-full bg-white"
             >
               {/* Post Image */}
               <div className="relative h-48 overflow-hidden bg-zinc-100">
@@ -117,7 +117,7 @@ const Blog = () => {
                   src={post.image}
                   alt={post.title}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="object-cover hover:transition-all hover:duration-500"
                 />
               </div>
 
@@ -133,7 +133,7 @@ const Blog = () => {
                 </span>
 
                 {/* Title */}
-                <h3 className="text-lg font-bold text-foreground mb-3 line-clamp-2 group-hover:text-[#8cd700] transition-colors">
+                <h3 className="text-lg font-semibold text-foreground mb-3 line-clamp-2 group-hover:text-[#8cd700] transition-colors">
                   {post.title}
                 </h3>
 

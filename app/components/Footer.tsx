@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Facebook, Instagram, Music, MessageCircle } from "lucide-react";
 import Image from "next/image";
-import Button from "./common-ui/Button";
 import { Icon } from "@iconify-icon/react";
 
 export default function Footer() {
@@ -58,7 +57,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-white border-t border-zinc-200">
-      <div className="container mx-auto px-6 max-w-5xl">
+      <div className="container mx-auto px-4  lg:px-6 max-w-7xl">
         {/* Main Footer Content */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-8">
           {footerSections.map((section, index) => (
@@ -82,9 +81,9 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="flex items-center justify-between bg-linear-to-l from-foreground to-[#8cd700] text-white rounded-full p-2">
-          <h3 className="text-xl pl-4">
-            Only woman and children are loved unconditionally.
+        <div className="flex flex-col gap-2 text-center md:text-left md:flex-row items-center justify-between bg-linear-to-l from-foreground to-[#8cd700] text-white rounded-lg md:rounded-full p-4 md:p-2">
+          <h3 className="text-xl md:pl-4">
+            Zuvara would be the perfect choice for your baby care needs!
           </h3>
           <Link
             href="/shop"
@@ -220,7 +219,7 @@ export default function Footer() {
               Privacy Policy
             </Link>
           </div>
-          <div className="flex gap-6 mt-4 md:mt-0">
+          <div className="flex gap-6 mt-4 md:mt-0 mb-18 md:mb-0">
             <Link
               href="https://webxnepal.com/"
               target="_blank"

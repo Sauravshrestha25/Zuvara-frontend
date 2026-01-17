@@ -9,12 +9,12 @@ type BigImageProps = {
 
 const BigImage = ({ src, alt }: BigImageProps) => {
   return (
-    <section className="relative w-full max-w-5xl mx-auto px-10 h-52 lg:h-120 bg-cover bg-center bg-no-repeat overflow-hidden  ">
+    <section className="relative w-full max-w-7xl mx-auto px-10 h-52 lg:h-120 bg-cover bg-center bg-no-repeat overflow-hidden  ">
       <Image
         src={src}
         alt={alt}
         fill
-        className="object-cover object-top w-full rounded-3xl"
+        className="object-cover object-top w-fit rounded-3xl px-6"
         priority
       />
       {/* Overlay */}

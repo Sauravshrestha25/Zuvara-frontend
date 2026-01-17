@@ -33,7 +33,7 @@ const WhyChoose = () => {
 
   return (
     <section className="py-4 lg:py-8 bg-linear-to-b from-white to-zinc-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-7xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -42,7 +42,7 @@ const WhyChoose = () => {
           viewport={{ once: true }}
           className="mb-10"
         >
-          <h2 className="text-3xl lg:text-4xl font-semibold text-foreground font-poppins mb-4">
+          <h2 className="text-2xl lg:text-4xl font-semibold text-foreground font-poppins mb-2 md:mb-4">
             Why Choose <span className="text-[#8cd700] italic">Zuvara</span>
           </h2>
           <p className="text-md text-zinc-600 max-w-2xl">
@@ -52,7 +52,7 @@ const WhyChoose = () => {
         </motion.div>
 
         {/* Values Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2">
           {values.map((value, index) => {
             const IconComponent = value.icon;
             return (
@@ -62,7 +62,7 @@ const WhyChoose = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group flex flex-col items-center text-center p-6 rounded-xl border border-zinc-200 bg-white hover:border-[#8cd700] hover:shadow-md transition-all duration-300"
+                className="group flex flex-col items-center text-center p-6 rounded-xl border border-zinc-200 bg-white hover:border-[#8cd700] transition-all duration-300"
               >
                 {/* Icon */}
                 <div className="mb-4 p-3 rounded-full bg-[#8cd700]/10 group-hover:bg-[#8cd700]/20 transition-colors">
@@ -78,7 +78,7 @@ const WhyChoose = () => {
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-zinc-500 leading-relaxed">
+                <p className="text-sm text-zinc-500 leading-relaxed hidden md:block ">
                   {value.description}
                 </p>
               </motion.div>

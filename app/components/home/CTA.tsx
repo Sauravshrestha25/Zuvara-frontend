@@ -19,7 +19,7 @@ const CTA = () => {
 
   return (
     <section className="py-4 lg:py-8 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-7xl">
         <div className="bg-linear-to-r from-zinc-50 to-zinc-100 rounded-4xl overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Content */}

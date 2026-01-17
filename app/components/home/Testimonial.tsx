@@ -43,18 +43,19 @@ const Testimonial = () => {
 
   return (
     <section className="py-4 lg:py-8 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-7xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mb-8 flex justify-between items-center gap-4 flex-col lg:flex-row"
+          className="mb-4 md:mb-8 flex justify-between items-start md:items-center gap-4 flex-col lg:flex-row"
         >
           <div className="">
-            <h2 className="text-3xl lg:text-4xl font-semibold text-foreground font-poppins mb-2">
-              What <span className="text-[#8cd700] italic">Nepali Mothers </span>Say
+            <h2 className="text-2xl lg:text-4xl font-semibold text-foreground font-poppins mb-2">
+              What{" "}
+              <span className="text-[#8cd700] italic">Nepali Mothers </span>Say
             </h2>
             <p className="text-lg text-zinc-600 max-w-2xl mx-auto">
               Real reviews from real mothers who trust Zuvara
@@ -79,7 +80,7 @@ const Testimonial = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="p-6 rounded-xl border border-zinc-200 hover:border-[#8cd700] bg-zinc-50 hover:shadow-md transition-shadow duration-300"
+              className="p-6 rounded-xl overflow-hidden border border-transparent hover:border-[#8cd700] bg-zinc-50 transition-all duration-300"
             >
               {/* Stars */}
               <div className="flex gap-1 mb-4">
