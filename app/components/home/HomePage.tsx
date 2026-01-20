@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Button from "../common-ui/Button";
+import SectionHeading from "../common-ui/SectionHeading";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify-icon/react";
 
@@ -9,13 +10,13 @@ export default function HomePage() {
   return (
     <section className="relative w-full h-[90vh] md:h-screen lg:h-screen overflow-hidden flex">
       {/* Background Image - Right Side */}
-      <div className="absolute right-0 top-0 w-1/2 h-[45vh] md:h-screen lg:h-screen overflow-hidden">
+      <div className="absolute right-0 top-0 w-full h-[45vh] md:h-screen lg:h-screen overflow-hidden">
         <Image
-          src="/baby/baby-mom.png"
+          src="/baby/wall-baby.png"
           alt="Happy Baby"
-          height={800}
-          width={800}
-          className="object-contain h-full object-bottom"
+          height={1200}
+          width={1200}
+          className="object-contain h-full w-full"
           priority
         />
         {/* Gradient Overlay */}
@@ -29,11 +30,10 @@ export default function HomePage() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-4xl lg:text-6xl mb-2 md:mb-4  text-foreground font-medium font-poppins"
+          className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground font-poppins mb-4 max-w-3xl"
         >
-          Because your child
-          <br />
-          <span className="text-[#8cd700]">need comfort & safety.</span>
+          Gentle Care for Your Baby&apos;s Delicate Skin with{" "}
+          <span className="text-[#8cd700]">Zuvara</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}

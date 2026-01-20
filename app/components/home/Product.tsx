@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import Button from "../common-ui/Button";
 import SectionHeading from "../common-ui/SectionHeading";
@@ -29,99 +28,129 @@ const Product = () => {
   const [selectedVariant, setSelectedVariant] = useState<
     Record<number, Variant>
   >({});
+  const [activeTab, setActiveTab] = useState<"baby" | "personal">("baby");
 
-  const products = [
+  const babyCareProducts: Product[] = [
     {
       id: 1,
-      name: "Organic Baby Shampoo",
-      rating: 4.5,
-      reviews: 128,
+      name: "Premium Baby Lotion",
+      rating: 4.8,
+      reviews: 245,
       image: "/diaper/diaper2.png",
-      category: "Baby Care",
+      category: "Baby Lotion",
       inStock: true,
       variants: [
         { id: 1, image: "/diaper/diaper2.png", color: "White" },
-        { id: 2, image: "/diaper/diaper.png", color: "Blue" },
-        { id: 3, image: "/diaper/diaper2.png", color: "Pink" },
+        { id: 2, image: "/diaper/diaper.png", color: "Cream" },
       ],
     },
     {
       id: 2,
-      name: "Gentle Face Moisturizer",
-      rating: 4.8,
-      reviews: 245,
+      name: "Ultra Soft Baby Diapers",
+      rating: 4.9,
+      reviews: 512,
       image: "/diaper/diaper.png",
-      category: "Skincare",
+      category: "Baby Diaper",
       inStock: true,
       variants: [
-        { id: 1, image: "/diaper/diaper.png", color: "Cream" },
-        { id: 2, image: "/diaper/diaper2.png", color: "Green" },
-        { id: 3, image: "/diaper/diaper.png", color: "Gold" },
+        { id: 1, image: "/diaper/diaper.png", color: "Size S" },
+        { id: 2, image: "/diaper/diaper2.png", color: "Size M" },
+        { id: 3, image: "/diaper/diaper.png", color: "Size L" },
       ],
     },
     {
       id: 3,
-      name: "Premium Body Lotion",
-      rating: 4.6,
+      name: "Lightweight Baby Stroller",
+      rating: 4.7,
       reviews: 189,
       image: "/diaper/diaper2.png",
-      category: "Personal Care",
+      category: "Baby Stroller",
       inStock: true,
       variants: [
-        { id: 1, image: "/diaper/diaper2.png", color: "Beige" },
-        { id: 2, image: "/diaper/diaper.png", color: "Lavender" },
-        { id: 3, image: "/diaper/diaper2.png", color: "Rose" },
+        { id: 1, image: "/diaper/diaper2.png", color: "Black" },
+        { id: 2, image: "/diaper/diaper.png", color: "Gray" },
       ],
     },
     {
       id: 4,
-      name: "Hair Restoration Serum",
+      name: "Organic Baby T-Shirts",
+      rating: 4.6,
+      reviews: 156,
+      image: "/diaper/diaper.png",
+      category: "Baby T-Shirt",
+      inStock: true,
+      variants: [
+        { id: 1, image: "/diaper/diaper.png", color: "White" },
+        { id: 2, image: "/diaper/diaper2.png", color: "Blue" },
+        { id: 3, image: "/diaper/diaper.png", color: "Pink" },
+      ],
+    },
+  ];
+
+  const personalCareProducts: Product[] = [
+    {
+      id: 5,
+      name: "Premium Sanitary Pads",
+      rating: 4.8,
+      reviews: 423,
+      image: "/diaper/diaper2.png",
+      category: "Sanitary Pads",
+      inStock: true,
+      variants: [
+        { id: 1, image: "/diaper/diaper2.png", color: "Regular" },
+        { id: 2, image: "/diaper/diaper.png", color: "Heavy" },
+        { id: 3, image: "/diaper/diaper2.png", color: "Overnight" },
+      ],
+    },
+    {
+      id: 6,
+      name: "Gentle Face Moisturizer",
+      rating: 4.8,
+      reviews: 245,
+      image: "/diaper/diaper.png",
+      category: "Face Care",
+      inStock: true,
+      variants: [
+        { id: 1, image: "/diaper/diaper.png", color: "Cream" },
+        { id: 2, image: "/diaper/diaper2.png", color: "Gel" },
+      ],
+    },
+    {
+      id: 7,
+      name: "Organic Body Lotion",
+      rating: 4.6,
+      reviews: 189,
+      image: "/diaper/diaper2.png",
+      category: "Body Care",
+      inStock: true,
+      variants: [
+        { id: 1, image: "/diaper/diaper2.png", color: "Lavender" },
+        { id: 2, image: "/diaper/diaper.png", color: "Rose" },
+      ],
+    },
+    {
+      id: 8,
+      name: "Natural Hair Care Oil",
       rating: 4.7,
       reviews: 312,
       image: "/diaper/diaper.png",
       category: "Hair Care",
       inStock: true,
       variants: [
-        { id: 1, image: "/diaper/diaper.png", color: "Clear" },
-        { id: 2, image: "/diaper/diaper2.png", color: "Amber" },
-        { id: 3, image: "/diaper/diaper.png", color: "Gold" },
-      ],
-    },
-    {
-      id: 5,
-      name: "Wellness Vitamin Supplement",
-      rating: 4.4,
-      reviews: 156,
-      image: "/diaper/diaper2.png",
-      category: "Wellness",
-      inStock: true,
-      variants: [
-        { id: 1, image: "/diaper/diaper2.png", color: "White" },
-        { id: 2, image: "/diaper/diaper.png", color: "Orange" },
-        { id: 3, image: "/diaper/diaper2.png", color: "Red" },
-      ],
-    },
-    {
-      id: 6,
-      name: "Organic Lip Balm",
-      rating: 4.9,
-      reviews: 423,
-      image: "/diaper/diaper.png",
-      category: "Organic",
-      inStock: true,
-      variants: [
-        { id: 1, image: "/diaper/diaper.png", color: "Natural" },
-        { id: 2, image: "/diaper/diaper2.png", color: "Cherry" },
-        { id: 3, image: "/diaper/diaper.png", color: "Honey" },
+        { id: 1, image: "/diaper/diaper.png", color: "Pure" },
+        { id: 2, image: "/diaper/diaper2.png", color: "Herbal" },
       ],
     },
   ];
+
+  const products =
+    activeTab === "baby" ? babyCareProducts : personalCareProducts;
 
   return (
     <section className="py-4 lg:py-8 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-7xl">
         {/* Section Header */}
-        <div className="flex flex-col gap-2 justify-between md:items-center mb-4 md:mb-8">
+        <div className="flex flex-col gap-2 justify-between md:items-center">
           <SectionHeading
             title="Featured"
             highlight="Products"
@@ -129,8 +158,38 @@ const Product = () => {
           />
         </div>
 
+        {/* Tabs */}
+        <div className="flex gap-4 mb-8 justify-center">
+          <button
+            onClick={() => setActiveTab("baby")}
+            className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+              activeTab === "baby"
+                ? "bg-foreground text-white shadow-lg"
+                : "bg-zinc-100 text-foreground hover:bg-zinc-200"
+            }`}
+          >
+            Baby Care
+          </button>
+          <button
+            onClick={() => setActiveTab("personal")}
+            className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+              activeTab === "personal"
+                ? "bg-purple-700 text-white shadow-lg"
+                : "bg-zinc-100 text-purple-700 hover:bg-zinc-200"
+            }`}
+          >
+            Personal Care
+          </button>
+        </div>
+
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-2">
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-2"
+        >
           {products.map((product, index) => (
             <motion.div
               key={product.id}
@@ -139,9 +198,19 @@ const Product = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="group h-full flex flex-col bg-white rounded-lg border border-transparent overflow-hidden hover:border-[#8cd700] transition-all duration-400 relative">
+              <div
+                className={`group h-full flex flex-col bg-white rounded-lg border border-transparent overflow-hidden transition-all duration-400 relative ${
+                  activeTab === "baby"
+                    ? "hover:border-foreground"
+                    : "hover:border-purple-600"
+                }`}
+              >
                 {/* Best Seller Badge */}
-                <div className="absolute top-3 left-3 z-10 bg-white px-2 py-1 rounded text-xs font-medium text-[#8cd700] shadow-sm">
+                <div
+                  className={`absolute top-3 left-3 z-10 bg-white px-2 py-1 rounded text-xs font-medium shadow-sm ${
+                    activeTab === "baby" ? "text-foreground" : "text-purple-600"
+                  }`}
+                >
                   Best Seller
                 </div>
 
@@ -181,7 +250,11 @@ const Product = () => {
                             }}
                             className={`shrink-0 w-12 h-12 rounded border-2 overflow-hidden transition-all ${
                               selectedVariant[product.id]?.id === variant.id
-                                ? "border-zinc-500 ring-2 ring-[#8cd700]!"
+                                ? `border-zinc-500 ring-2 ${
+                                    activeTab === "baby"
+                                      ? "ring-foreground"
+                                      : "ring-purple-600"
+                                  }`
                                 : "border-zinc-300 hover:border-zinc-500"
                             }`}
                             title={variant.color}
@@ -228,7 +301,7 @@ const Product = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
         <div className="flex w-full justify-center mt-8">
           {/* View All Button */}
           <motion.div

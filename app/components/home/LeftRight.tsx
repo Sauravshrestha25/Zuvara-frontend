@@ -68,37 +68,33 @@ const LeftRight = () => {
       className="w-full py-8 overflow-hidden hidden md:block "
     >
       <div className="w-full mx-auto">
-        <div className="flex items-center justify-center h-[70vh] gap-0 relative">
+        <div className="flex items-center justify-center h-[90vh] gap-0 relative">
           {/* Left Image - starts from screen left corner */}
           <div
             ref={leftImageRef}
-            className="w-1/3 shrink-0 -mr-px flex items-center justify-end"
+            className="w-1/2 shrink-0  flex items-center justify-end"
           >
-            <div className="h-full flex items-end justify-end">
-              <Image
-                src="/images/baby1.png"
-                alt="Left Section"
-                width={1000}
-                height={1000}
-                className="w-full h-full object-contain"
-              />
-            </div>
+            <Image
+              src="/baby/l-baby.png"
+              alt="Left Section"
+              width={1000}
+              height={1000}
+              className="w-full h-full object-contain"
+            />
           </div>
 
           {/* Right Image - starts from screen right corner */}
           <div
             ref={rightImageRef}
-            className="w-1/2 shrink-0 -ml-px flex items-center justify-start"
+            className="w-1/2 shrink-0  flex items-center justify-start"
           >
-            <div className="flex">
-              <Image
-                src="/images/parents.png"
-                alt="Right Section"
-                width={1100}
-                height={1000}
-                className="w-full h-full object-contain"
-              />
-            </div>
+            <Image
+              src="/baby/r-baby.png"
+              alt="Right Section"
+              width={1000}
+              height={1000}
+              className="w-full h-full object-contain"
+            />
           </div>
         </div>
       </div>

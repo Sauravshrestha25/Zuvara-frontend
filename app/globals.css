@@ -7,7 +7,7 @@
 :root {
   --background: #ffffff;
   --foreground: #456A5C;
-  --secondary:#8cd700;
+  --secondary:#8cd700!important;
   --font-geist-sans: "Poppins", sans-serif;
   --montserrat: "Montserrat", sans-serif;
 

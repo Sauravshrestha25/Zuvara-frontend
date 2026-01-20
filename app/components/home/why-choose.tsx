@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import SectionHeading from "../common-ui/SectionHeading";
 
 const WhyChoose = () => {
   const values = [
@@ -33,7 +34,7 @@ const WhyChoose = () => {
   ];
 
   return (
-    <section className="py-4 lg:py-12 bg-linear-to-r from-zinc-50 to-zinc-100 overflow-hidden">
+    <section className="py-12 lg:py-20 bg-[#eeeeee] border-t border-zinc-200">
       <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-7xl">
         {/* Header */}
         <motion.div
@@ -41,19 +42,18 @@ const WhyChoose = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mb-10 text-center"
+          className="mb-16 text-center"
         >
-          <h2 className="text-2xl lg:text-4xl font-semibold text-foreground font-poppins mb-2 md:mb-4">
-            Why Parents Choose <span className="text-[#8cd700]">Zuvara</span>
-          </h2>
-          <p className="text-md text-zinc-600 max-w-2xl mx-auto">
-            Discover the core values that make Zuvara the trusted choice for
-            families seeking premium baby care products in Nepal.
-          </p>
+          <SectionHeading
+            title="Why Parents Choose"
+            highlight="Zuvara"
+            description="Trusted by Nepali families for our commitment to quality, safety, and care"
+            align="center"
+          />
         </motion.div>
 
         {/* Values Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {values.map((value, index) => {
             return (
               <motion.div
@@ -62,26 +62,26 @@ const WhyChoose = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group flex flex-col items-center text-center p-6 rounded-xl border border-zinc-200 bg-white hover:border-[#8cd700] transition-all duration-300"
+                className="flex flex-col items-center text-center"
               >
                 {/* Icon */}
-                <div className="mb-4 p-3">
+                <div className="mb-4 w-24 h-24 rounded-full border-2 border-dashed border-secondary flex items-center justify-center">
                   <Image
                     src={value.icon}
                     alt={value.title}
-                    width={50}
-                    height={50}
-                    className="text-foreground group-hover:scale-110 transition-transform"
+                    width={48}
+                    height={48}
+                    className="object-contain"
                   />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-md font-medium text-secondary! mb-2 font-poppins">
+                <h3 className="text-lg font-semibold text-foreground mb-2 font-poppins">
                   {value.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-zinc-500 leading-relaxed hidden md:block ">
+                <p className="text-sm text-zinc-600 leading-relaxed">
                   {value.description}
                 </p>
               </motion.div>

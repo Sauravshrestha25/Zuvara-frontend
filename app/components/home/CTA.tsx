@@ -19,9 +19,9 @@ const CTA = () => {
   };
 
   return (
-    <section className="py-4 lg:py-8 bg-white">
+    <section className="py-4 lg:py-8">
       <div className="container w-full">
-        <div className="bg-linear-to-r from-zinc-50 to-zinc-100 overflow-hidden">
+        <div className="bg-[#eeeeee] overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Content */}
             <div className="p-8 lg:py-24 pl-36">
@@ -68,7 +68,7 @@ const CTA = () => {
             {/* Image */}
             <div className="relative h-64 md:h-full min-h-64 hidden md:block">
               <Image
-                src="/baby/baby-twol.png"
+                src="/baby/baby15.png"
                 alt="Zuvara Diapers"
                 fill
                 className="object-cover object-center"
