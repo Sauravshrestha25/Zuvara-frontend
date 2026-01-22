@@ -189,7 +189,7 @@ const Product = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-2"
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-2"
         >
           {products.map((product, index) => (
             <motion.div
@@ -221,7 +221,7 @@ const Product = () => {
                     src={selectedVariant[product.id]?.image || product.image}
                     alt={product.name}
                     fill
-                    className="object-cover transition-transform duration-300"
+                    className="object-contain transition-transform duration-300"
                   />
 
                   {/* Stock Status */}

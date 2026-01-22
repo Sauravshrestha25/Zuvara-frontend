@@ -1,7 +1,13 @@
-import React from "react";
-import { useMediaQuery } from "react-responsive";
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ImageGridSection = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const imagesRef = useRef<(HTMLDivElement | null)[]>([]);
+
   const images = [
     { image: "/baby/baby17.png", top: "0%", left: "22%", rotate: "-7deg" },
     { image: "/baby/baby13.png", top: "6%", left: "45%", rotate: "5deg" },
@@ -17,26 +23,115 @@ const ImageGridSection = () => {
     { image: "/baby/baby18.png", top: "80%", left: "40%", rotate: "-5deg" },
   ];
 
-  const isSmallerDevice = useMediaQuery({ maxWidth: 768 });
+  useEffect(() => {
+    const elements = imagesRef.current;
+
+    // Set initial state
+    gsap.set(elements, {
+      scale: 0,
+      opacity: 0,
+    });
+
+    // Create staggered animation
+    ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: "top 80%",
+      end: "bottom 20%",
+      onEnter: () => {
+        gsap.to(elements, {
+          scale: 1,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: "back.out(1.7)",
+        });
+      },
+      onLeave: () => {
+        gsap.to(elements, {
+          scale: 0,
+          opacity: 0,
+          duration: 0.4,
+          stagger: 0.1,
+        });
+      },
+      onEnterBack: () => {
+        gsap.to(elements, {
+          scale: 1,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: "back.out(1.7)",
+        });
+      },
+      onLeaveBack: () => {
+        gsap.to(elements, {
+          scale: 0,
+          opacity: 0,
+          duration: 0.4,
+          stagger: 0.1,
+        });
+      },
+    });
+
+    // Add hover animations
+    elements.forEach((element, index) => {
+      if (element) {
+        const handleMouseEnter = () => {
+          gsap.to(element, {
+            rotation: 0,
+            scale: 1.15,
+            zIndex: 20,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        };
+
+        const handleMouseLeave = () => {
+          gsap.to(element, {
+            rotation: parseFloat(images[index].rotate),
+            scale: 1,
+            zIndex: 1,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        };
+
+        element.addEventListener("mouseenter", handleMouseEnter);
+        element.addEventListener("mouseleave", handleMouseLeave);
+
+        // Cleanup event listeners
+        return () => {
+          element.removeEventListener("mouseenter", handleMouseEnter);
+          element.removeEventListener("mouseleave", handleMouseLeave);
+        };
+      }
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
 
   return (
-    <div className="relative w-full h-[250px] lg:h-[520px]">
+    <div ref={containerRef} className="relative w-full h-[250px] lg:h-[520px]">
       {images.map((item, index) => (
         <div
           key={index}
-          className={`absolute transition-all duration-1000 hover:scale-110 hover:rotate-0 hover:z-20 cursor-pointer rotate-[${item.rotate}] w-[100px] lg:w-[200px]`}
+          ref={(el) => {
+            imagesRef.current[index] = el;
+          }}
+          className="absolute cursor-pointer w-[100px] lg:w-[200px]"
           style={{
             top: item.top,
             left: item.left,
-            // width: "200px",
-            // width: {isSmallerDevice ? "100px" : "200px"},
+            transform: `rotate(${item.rotate})`,
           }}
         >
           <div className="bg-white p-1 lg:p-2 shadow-xl">
             <img
               src={item.image}
               alt={`Baby ${index + 1}`}
-              className="w-full aspect-[4/3] object-cover"
+              className="w-full aspect-4/3 object-cover"
             />
           </div>
         </div>

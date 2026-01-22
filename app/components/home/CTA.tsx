@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Mail } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import ZuvyBabyModel from "./ZuvyBabyModel";
 
 const CTA = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +20,21 @@ const CTA = () => {
   };
 
   return (
-    <section className="lg:curvy-border bg-divider h-fit lg:h-[100vh] lg:py-8">
+    <section className="relative bg-divider h-fit md:h-[45vh] lg:h-[80vh] py-4 lg:py-8">
+      {/* top curve border */}
+      <div className="custom-shape-divider-top">
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+            className="shape-fill"
+          ></path>
+        </svg>
+      </div>
       <div className="container w-full h-full flex items-center">
         <div className="overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -68,15 +83,31 @@ const CTA = () => {
             {/* Image */}
             <div className="relative h-64 md:h-full min-h-64 hidden md:block">
               <Image
-                src="/baby/baby15.png"
+                src="/baby/baby31.png"
                 alt="Zuvara Diapers"
                 fill
-                className="object-cover object-center"
+                className="object-contain"
                 priority
               />
+              {/* <ZuvyBabyModel /> */}
             </div>
           </div>
         </div>
+      </div>
+
+      {/* bottom curve border */}
+      <div className="custom-shape-divider-bottom">
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+            className="shape-fill"
+          ></path>
+        </svg>
       </div>
     </section>
   );

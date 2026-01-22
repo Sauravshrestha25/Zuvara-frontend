@@ -9,7 +9,7 @@ import { useMediaQuery } from "react-responsive";
 
 export default function HomePage() {
   const controls = useAnimation();
-  const isSmallerDevice = useMediaQuery({ maxWidth: 768 });
+  const isSmallerDevice = useMediaQuery({ maxWidth: 1000 });
 
   useEffect(() => {
     let isMounted = true;
@@ -53,6 +53,17 @@ export default function HomePage() {
       {/* <div className="absolute left-0 top-1/2 -translate-y-1/2 size-[40%]"> */}
       {/* <div className="absolute left-0 bottom-0 size-[40%]"> */}
       <div className="absolute right-0 bottom-0 h-full lg:w-[50%] flex items-center">
+        <svg
+          viewBox="0 0 200 200"
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 size-[120%]"
+        >
+          <path
+            fill="var(--color-divider)"
+            d="M36.3,-31.9C47.2,-15.2,56.3,-0.1,55.4,16.1C54.5,32.4,43.5,49.9,25.8,61.5C8.1,73,-16.3,78.7,-36.1,70.7C-55.9,62.8,-71.3,41.3,-70.7,22.3C-70.2,3.2,-53.8,-13.3,-39.4,-30.7C-24.9,-48.2,-12.5,-66.5,0.1,-66.6C12.7,-66.7,25.3,-48.5,36.3,-31.9Z"
+            transform="translate(100 100)"
+          />
+        </svg>
         <motion.video
           // ref={(video) => {
           //   if (video) {
@@ -72,7 +83,7 @@ export default function HomePage() {
       </div>
 
       {/* Content - Left Side */}
-      <div className="relative w-full flex flex-col justify-around md:justify-center gap-0 lg:gap-16 mb-16 md:mb-0 mx-auto! px-4 sm:px-6 lg:px-6 max-w-7xl text-left">
+      <div className="relative w-full flex flex-col justify-around lg:justify-center gap-0 lg:gap-16 mb-16 md:mb-0 mx-auto! px-4 sm:px-6 lg:px-6 max-w-7xl text-left">
         <div className="">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}

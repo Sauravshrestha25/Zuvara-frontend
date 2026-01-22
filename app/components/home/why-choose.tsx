@@ -38,9 +38,22 @@ const WhyChoose = () => {
   ];
 
   return (
-    <section className="lg:curvy-border flex items-center justify-center lg:-mt-32 h-auto py-8 lg:py-0 lg:h-[140vh] bg-divider border-t border-zinc-200">
-      {/* <section className="curvy-border flex items-center justify-center lg:-mt-32 h-[180vh] lg:h-[140vh] bg-[#cadaa9] border-t border-zinc-200"> */}
-      {/* <section className="flex items-center justify-center h-auto bg-[#cadaa9] border-t border-zinc-200"> */}
+    <section className="flex items-center justify-center py-20 lg:py-0 h-auto md:h-[65vh] lg:h-[140vh] bg-divider relative">
+      {/* top curve border */}
+      <div className="custom-shape-divider-top">
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+            className="shape-fill"
+          ></path>
+        </svg>
+      </div>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-7xl">
         {/* Header */}
         <motion.div
@@ -101,6 +114,21 @@ const WhyChoose = () => {
             <ImageGridSection />
           </div>
         </div>
+      </div>
+
+      {/* bottom curve border */}
+      <div className="custom-shape-divider-bottom">
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+            className="shape-fill"
+          ></path>
+        </svg>
       </div>
     </section>
   );

@@ -2,12 +2,13 @@
 
 import { Canvas } from "@react-three/fiber";
 import React from "react";
-import { Model } from "./Zuvy-baby-with-hair1";
 import { Center, OrbitControls } from "@react-three/drei";
+import { Model } from "./Zuvy-baby";
+// import { Model } from "./Zuvy-baby-with-hair-coat";
 
 const ZuvyBabyModel = () => {
   return (
-    <div className="w-full h-screen relative bg-gray-100/10">
+    <div className="w-full h-screen relative">
       <Canvas camera={{ position: [0, 0, 15], fov: 50 }}>
         {/* <CameraController
           progress={progress}
