@@ -4,6 +4,7 @@ export const clothingProducts: Product[] = [
   {
     id: 1,
     name: "Co-Ord Sets",
+    slug: "co-ord-sets",
     rating: 4.6,
     reviews: 156,
     image: "/images/diaper/diaper.png",
@@ -39,6 +40,7 @@ export const clothingProducts: Product[] = [
   {
     id: 2,
     name: "Hoodies & Joggers",
+    slug: "hoodies-joggers",
     rating: 4.6,
     reviews: 156,
     image: "/images/diaper/diaper.png",
@@ -74,6 +76,7 @@ export const clothingProducts: Product[] = [
   {
     id: 3,
     name: "POLO T-Shirt",
+    slug: "polo-t-shirt",
     rating: 4.6,
     reviews: 156,
     image: "/images/diaper/diaper.png",
@@ -109,6 +112,7 @@ export const clothingProducts: Product[] = [
   {
     id: 4,
     name: "T-Shirt & Shorts",
+    slug: "t-shirt-shorts",
     rating: 4.6,
     reviews: 156,
     image: "/images/diaper/diaper.png",

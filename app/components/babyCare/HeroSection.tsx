@@ -6,10 +6,9 @@ import { motion, useAnimation } from "framer-motion";
 import { Icon } from "@iconify-icon/react";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
-import { MotionPathHelper } from "gsap/MotionPathHelper";
 import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(MotionPathPlugin, MotionPathHelper);
+gsap.registerPlugin(MotionPathPlugin);
 export default function HeroSection() {
   // const controls = useAnimation();
   // const isSmallerDevice = useMediaQuery({ maxWidth: 1000 });
@@ -50,25 +49,34 @@ export default function HeroSection() {
   // }, [controls]);
 
   useGSAP(() => {
+    // Set initial state
+    gsap.set("#plane", {
+      autoAlpha: 1,
+      xPercent: -50,
+      yPercent: -50,
+      transformOrigin: "50% 50%",
+    });
+
     gsap.to("#plane", {
-      duration: 12,
+      duration: 15,
       repeat: -1,
-      ease: "linear",
+      ease: "none", // "linear" is deprecated/alias, "none" is preferred for continuous loops
       motionPath: {
         path: "#planePath",
         align: "#planePath",
         autoRotate: true,
         alignOrigin: [0.5, 0.5],
+        start: 0,
+        end: 1,
       },
+      immediateRender: true, // Force initial alignment immediately
     });
-
-    // MotionPathHelper.create("#planePath");
   }, []);
 
   return (
     <section className="relative w-screen h-[75vh] lg:h-screen overflow-hidden flex flex-col lg:flex-row px-4 sm:px-6 lg:px-6 mx-auto! max-w-7xl">
       {/* Content - Left Side */}
-      <div className="relative w-full h-full lg:w-1/2 flex flex-col justify-around lg:justify-center gap-0 lg:gap-16 mb16 md:mb-0 text-left">
+      <div className="relative w-full h-full lg:w-1/2 flex flex-col justify-around lg:justify-center gap-0 lg:gap-16 md:mb-0 text-left">
         <div className="">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -157,7 +165,7 @@ export default function HeroSection() {
             id="plane"
             src="/svg/plane.svg"
             alt="plane"
-            className="size-6 lg:size-12 absolute pointer-events-none"
+            className="size-6 lg:size-12 absolute pointer-events-none opacity-0 invisible"
           />
           <svg
             viewBox="0 0 524 179"

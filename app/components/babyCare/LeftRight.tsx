@@ -75,7 +75,7 @@ const LeftRight = () => {
             className="w-1/2 shrink-0  flex items-center justify-end"
           >
             <Image
-              src="/images/baby/l-baby.png"
+              src="/images/baby/leftSideBabies.jpeg"
               alt="Left Section"
               width={1000}
               height={1000}
@@ -89,7 +89,7 @@ const LeftRight = () => {
             className="w-1/2 shrink-0  flex items-center justify-start"
           >
             <Image
-              src="/images/baby/r-baby.png"
+              src="/images/baby/rightSideBabies.jpeg"
               alt="Right Section"
               width={1000}
               height={1000}

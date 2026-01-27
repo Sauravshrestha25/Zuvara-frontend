@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { personalCareProducts } from "@/constant/personalCareProduct";
+import { personalCareProducts } from "@/constants/personalCareProduct";
 import ProductCard from "../common-ui/ProductCard";
 import type { Product as ProductType } from "@/type/babyCareProductType";
 

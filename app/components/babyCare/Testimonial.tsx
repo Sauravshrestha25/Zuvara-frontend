@@ -62,7 +62,7 @@ const Testimonial = () => {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <section className="py-4 lg:py-8 bg-white">
+    <section className="py-4 lg:py-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-7xl">
         {/* Header */}
         <motion.div

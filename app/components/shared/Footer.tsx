@@ -1,9 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { Facebook, Instagram, Music, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import { Icon } from "@iconify-icon/react";
+import { useSection } from "@/app/providers/SectionProvider";
+import { cn } from "@/lib/utils";
 
 export default function Footer() {
+  const { activeSection } = useSection();
+  const isPersonal = activeSection === "personal";
+
   const footerSections = [
     {
       title: "Shop & Learn",
@@ -56,13 +63,18 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-white">
+    <footer className={cn(isPersonal ? "bg-ternary" : "bg-babyCare")}>
       <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
         {/* Main Footer Content */}
         <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-8 py-8">
           {footerSections.map((section, index) => (
             <div key={index}>
-              <h3 className="text-sm font-semibold mb-2 lg:mb-4 text-[#8cd700]!">
+              <h3
+                className={cn(
+                  "text-sm font-semibold mb-2 lg:mb-4",
+                  isPersonal ? "text-black!" : "text-secondary!",
+                )}
+              >
                 {section.title}
               </h3>
               <ul className="space-y-1 lg:space-y-2">
@@ -70,7 +82,10 @@ export default function Footer() {
                   <li key={linkIndex}>
                     <Link
                       href="/"
-                      className="text-xs lg:text-sm text-zinc-600! hover:text-foreground! transition whitespace-nowrap"
+                      className={cn(
+                        "text-xs lg:text-sm hover:text-foreground! transition whitespace-nowrap",
+                        isPersonal ? "text-zinc-200!" : "text-zinc-600!",
+                      )}
                     >
                       {link}
                     </Link>
@@ -81,13 +96,23 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="flex flex-col gap-2 text-center md:text-left md:flex-row items-center justify-between bg-linear-to-l from-foreground to-[#8cd700] text-white rounded-lg md:rounded-full p-4 md:p-2">
+        <div
+          className={cn(
+            "flex flex-col gap-2 text-center md:text-left md:flex-row items-center justify-between rounded-lg md:rounded-full p-4 md:p-2",
+            isPersonal
+              ? "bg-zinc-200 text-zinc-600"
+              : "bg-linear-to-l from-foreground to-secondary text-white",
+          )}
+        >
           <h3 className="text-xl md:pl-4">
             Zuvara would be the perfect choice for your baby care needs!
           </h3>
           <Link
             href="/shop"
-            className="bg-white text-foreground! px-4 py-2 rounded-full font-semibold hover:bg-[#8cd700] hover:text-white! transition flex items-center gap-2"
+            className={cn(
+              "bg-white text-foreground! px-4 py-2 rounded-full font-semibold hover:text-white! transition flex items-center gap-2",
+              isPersonal ? "hover:bg-personalCare" : "hover:bg-secondary",
+            )}
           >
             <Icon icon="bitcoin-icons:cart-filled" width="24" height="24" />
             Shop Now
@@ -108,7 +133,7 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Your email"
-                className="w-full px-3 py-2 border border-zinc-300 text-sm focus:outline-none focus:border-teal-600 rounded-full"
+                className="w-full px-3 py-2 border border-zinc-200 text-sm focus:outline-none focus:border-teal-600 rounded-full"
               />
               <button className="absolute top-1/2 -translate-y-1/2 right-1 bg-teal-700 hover:bg-teal-800 rounded-full text-white p-2 transition">
                 <svg

@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
 @font-face {
   font-family: "BabyFont";
   src: url("/font/baby-font.otf") format("opentype");
@@ -9,7 +11,9 @@
   --foreground: #456a5c;
   --secondary: #8cd700;
   --divider: #cadaa9;
+  --babyCare: #bcddc4;
   --personalCare: #8200db;
+  --ternary: #9352bf;
   --font-geist-sans: "Poppins", sans-serif;
   --montserrat: "Montserrat", sans-serif;
 
@@ -21,10 +25,31 @@
   --color-foreground: var(--foreground);
   --color-secondary: var(--secondary);
   --color-divider: var(--divider);
+  --color-babyCare: var(--babyCare);
   --color-personalCare: var(--personalCare);
+  --color-ternary: var(--ternary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-montserrat: var(--montserrat);
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
 }
 
 /* @layer utilities {
@@ -42,11 +67,10 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* transition: background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1); */
 }
 
 /* Lenis smooth scroll styling */
@@ -71,11 +95,13 @@ button {
 }
 
 /* Smooth transitions */
-* {
-  transition-property: background-color, border-color, color, fill, stroke;
+/* * {
+  transition-property:
+    background-color, border-color, color, fill, stroke, transform, translate,
+    scale;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
-}
+} */
 
 .custom-shape-divider-top {
   position: absolute;
@@ -95,7 +121,7 @@ button {
 }
 
 .custom-shape-divider-top .shape-fill {
-  fill: #ffffff;
+  fill: var(--color-babyCare);
 }
 
 /** For tablet devices **/
@@ -131,7 +157,7 @@ button {
 }
 
 .custom-shape-divider-bottom .shape-fill {
-  fill: #ffffff;
+  fill: var(--color-babyCare);
 }
 
 /** For tablet devices **/

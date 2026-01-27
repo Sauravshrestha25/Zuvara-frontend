@@ -2,17 +2,40 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import type {
-  Product as ProductType,
-  Variant,
+  Product as BabyProduct,
+  Variant as BabyVariant,
 } from "@/type/babyCareProductType";
+import type {
+  Product as ClothingProduct,
+  Variant as ClothingVariant,
+} from "@/type/babyClothesType";
+import type {
+  Product as StrollerProduct,
+  Variant as StrollerVariant,
+} from "@/type/strollerRockerProductType";
+import type {
+  Product as PersonalProduct,
+  Variant as PersonalVariant,
+} from "@/type/personalCareProductType";
+
+type ProductType =
+  | BabyProduct
+  | ClothingProduct
+  | StrollerProduct
+  | PersonalProduct;
+type UnifiedVariant =
+  | BabyVariant
+  | ClothingVariant
+  | StrollerVariant
+  | PersonalVariant;
 
 interface ProductCardProps {
   product: ProductType;
   index: number;
-  activeTab: "baby" | "personal";
+  activeTab: "baby" | "personal" | "clothing" | "stroller";
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -20,8 +43,27 @@ const ProductCard: React.FC<ProductCardProps> = ({
   index,
   activeTab,
 }) => {
-  const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
+  const router = useRouter();
+  const [selectedVariant, setSelectedVariant] = useState<UnifiedVariant | null>(
+    null
+  );
   const { variants } = product;
+
+  // Type assertion since variants structure might differ slightly or just be compatible
+  // We assume Variant structure is compatible enough for this UI across types
+
+  const productUrl =
+    activeTab === "baby"
+      ? `/babyCareProduct/${product.slug}`
+      : activeTab === "personal"
+        ? `/personalCareProduct/${product.slug}`
+        : activeTab === "stroller"
+          ? `/strollerRockerProduct/${product.slug}`
+          : `/clothing/${product.slug}`;
+
+  const handleCardClick = () => {
+    router.push(productUrl);
+  };
 
   return (
     <motion.div
@@ -31,23 +73,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
       viewport={{ once: true }}
     >
       <div
-        className={`group h-full flex flex-col bg-white rounded-lg border border-transparent overflow-hidden transition-all duration-400 relative ${
+        onClick={handleCardClick}
+        className={`group h-full flex flex-col bg-white rounded-lg border border-transparent overflow-hidden transition-all duration-400 relative cursor-pointer ${
           activeTab === "baby"
             ? "hover:border-foreground"
-            : "hover:border-personalCare"
+            : activeTab === "personal"
+              ? "hover:border-personalCare"
+              : "hover:border-foreground"
         }`}
       >
         {/* Best Seller Badge */}
         <div
           className={`absolute top-3 left-3 z-10 bg-white px-2 py-1 rounded text-xs font-medium shadow-sm ${
-            activeTab === "baby" ? "text-foreground" : "text-personalCare"
+            activeTab === "personal" ? "text-personalCare" : "text-foreground"
           }`}
         >
           Best Seller
         </div>
 
         {/* Product Image Container */}
-        <div className="relative bg-zinc-200 aspect-square overflow-hidden h-40 md:h-60 lg:h-72 shrink-0">
+        <div className="relative aspect-square overflow-hidden h-40 md:h-60 lg:h-72 shrink-0">
           <Image
             src={selectedVariant?.image || product.image}
             alt={product.name}
@@ -72,7 +117,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <div className="flex items-center justify-center pt-2">
                 {variants && variants.length > 0 && (
                   <p className="text-sm font-medium text-zinc-500 uppercase tracking-widest">
-                    {variants[0].color ? "Color: " : "Size: "}
+                    {(variants[0] as any).color ? "Color: " : "Size: "}
                   </p>
                 )}
               </div>
@@ -83,20 +128,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
                       key={variant.id}
                       onClick={(e) => {
                         e.preventDefault();
+                        e.stopPropagation(); // Prevent navigation when clicking variant
                         setSelectedVariant(variant);
                       }}
                       className={`shrink-0 size-10 rounded border-2 overflow-hidden transition-all ${
                         (selectedVariant?.id || variants[0].id) === variant.id
                           ? `border-zinc-500 ring-2 ${
-                              activeTab === "baby"
-                                ? "ring-foreground"
-                                : "ring-personalCare"
+                              activeTab === "personal"
+                                ? "ring-personalCare"
+                                : "ring-foreground"
                             }`
                           : "border-zinc-300 hover:border-zinc-500"
                       }`}
-                      title={variant.color || variant.size}
+                      title={(variant as any).color || (variant as any).size}
                     >
-                      {variant.color ? (
+                      {(variant as any).color ? (
                         <Image
                           src={variant.image}
                           alt={product.name}
@@ -106,7 +152,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-white text-[10px] md:text-sm font-bold text-zinc-700">
-                          {variant.size}
+                          {(variant as any).size}
                         </div>
                       )}
                     </button>
@@ -123,19 +169,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
         )}
 
         {/* Product Info */}
-        <div className="flex-1 p-4 flex flex-col">
+        <div className="flex-1 p-4 flex flex-col bg-zinc-100">
           {/* Name */}
           <h3 className="text-sm lg:text-base font-semibold text-zinc-900 mb-2 line-clamp-2">
             {product.name}
           </h3>
 
-          {/* Link - Minimal Style */}
-          <Link
-            href={`/product/${product.id}`}
-            className="text-xs text-zinc-600 hover:text-zinc-900 font-medium transition-colors"
-          >
+          {/* Minimal View details text (not a link anymore, just a hint) */}
+          <p className="text-xs text-zinc-500 group-hover:text-zinc-900 font-medium transition-colors">
             View details →
-          </Link>
+          </p>
         </div>
       </div>
     </motion.div>

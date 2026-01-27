@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 interface SectionHeadingProps {
   title: string;
+  titleClassName?: string;
   highlight?: string;
   description?: string;
   className?: string;
@@ -14,6 +15,7 @@ interface SectionHeadingProps {
 
 const SectionHeading = ({
   title,
+  titleClassName,
   highlight,
   description,
   className,
@@ -31,7 +33,9 @@ const SectionHeading = ({
       viewport={{ once: true }}
       className={`${alignClasses} mb-4 ${className}`}
     >
-      <h2 className="text-2xl lg:text-4xl font-semibold text-foreground font-poppins">
+      <h2
+        className={`text-2xl lg:text-4xl font-semibold text-foreground font-poppins ${titleClassName}`}
+      >
         {title}{" "}
         {highlight && (
           <span className={`text-[#8cd700] ${highlighterColor}`}>

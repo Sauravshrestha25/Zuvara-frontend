@@ -38,7 +38,7 @@ const VideoSection = () => {
   };
 
   return (
-    <section className="py-4 lg:py-8 bg-white">
+    <section className="py-4 lg:py-8">
       <div className="container mx-auto px-4 sm:px-4 lg:px-6 max-w-7xl">
         {/* Section Header */}
         <SectionHeading

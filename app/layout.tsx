@@ -25,6 +25,7 @@ export const metadata: Metadata = {
 };
 
 import CrawlingBaby from "./components/shared/CrawlingBaby";
+import { SectionProvider } from "./providers/SectionProvider";
 
 export default function RootLayout({
   children,
@@ -34,11 +35,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#BCDDC4] text-zinc-900 overflow-x-hidden ${montserrat.variable}`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-zinc-900 overflow-x-hidden! ${montserrat.variable}`}
       >
         <LenisProvider>
-          {children}
-          <CrawlingBaby />
+          <SectionProvider>
+            {children}
+            {/* <CrawlingBaby /> */}
+          </SectionProvider>
         </LenisProvider>
       </body>
     </html>

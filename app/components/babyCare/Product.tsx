@@ -7,23 +7,11 @@ import { motion } from "framer-motion";
 import Button from "../common-ui/Button";
 import SectionHeading from "../common-ui/SectionHeading";
 
-import { babyCareProducts } from "@/constant/babyCareProduct";
-import { personalCareProducts } from "@/constant/personalCareProduct";
-import type {
-  Product as ProductType,
-  Variant,
-} from "@/type/babyCareProductType";
-
+import { babyCareProducts } from "@/constants/babyCareProduct";
 import ProductCard from "../common-ui/ProductCard";
-// import BigImage from "./BigImage";
 
 const Product = () => {
   const [activeTab, setActiveTab] = useState<"baby" | "personal">("baby");
-
-  const products =
-    activeTab === "baby"
-      ? (babyCareProducts as unknown as ProductType[])
-      : (personalCareProducts as unknown as ProductType[]);
 
   return (
     <>
@@ -95,8 +83,8 @@ const Product = () => {
         </div>
       </section>
 
-      <section className="bg-white">
-        <div className="container mt-8 lg;mt-0 mx-auto px-4 sm:px-6 lg:px-6 max-w-7xl">
+      <section className="">
+        <div className="container mt-8 mx-auto px-4 sm:px-6 lg:px-6 max-w-7xl">
           {/* Section Header */}
           {/* <div className="flex flex-col gap-2 justify-between items-center">
           <SectionHeading
@@ -108,7 +96,7 @@ const Product = () => {
         </div> */}
 
           {/* Tabs */}
-          <div className="flex gap-4 mb-8 justify-center">
+          {/* <div className="flex gap-4 mb-8 pt-8 justify-center">
             <button
               onClick={() => setActiveTab("baby")}
               className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
@@ -129,7 +117,7 @@ const Product = () => {
             >
               Personal Care
             </button>
-          </div>
+          </div> */}
 
           {/* Products Grid */}
           <motion.div
@@ -139,7 +127,7 @@ const Product = () => {
             transition={{ duration: 0.3 }}
             className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-2"
           >
-            {products.map((product, index) => (
+            {babyCareProducts.map((product, index) => (
               <ProductCard
                 key={product.id}
                 product={product}

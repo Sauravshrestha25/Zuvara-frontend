@@ -13,7 +13,7 @@ import WhyUsSection from "@/app/components/babyCare/WhyUsSection";
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-babyCare">
       <HeroSection />
       {/* <AboutSection /> */}
       <WhyUsSection />

@@ -14,6 +14,8 @@ export interface Product {
   reviews: number;
   image: string;
   category: string;
+  slug: string;
   inStock: boolean;
   variants?: Variant[];
+  description?: string;
 }
