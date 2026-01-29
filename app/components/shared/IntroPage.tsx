@@ -78,7 +78,7 @@ export default function IntroPage() {
   return (
     <main className="min-h-screen w-full relative overflow-hidden flex flex-col items-center justify-center tracking-tight bg-babyCare pt-20">
       {/* Nav / Logo */}
-      <nav className="fixed top-0 w-full py-8 flex items-center justify-center z-50">
+      <nav className="bg-babyCare fixed top-0 w-full py-4 flex items-center justify-center z-50">
         <Link href="/">
           <Image src="/logo.png" alt="Zuvara Logo" width={100} height={100} />
         </Link>
@@ -86,7 +86,7 @@ export default function IntroPage() {
 
       {/* Header Section */}
       <div className="text-center mb-6 lg:mb-12 space-y-3 z-10">
-        <span className="font-black uppercase tracking-[0.5em]">
+        <span className="font-black uppercase tracking-wider lg:tracking-[0.5em]">
           Welcome to Zuvara
         </span>
         <h1 className="text-2xl md:text-3xl font-black text-foreground uppercase tracking-tight">
@@ -168,24 +168,28 @@ export default function IntroPage() {
               className={`relative rounded-[2.5rem] overflow-hidden flex flex-col justify-between p-8 shadow-xl cursor-pointer z-10`}
             >
               {/* Decorative Icon Background - Fixed Flashing with Motion */}
-              {!isSmallerDevice && (
-                <motion.div
-                  animate={{
-                    opacity: hoveredSection === section.id ? 0.9 : 0.05,
-                    color:
-                      hoveredSection === section.id ? "#ffffff" : "#52525b", // zinc-600
-                  }}
-                  transition={{ duration: 0.4 }}
-                  className="absolute top-6 right-6 pointer-events-none"
-                >
-                  {/* <Icon icon={section.icon} width="140" height="140" /> */}
-                  <img
-                    src={section.icon}
-                    alt={section.title}
-                    className="size-24 group-hover:invert"
-                  />
-                </motion.div>
-              )}
+              {/* {!isSmallerDevice && ( */}
+              <motion.div
+                animate={{
+                  opacity:
+                    hoveredSection === section.id
+                      ? isSmallerDevice
+                        ? 0.9
+                        : 0.9
+                      : 0.2,
+                  color: hoveredSection === section.id ? "#ffffff" : "#52525b", // zinc-600
+                }}
+                transition={{ duration: 0.4 }}
+                className="absolute bottom-6 lg:top-6 right-6 pointer-events-none"
+              >
+                {/* <Icon icon={section.icon} width="140" height="140" /> */}
+                <img
+                  src={section.icon}
+                  alt={section.title}
+                  className="size-24 group-hover:invert"
+                />
+              </motion.div>
+              {/* )} */}
 
               {/* Content */}
               <div className="relative z-10 space-y-3">
@@ -259,7 +263,7 @@ export default function IntroPage() {
                           : section.color,
                     }}
                   >
-                    <Icon icon="solar:arrow-right-up-bold-duotone" width="20" />
+                    <Icon icon="solar:arrow-right-up-linear" width="20" />
                   </div>
                   <span
                     className={`font-black text-[10px] uppercase tracking-widest transition-colors duration-300 ${
@@ -274,29 +278,31 @@ export default function IntroPage() {
               </div>
             </motion.div>
 
-            <motion.img
-              src={section.image}
-              alt=""
-              initial={{
-                scale: 0,
-                opacity: 0,
-                rotate: section.id === "baby" ? -20 : 20,
-              }}
-              animate={{
-                scale: hoveredSection === section.id ? 1 : 0,
-                opacity: hoveredSection === section.id ? 1 : 0,
-                rotate: section.id === "baby" ? -20 : 20,
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 260,
-                damping: 20,
-              }}
-              style={{ originX: 0.5, originY: 1 }}
-              className={`absolute bottom-4 w-75 z-0 pointer-events-none ${
-                section.id === "baby" ? "-left-12" : "-right-12"
-              }`}
-            />
+            {!isSmallerDevice && (
+              <motion.img
+                src={section.image}
+                alt=""
+                initial={{
+                  scale: 0,
+                  opacity: 0,
+                  rotate: section.id === "baby" ? -20 : 20,
+                }}
+                animate={{
+                  scale: hoveredSection === section.id ? 1 : 0,
+                  opacity: hoveredSection === section.id ? 1 : 0,
+                  rotate: section.id === "baby" ? -20 : 20,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20,
+                }}
+                style={{ originX: 0.5, originY: 1 }}
+                className={`absolute bottom-4 w-75 z-0 pointer-events-none ${
+                  section.id === "baby" ? "-left-12" : "-right-12"
+                }`}
+              />
+            )}
           </Link>
         ))}
       </div>

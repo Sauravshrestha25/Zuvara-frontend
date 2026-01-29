@@ -16,7 +16,7 @@ const StrollerProductDetailPage = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
   const [activeTab, setActiveTab] = useState("features");
-  const isSmallerDevice = useMediaQuery({ maxWidth: "768px" });
+  const isSmallerDevice = useMediaQuery({ maxWidth: 1000 });
 
   useEffect(() => {
     const productSlug = params.strollerRockerProductPage;
@@ -59,93 +59,117 @@ const StrollerProductDetailPage = () => {
   }
 
   return (
-    <div className="bg-white min-h-screen pt-4 lg:pt-16 pb-16">
+    <div className="bg-white min-h-screen pt-4 lg:pt-16 lg:pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        {/* Back Button */}
-        <button
-          onClick={() => router.back()}
-          className="lg:hidden group flex items-center gap-2 bg-white text-zinc-500 hover:text-white hover:bg-foreground transition-colors mb-3 lg:mb-6 px-2 py-1 rounded-full font-bold text-sm lg:tracking-widest"
-        >
-          <div className="rounded-full transition-colors">
-            <ArrowLeft size={16} />
-          </div>
-          Back
-        </button>
-
-        {/* Breadcrumbs */}
-        <nav className="hidden lg:flex items-center gap-2 text-sm text-zinc-700 mb-8 overflow-x-auto whitespace-nowrap pb-2">
-          <Link href="/" className="hover:text-foreground transition-colors">
-            Home
-          </Link>
-          <ChevronRight size={14} />
-          <Link
-            href="/clothing"
-            className="hover:text-foreground transition-colors"
+        {isSmallerDevice ? (
+          // {/* Back Button */}
+          <button
+            onClick={() => router.back()}
+            className="lg:hidden group flex items-center gap-2 bg-white text-zinc-500 hover:text-white hover:bg-foreground transition-colors mb-3 lg:mb-6 px-2 py-1 rounded-full font-bold text-sm lg:tracking-widest"
           >
-            Strollers & Rockers
-          </Link>
-          <ChevronRight size={14} />
-          <span className="text-foreground font-medium">{product.name}</span>
-        </nav>
-
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
-          {/* Left Column: Image Area */}
-          <div className="w-full lg:w-1/2">
-            <motion.div
-              layoutId={`product-image-${product.id}`}
-              className="relative aspect-square bg-zinc-50 rounded-3xl overflow-hidden border border-zinc-100"
+            <div className="rounded-full transition-colors">
+              <ArrowLeft size={16} />
+            </div>
+            Back
+          </button>
+        ) : (
+          // {/* Breadcrumbs */}
+          <nav className="hidden lg:flex items-center gap-2 text-sm text-zinc-700 mb-8 overflow-x-auto whitespace-nowrap pb-2">
+            <Link href="/" className="hover:text-foreground transition-colors">
+              Home
+            </Link>
+            <ChevronRight size={14} />
+            <Link
+              href="/clothing"
+              className="hover:text-foreground transition-colors"
             >
-              <Image
-                src={
-                  selectedVariant?.image || product.image || "/placeholder.png"
-                }
-                alt={product.name}
-                fill
-                className="object-contain p-12 lg:p-16 transition-all duration-500"
-                priority
-              />
-              {!product.inStock && (
-                <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] flex items-center justify-center">
-                  <span className="px-6 py-3 bg-red-500 text-white font-bold rounded-full shadow-lg">
-                    OUT OF STOCK
-                  </span>
+              Strollers & Rockers
+            </Link>
+            <ChevronRight size={14} />
+            <span className="text-foreground font-medium">{product.name}</span>
+          </nav>
+        )}
+
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-12">
+          {/* Top Section: Image and Basic info side-by-side on mobile */}
+          <div className="flex flex-row lg:flex-col gap-4 lg:gap-8 w-full lg:w-1/2">
+            {/* Image Area */}
+            <div className="w-1/2 lg:w-full">
+              <motion.div
+                layoutId={`product-image-${product.id}`}
+                className="relative aspect-square bg-zinc-50 rounded-3xl overflow-hidden border border-zinc-100"
+              >
+                <Image
+                  src={
+                    selectedVariant?.image ||
+                    product.image ||
+                    "/placeholder.png"
+                  }
+                  alt={product.name}
+                  fill
+                  className="object-contain p-6 lg:p-16 transition-all duration-500"
+                  priority
+                />
+              </motion.div>
+            </div>
+
+            {/* Basic Info (Category, Title, Rating) - Only visible on mobile here */}
+            <div className="w-1/2 lg:hidden flex flex-col justify-center">
+              <div className="flex items-center gap-2 mb-2 text-[8px] font-bold uppercase whitespace-nowrap">
+                <span className="px-2 py-0.5 bg-zinc-100 text-zinc-600 rounded-full">
+                  {product.category}
+                </span>
+              </div>
+
+              <h1 className="text-base font-black mb-2 leading-tight tracking-tight">
+                {product.name}
+              </h1>
+
+              <p className="text-[10px] font-bold text-zinc-500 mb-3">
+                {selectedVariant?.color}
+              </p>
+
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1 bg-zinc-900 text-white px-2 py-1 rounded-lg text-[10px] font-bold">
+                  <span>{product.rating || 4.8}</span>
+                  <Star size={8} fill="white" />
                 </div>
-              )}
-            </motion.div>
+                <span className="text-zinc-500 text-[10px] font-medium">
+                  {product.reviews || 42} Reviews
+                </span>
+              </div>
+            </div>
           </div>
 
-          {/* Right Column: Product Info */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-center lg:justify-start">
+          {/* Right Column: Detailed Info */}
+          <div className="w-full lg:w-1/2 flex flex-col">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="flex items-center gap-3 mb-2 lg:mb-4 text-[8px] lg:text-xs font-bold uppercase lg:tracking-wider whitespace-nowrap">
-                <span className="px-3 py-1 bg-zinc-100 text-zinc-600 rounded-full">
-                  {product.category}
-                </span>
-                {product.inStock && (
-                  <span className="px-3 py-1 bg-green-50 text-green-700  rounded-full flex items-center gap-1">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                    In Stock
+              {/* Basic Info - Only visible on desktop here */}
+              <div className="hidden lg:block">
+                <div className="flex items-center gap-3 mb-2 lg:mb-4 text-xs font-bold uppercase lg:tracking-wider whitespace-nowrap">
+                  <span className="px-3 py-1 bg-zinc-100 text-zinc-600 rounded-full">
+                    {product.category}
                   </span>
-                )}
-              </div>
-
-              <h1 className="text-xl md:text-3xl lg:text-4xl font-black mb-3 lg:mb-6 leading-tight tracking-tight">
-                {product.name} - {selectedVariant?.color}
-              </h1>
-
-              {/* Rating & Reviews */}
-              <div className="flex items-center gap-6 mb-6">
-                <div className="flex items-center gap-1 bg-zinc-900 text-white px-2 lg:px-3 py-1 lg:py-1.5 rounded-lg text-xs lg:text-sm font-bold">
-                  <span>{product.rating || 4.8}</span>
-                  <Star size={isSmallerDevice ? 10 : 14} fill="white" />
                 </div>
-                <span className="text-zinc-500 text-xs lg:text-sm font-medium">
-                  {product.reviews || 42} Reviews
-                </span>
+
+                <h1 className="text-xl md:text-3xl lg:text-4xl font-black mb-3 lg:mb-6 leading-tight tracking-tight">
+                  {product.name} - {selectedVariant?.color}
+                </h1>
+
+                {/* Rating & Reviews */}
+                <div className="flex items-center gap-6 mb-6">
+                  <div className="flex items-center gap-1 bg-zinc-900 text-white px-2 lg:px-3 py-1 lg:py-1.5 rounded-lg text-xs lg:text-sm font-bold">
+                    <span>{product.rating || 4.8}</span>
+                    <Star size={14} fill="white" />
+                  </div>
+                  <span className="text-zinc-500 text-xs lg:text-sm font-medium">
+                    {product.reviews || 42} Reviews
+                  </span>
+                </div>
               </div>
 
               {!isSmallerDevice && (
@@ -174,7 +198,7 @@ const StrollerProductDetailPage = () => {
                         <p className="text-xs text-zinc-400 uppercase font-bold tracking-wider mb-1">
                           (Width x Height x Depth)
                         </p>
-                        <p className="font-bold text-zinc-900 text-xs">
+                        <p className="font-bold text-zinc-900 text-[10px] lg:text-xs">
                           {selectedVariant.width} x {selectedVariant.height} x{" "}
                           {selectedVariant.depth}
                         </p>
@@ -189,7 +213,7 @@ const StrollerProductDetailPage = () => {
                   <h3 className="text-xs font-black text-zinc-900 uppercase tracking-[0.2em] mb-4">
                     {product.variants.some((v) => v.color) && "Select Variant"}
                   </h3>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="grid grid-cols-2 lg:flex lg:flex-wrap gap-3">
                     {product.variants.map((v) => (
                       <button
                         key={v.id}
@@ -201,17 +225,13 @@ const StrollerProductDetailPage = () => {
                         }`}
                       >
                         {v.color && (
-                          // <div
-                          //   className="w-4 h-4 rounded-full border border-white/20"
-                          //   style={{ backgroundColor: v.color.toLowerCase() }}
-                          // />
                           <img
                             src={v.image}
                             alt={`${product.name} - ${v.color}`}
-                            className="size-8"
+                            className={`size-8 transition-all ${selectedVariant?.id === v.id ? "brightness-125" : ""}`}
                           />
                         )}
-                        <span className="font-bold text-sm leading-none">
+                        <span className="font-bold text-xs lg:text-sm leading-none">
                           {v.color || `Variant ${v.id}`}
                         </span>
                       </button>

@@ -8,18 +8,18 @@ import Button from "../common-ui/Button";
 
 const HeroSection = () => {
   return (
-    <section className={cn("min-h-screen w-screen relative")}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-7xl min-h-screen flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 py-8 lg:py-0">
+    <section className="lg:min-h-screen w-screen relative lg:flex lg:items-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-7xl flex flex-col lg:flex-row items-center justify-center gap-0 lg:gap-16 pt-4 lg:pt-0">
         {/* Left Content */}
-        <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8 z-10">
+        <div className="w-full lg:w-1/2 flex flex-col gap-4 lg:gap-8 z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block py-1 px-3 rounded-full bg-foreground text-white text-sm font-semibold tracking-wide backdrop-blur-sm border border-white/20 mb-4">
+            {/* <span className="inline-block py-1 px-3 rounded-full bg-foreground text-white text-sm font-semibold tracking-wide backdrop-blur-sm border border-white/20 mb-4">
               NEW COLLECTION 2026
-            </span>
+            </span> */}
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-foreground leading-tight">
               Cozy Comfort <br />
               <span className="text-secondary drop-shadow-sm">
@@ -129,10 +129,6 @@ const HeroSection = () => {
             </div>
           </motion.div>
         </div>
-
-        {/* Decorative Background Elements */}
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-linear-to-l from-white/20 to-transparent pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl pointer-events-none" />
       </div>
     </section>
   );

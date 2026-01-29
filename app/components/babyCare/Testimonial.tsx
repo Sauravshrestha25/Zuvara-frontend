@@ -147,7 +147,7 @@ const Testimonial = () => {
               <div className="flex items-center gap-4 justify-center">
                 <button
                   onClick={goToPrevious}
-                  className="p-3 rounded-full border border-[#8cd700] hover:bg-[#8cd700] hover:text-white transition-all duration-300 flex items-center justify-center"
+                  className="lg:p-3 rounded-full border border-[#8cd700] hover:bg-[#8cd700] hover:text-white transition-all duration-300 flex items-center justify-center"
                   aria-label="Previous testimonial"
                 >
                   <Icon icon="mdi:chevron-left" width="20" height="20" />

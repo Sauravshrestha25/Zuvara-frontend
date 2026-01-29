@@ -1,8 +1,7 @@
-import AboutProduct from "@/app/components/personalCare/AboutProduct";
+import ProductList from "@/app/components/personalCare/ProductList";
 import HeroSection from "@/app/components/personalCare/HeroSection";
 import ProductSection from "@/app/components/personalCare/ProductSection";
 import StatsDivider from "@/app/components/personalCare/StatsDivider";
-import StatsDividerMob from "@/app/components/personalCare/StatsDividerMob";
 import WhyUsSection from "@/app/components/personalCare/WhyUsSection";
 import React from "react";
 
@@ -10,11 +9,10 @@ const page = () => {
   return (
     <div className="">
       <HeroSection />
-      {/* <StatsDividerMob /> */}
       {/* <WhyUsSection /> */}
       <StatsDivider />
       <ProductSection />
-      <AboutProduct />
+      <ProductList />
     </div>
   );
 };

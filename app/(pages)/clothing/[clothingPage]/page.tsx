@@ -58,34 +58,36 @@ const ClothingProductDetailPage = () => {
   }
 
   return (
-    <div className="min-h-screen pt-4 lg:pt-16 pb-16">
+    <div className="min-h-screen pt-4 lg:pt-16 lg:pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        {/* Back Button */}
-        <button
-          onClick={() => router.back()}
-          className="lg;hidden group flex items-center gap-2 text-zinc-500 hover:text-white hover:bg-foreground transition-colors mb-3 lg:mb-6 px-2 py-1 rounded-full font-bold text-sm lg:tracking-widest"
-        >
-          <div className="rounded-full transition-colors">
-            <ArrowLeft size={16} />
-          </div>
-          Back
-        </button>
-
-        {/* Breadcrumbs */}
-        <nav className="hidden lg:flex items-center gap-2 text-sm text-zinc-700 mb-8 overflow-x-auto whitespace-nowrap pb-2">
-          <Link href="/" className="hover:text-foreground transition-colors">
-            Home
-          </Link>
-          <ChevronRight size={14} />
-          <Link
-            href="/clothing"
-            className="hover:text-foreground transition-colors"
+        {isSmallerDevice ? (
+          // {/* Back Button */}
+          <button
+            onClick={() => router.back()}
+            className="lg;hidden group flex items-center gap-2 text-zinc-500 hover:text-white hover:bg-foreground transition-colors mb-3 lg:mb-6 px-2 py-1 rounded-full font-bold text-sm lg:tracking-widest"
           >
-            Clothing
-          </Link>
-          <ChevronRight size={14} />
-          <span className="text-foreground font-medium">{product.name}</span>
-        </nav>
+            <div className="rounded-full transition-colors">
+              <ArrowLeft size={16} />
+            </div>
+            Back
+          </button>
+        ) : (
+          // {/* Breadcrumbs */}
+          <nav className="hidden lg:flex items-center gap-2 text-sm text-zinc-700 mb-8 overflow-x-auto whitespace-nowrap pb-2">
+            <Link href="/" className="hover:text-foreground transition-colors">
+              Home
+            </Link>
+            <ChevronRight size={14} />
+            <Link
+              href="/clothing"
+              className="hover:text-foreground transition-colors"
+            >
+              Clothing
+            </Link>
+            <ChevronRight size={14} />
+            <span className="text-foreground font-medium">{product.name}</span>
+          </nav>
+        )}
 
         <div className="flex gap-4 lg:gap-8">
           {/* Left Column: Image Area */}
@@ -103,18 +105,11 @@ const ClothingProductDetailPage = () => {
                 className="object-contain p-4 md:p-12 transition-all duration-500"
                 priority
               />
-              {!product.inStock && (
-                <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] flex items-center justify-center">
-                  <span className="px-6 py-3 bg-red-500 text-white font-bold rounded-full shadow-lg">
-                    OUT OF STOCK
-                  </span>
-                </div>
-              )}
             </motion.div>
           </div>
 
           {/* Right Column: Product Info */}
-          <div className="w-1/2 flex flex-col justify-center lg:justify-start">
+          <div className="w-1/2 flex flex-col">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -124,12 +119,6 @@ const ClothingProductDetailPage = () => {
                 <span className="px-3 py-1 bg-zinc-100 text-zinc-600 rounded-full">
                   {product.category}
                 </span>
-                {product.inStock && (
-                  <span className="px-3 py-1 bg-green-50 text-green-700  rounded-full flex items-center gap-1">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                    In Stock
-                  </span>
-                )}
               </div>
 
               <h1 className="text-xl md:text-4xl lg:text-6xl font-black mb-3 lg:mb-6 leading-tight tracking-tight">
@@ -184,7 +173,7 @@ const ClothingProductDetailPage = () => {
         {/* Variant Selection (Mobile) */}
         {isSmallerDevice && product.variants && product.variants.length > 0 && (
           <div className="my-8">
-            <h3 className="text-xs font-black text-zinc-400 uppercase tracking-[0.2em] mb-4">
+            <h3 className="text-xs font-black uppercase tracking-[0.2em] mb-4">
               {product.variants[0].color ? "Select Color" : "Select Size"}
             </h3>
             <div className="grid grid-cols-3 gap-3">
@@ -208,7 +197,7 @@ const ClothingProductDetailPage = () => {
         )}
 
         {/* Detailed Tabs Section */}
-        <div className="mt-16 lg:mt-32">
+        <div className="mt-12 lg:mt-32">
           <div className="flex border-b border-zinc-100 overflow-x-auto gap-12 scrollbar-hide">
             {["Description"].map((tab) => (
               <button

@@ -39,7 +39,7 @@ const WhyUsSection = () => {
   const isSmallerDevice = useMediaQuery({ maxWidth: 768 });
 
   return (
-    <section className="relative w-full lg:h-[140vh] overflow-hidden py-12 lg:-mt-32">
+    <section className="relative w-full lg:h-[140vh] overflow-hidden py-4 lg:py-12 lg:-mt-32">
       {/* Background Shape */}
       <div className="absolute inset-0 w-full h-full flex flex-col justify-around">
         <div className="w-full h-1/3 lg:h-full pointer-events-none z-0">
@@ -79,7 +79,7 @@ const WhyUsSection = () => {
             </p>
           </div>
 
-          <div className="w-[90%] lg:w-1/2">
+          <div className="w-full lg:w-1/2 translate-x-[15%] lg:translate-x-0">
             <ImageGridSection />
           </div>
         </div>

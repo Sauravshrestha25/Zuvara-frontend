@@ -31,7 +31,7 @@ const Button = ({
       <Link
         href={link || "#"}
         className={cn(
-          "flex items-center gap-2 font-medium px-4 lg:px-6 py-2 lg:py-3 transition-all duration-300 rounded-full text-sm lg:text-base",
+          "flex items-center gap-2 font-medium px-4 lg:px-6 py-3 transition-all duration-300 rounded-full text-sm lg:text-base",
           variantStyles,
           className,
         )}

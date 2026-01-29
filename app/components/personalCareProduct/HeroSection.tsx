@@ -43,7 +43,7 @@ const HeroSection = () => {
           style={{ originX: 1, originY: 1 }}
           src="/images/personalCare/period-panties-pack-l.png"
           alt="Period Panties pack"
-          className="absolute bottom-[5%] lg:bottom-[10%] left-4 lg:left-0 w-40 lg:w-80 z-10"
+          className="absolute bottom-[5%] lg:bottom-[10%] left-4 lg:left-0 w-32 lg:w-80 z-10"
         />
         <motion.img
           initial={{ scale: 0, opacity: 0 }}
@@ -57,7 +57,7 @@ const HeroSection = () => {
           style={{ originX: 1, originY: 1 }}
           src="/images/personalCare/sanitary-pads-pack-l.png"
           alt="Sanitary Pads pack"
-          className="absolute bottom-[5%] lg:bottom-[10%] left-[20%] w-35 lg:w-70 z-20"
+          className="absolute bottom-[5%] lg:bottom-[10%] left-[20%] w-24 lg:w-70 z-20"
         />
         <motion.img
           initial={{ scale: 0, opacity: 0 }}
@@ -71,7 +71,7 @@ const HeroSection = () => {
           style={{ originX: 1, originY: 1 }}
           src="/images/personalCare/period-panties-pack.png"
           alt="Period Panties pack"
-          className="absolute bottom-[5%] lg:bottom-[10%] right-4 lg:right-0 w-40 lg:w-80 z-10"
+          className="absolute bottom-[5%] lg:bottom-[10%] right-4 lg:right-0 w-32 lg:w-80 z-10"
         />
         <motion.img
           initial={{ scale: 0, opacity: 0 }}
@@ -85,7 +85,7 @@ const HeroSection = () => {
           style={{ originX: 1, originY: 1 }}
           src="/images/personalCare/sanitary-pads-pack.png"
           alt="Sanitary Pads pack"
-          className="absolute bottom-[5%] lg:bottom-[10%] right-[20%] w-35 lg:w-70 z-20"
+          className="absolute bottom-[5%] lg:bottom-[10%] right-[20%] w-24 lg:w-70 z-20"
         />
       </section>
 

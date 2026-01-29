@@ -58,34 +58,36 @@ const ProductDetailPage = () => {
   }
 
   return (
-    <div className="min-h-screen pt-4 lg:pt-16 pb-16">
+    <div className="min-h-screen pt-4 lg:pt-16 lg:pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        {/* Back Button */}
-        <button
-          onClick={() => router.back()}
-          className="lg:hidden group flex items-center gap-2 text-zinc-500 hover:text-white hover:bg-foreground transition-colors mb-3 lg:mb-6 px-2 py-1 rounded-full font-bold text-sm lg:tracking-widest"
-        >
-          <div className="rounded-full transition-colors">
-            <ArrowLeft size={16} />
-          </div>
-          Back
-        </button>
-
-        {/* Breadcrumbs */}
-        <nav className="hidden lg:flex items-center gap-2 text-sm text-zinc-700 mb-8 overflow-x-auto whitespace-nowrap pb-2">
-          <Link href="/" className="hover:text-foreground transition-colors">
-            Home
-          </Link>
-          <ChevronRight size={14} />
-          <Link
-            href="/babyCareProduct"
-            className="hover:text-foreground transition-colors"
+        {isSmallerDevice ? (
+          // {/* Back Button */}
+          <button
+            onClick={() => router.back()}
+            className="lg:hidden group flex items-center gap-2 text-zinc-500 hover:text-white hover:bg-foreground transition-colors mb-3 lg:mb-6 px-2 py-1 rounded-full font-bold text-sm lg:tracking-widest"
           >
-            Baby Care
-          </Link>
-          <ChevronRight size={14} />
-          <span className="text-foreground font-medium">{product.name}</span>
-        </nav>
+            <div className="rounded-full transition-colors">
+              <ArrowLeft size={16} />
+            </div>
+            Back
+          </button>
+        ) : (
+          // {/* Breadcrumbs */}
+          <nav className="hidden lg:flex items-center gap-2 text-sm text-zinc-700 mb-8 overflow-x-auto whitespace-nowrap pb-2">
+            <Link href="/" className="hover:text-foreground transition-colors">
+              Home
+            </Link>
+            <ChevronRight size={14} />
+            <Link
+              href="/babyCareProduct"
+              className="hover:text-foreground transition-colors"
+            >
+              Baby Care
+            </Link>
+            <ChevronRight size={14} />
+            <span className="text-foreground font-medium">{product.name}</span>
+          </nav>
+        )}
 
         {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16"> */}
         <div className="flex gap-4 lg:gap-8">
@@ -104,18 +106,11 @@ const ProductDetailPage = () => {
                 className="object-contain p-4 transition-all duration-500"
                 priority
               />
-              {!product.inStock && (
-                <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] flex items-center justify-center">
-                  <span className="px-6 py-3 bg-red-500 text-white font-bold rounded-full shadow-lg">
-                    OUT OF STOCK
-                  </span>
-                </div>
-              )}
             </motion.div>
           </div>
 
           {/* Right Column: Product Info */}
-          <div className="w-1/2 flex flex-col justify-center lg:justify-start">
+          <div className="w-1/2 flex flex-col">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -125,12 +120,6 @@ const ProductDetailPage = () => {
                 <span className="px-3 py-1 bg-zinc-100 text-zinc-600 rounded-full">
                   {product.category}
                 </span>
-                {product.inStock && (
-                  <span className="px-3 py-1 bg-green-50 text-green-700 rounded-full flex items-center gap-1">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                    In Stock
-                  </span>
-                )}
               </div>
 
               <h1 className="text-xl md:text-4xl lg:text-6xl font-bold mb-3 lg:mb-6 leading-tight tracking-tight">
@@ -244,7 +233,7 @@ const ProductDetailPage = () => {
         )}
 
         {/* Detailed Tabs Section */}
-        <div className="mt-16 lg:mt-32">
+        <div className="mt-12 lg:mt-32">
           <div className="flex border-b border-zinc-100 overflow-x-auto gap-12 scrollbar-hide">
             {[
               "Description",
@@ -293,7 +282,7 @@ const ProductDetailPage = () => {
                       <span>{product.subDesc4}</span>
                     </p>
                     {product.highlights && product.highlights.length > 0 && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-6 pt-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-6 pt-3 lg:pt-6">
                         {product.highlights.map((feat) => (
                           <div
                             key={feat}

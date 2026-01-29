@@ -8,6 +8,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useSection } from "@/app/providers/SectionProvider";
 import { cn } from "@/lib/utils";
+import { useMediaQuery } from "react-responsive";
+import { useRef } from "react";
+import { babyCareProducts } from "@/constants/babyCareProduct";
+import { clothingProducts } from "@/constants/babyClothes";
+import { strollerRockerProducts } from "@/constants/strollerRockerProduct";
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -16,9 +21,63 @@ export default function Navbar() {
   const { activeSection } = useSection();
   const pathname = usePathname();
   const [isMounted, setIsMounted] = useState(false);
+  const isSmallerDevice = useMediaQuery({ maxWidth: 1000 });
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
+  }, []);
+
+  // Search logic
+  useEffect(() => {
+    if (searchQuery.trim().length > 0) {
+      const allProducts = [
+        ...babyCareProducts.map((p) => ({
+          ...p,
+          type: "baby-care",
+          href: `/babyCareProduct/${p.slug}`,
+        })),
+        ...clothingProducts.map((p) => ({
+          ...p,
+          type: "clothing",
+          href: `/clothing/${p.slug}`,
+        })),
+        ...strollerRockerProducts.map((p) => ({
+          ...p,
+          type: "stroller",
+          href: `/strollerRockerProduct/${p.slug}`,
+        })),
+      ];
+
+      const filtered = allProducts
+        .filter(
+          (product) =>
+            product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            product.category.toLowerCase().includes(searchQuery.toLowerCase()),
+        )
+        .slice(0, 5);
+
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts([]);
+    }
+  }, [searchQuery]);
+
+  // Outside click to close search
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Close menu when route changes
@@ -102,10 +161,16 @@ export default function Navbar() {
 
   const menuItems = [
     { label: "Home", href: homeHref },
-    { label: "Baby Care", href: "/babyCareProduct" },
+    {
+      label: "Baby Products",
+      href:
+        isMounted && isSmallerDevice
+          ? "/babyCareProductMobile"
+          : "/babyCareProduct",
+    },
     { label: "Personal Care", href: "/personalCareProduct" },
     { label: "Baby Gear", href: "/clothing" },
-    // { label: "Blogs", href: "/blogs" },
+    { label: "Blogs", href: "/blogs" },
     // { label: "About", href: "/about" },
     { label: "Contact Us", href: "/contact" },
   ];
@@ -128,6 +193,14 @@ export default function Navbar() {
       return true;
     }
 
+    // Special case for mobile 'Product' tab to remain active on detail pages
+    if (
+      href === "/babyCareProductMobile" &&
+      pathname.startsWith("/babyCareProduct")
+    ) {
+      return true;
+    }
+
     if (pathname === href) return true;
     if (href === "/") return pathname === "/";
     // Ensure we are matching a full path segment to avoid partial matches
@@ -143,18 +216,22 @@ export default function Navbar() {
     },
     {
       label: "Product",
-      href: isPersonalSection ? "/personalCareProduct" : "/babyCareProduct",
+      href: isPersonalSection
+        ? "/personalCareProduct"
+        : isMounted && isSmallerDevice
+          ? "/babyCareProductMobile"
+          : "/babyCareProduct",
       icon: "fluent:cart-20-filled",
     },
-    ...(isBabySection
-      ? [
-          {
-            label: "Baby Gear",
-            href: "/clothing",
-            icon: "material-symbols-light:apparel",
-          },
-        ]
-      : []),
+    // ...(isBabySection
+    //   ? [
+    //       {
+    //         label: "Baby Gear",
+    //         href: "/clothing",
+    //         icon: "material-symbols-light:apparel",
+    //       },
+    //     ]
+    //   : []),
     {
       label: "Whatsapp",
       href: "https://wa.me/9801018656",
@@ -174,8 +251,8 @@ export default function Navbar() {
         <div className="px-4 sm:px-6 lg:px-6 max-w-7xl mx-auto">
           <div className="flex flex-col justify-between items-center h-auto gap-4 py-3">
             {/* Logo - Left */}
-            <div className="flex items-center justify-between w-full">
-              <div className="flex gap-2 items-center">
+            <div className="flex items-center justify-between w-full relative">
+              <div className="flex-1 flex items-center justify-start gap-2">
                 <Icon icon="mdi:headset" width={20} height={20} />
                 <h3 className="font-medium text-sm">Customer Support</h3>
               </div>
@@ -189,10 +266,88 @@ export default function Navbar() {
                   priority
                 />
               </Link>
-              <div className="flex items-center gap-4 ">
-                <button className=" hover:text-zinc-900 transition">
-                  <Icon icon="si:search-duotone" width="24" height="24" />
-                </button>
+              <div
+                className="flex-1 flex items-center justify-end gap-4"
+                ref={!isSmallerDevice ? searchRef : null}
+              >
+                <div className="relative flex items-center">
+                  <AnimatePresence>
+                    {isSearchOpen && (
+                      <motion.div
+                        initial={{ width: 0, opacity: 0 }}
+                        animate={{ width: 240, opacity: 1 }}
+                        exit={{ width: 0, opacity: 0 }}
+                        className="overflow-hidden mr-2"
+                      >
+                        <input
+                          type="text"
+                          placeholder="Search products..."
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className="w-60 px-3 py-1.5 bg-zinc-100 rounded-xl text-sm outline-none focus:ring-1 focus:ring-babyCare/30"
+                          autoFocus
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  <button
+                    onClick={() => setIsSearchOpen(!isSearchOpen)}
+                    className="hover:text-zinc-900 transition flex items-center"
+                    aria-label={isSearchOpen ? "Close search" : "Open search"}
+                  >
+                    <Icon
+                      icon={
+                        isSearchOpen
+                          ? "material-symbols:close-rounded"
+                          : "mingcute:search-line"
+                      }
+                      width="24"
+                      height="24"
+                    />
+                  </button>
+
+                  {/* Desktop Results Dropdown */}
+                  <AnimatePresence>
+                    {isSearchOpen && filteredProducts.length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute top-full right-0 mt-4 w-[300px] bg-white rounded-2xl shadow-xl border border-zinc-100 overflow-hidden z-[60]"
+                      >
+                        <div className="p-2 space-y-1">
+                          {filteredProducts.map((product) => (
+                            <Link
+                              key={`${product.type}-${product.id}`}
+                              href={product.href}
+                              onClick={() => {
+                                setIsSearchOpen(false);
+                                setSearchQuery("");
+                              }}
+                              className="flex items-center gap-3 p-3 hover:bg-zinc-50 rounded-xl transition-colors group"
+                            >
+                              <div className="size-10 bg-zinc-100 rounded-lg shrink-0 relative overflow-hidden">
+                                <img
+                                  src={product.image}
+                                  alt={product.name}
+                                  className="size-full object-contain p-1 group-hover:scale-110 transition-transform"
+                                />
+                              </div>
+                              <div className="min-w-0">
+                                <p className="text-xs font-bold text-zinc-900 truncate">
+                                  {product.name}
+                                </p>
+                                <p className="text-[10px] text-zinc-500 font-medium lowercase">
+                                  {product.category}
+                                </p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
 
                 <button className="hover:text-zinc-900 transition relative">
                   <Icon icon="logos:whatsapp-icon" width="24" height="24" />
@@ -208,17 +363,22 @@ export default function Navbar() {
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`text-sm font-medium transition whitespace-nowrap ${
-                      isActive ? "text-black" : "text-zinc-500 hover:text-black"
-                    }`}
+                    className={cn(
+                      "text-sm font-medium transition whitespace-nowrap",
+                      isActive
+                        ? isPersonalSection
+                          ? "text-personalCare! border-b-2"
+                          : "text-foreground! border-b-2"
+                        : "",
+                    )}
                   >
                     {item.label}
-                    {isActive && (
+                    {/* {isActive && (
                       <motion.div
                         layoutId="activeTab"
                         className="h-0.5 bg-black w-full rounded-full mt-0.5"
                       />
-                    )}
+                    )} */}
                   </Link>
                 );
               })}
@@ -228,50 +388,46 @@ export default function Navbar() {
       </motion.nav>
 
       {/* Mobile Navbar - Top */}
-      <motion.nav
-        variants={navbarVariants}
-        animate={isVisible ? "visible" : "hidden"}
-        initial="visible"
-        className="lg:hidden fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200 shadow-md"
-      >
-        <div className="flex justify-between items-center h-full px-4">
-          {/* Humburger */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 hover:bg-zinc-100 rounded-full transition"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+      {isSmallerDevice && (
+        <motion.nav
+          variants={navbarVariants}
+          animate={isVisible ? "visible" : "hidden"}
+          initial="visible"
+          className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200"
+        >
+          <div
+            className="flex justify-between items-center h-full px-4"
+            ref={isSmallerDevice ? searchRef : null}
           >
-            <Icon
-              icon={
-                isMenuOpen
-                  ? "material-symbols:close-rounded"
-                  : "material-symbols:menu-rounded"
-              }
-              className="text-3xl font-semibold"
-            />
-          </button>
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/logo.png"
-              alt="Zuvara Logo"
-              width={90}
-              height={90}
-              className="object-contain"
-              priority
-            />
-          </Link>
-
-          {/* <div className="flex gap-4"> */}
-          {/* Search Icon */}
-          <button className="flex items-center">
-            <Icon icon="iconamoon:search-light" width="24" height="24" />
-          </button>
-
-          {/* <Icon icon="logos:whatsapp-icon" width="24" height="24" /> */}
-          {/* </div> */}
-        </div>
-      </motion.nav>
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/logo.png"
+                alt="Zuvara Logo"
+                width={90}
+                height={90}
+                className="object-contain"
+                priority
+              />
+            </Link>
+            {/* Humburger */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="py-2 hover:bg-zinc-100 rounded-full transition"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            >
+              <Icon
+                icon={
+                  isMenuOpen
+                    ? "material-symbols:close-rounded"
+                    : "material-symbols:menu-rounded"
+                }
+                className="text-3xl font-semibold"
+              />
+            </button>
+          </div>
+        </motion.nav>
+      )}
 
       {/* Mobile Sidebar Menu */}
       <AnimatePresence>
@@ -283,31 +439,31 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMenuOpen(false)}
-              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 top-[50px]"
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-100 top-[50px]"
             />
 
             {/* Menu Content */}
             <motion.div
-              initial={{ x: "-100%" }}
+              initial={{ x: "100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
+              exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-[50px] left-0 bottom-0 w-[70%] max-w-sm bg-white z-45 shadow-xl p-4 flex flex-col border-r border-zinc-100"
+              className="fixed top-[50px] right-0 bottom-0 w-[70%] max-w-sm bg-white z-110 shadow-xl p-4 flex flex-col border-r border-zinc-100"
             >
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-0">
                 {filteredMenuItems.map((item, index) => {
                   const isActive = checkIsActive(item.href);
                   return (
                     <motion.div
                       key={item.label}
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, x: 50 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + index * 0.05 }}
+                      transition={{ delay: 0.1 + index * 0.1 }}
                     >
                       <Link
                         href={item.href}
                         onClick={() => setIsMenuOpen(false)}
-                        className={`text-lg font-medium transition flex items-center justify-between p-2 rounded-lg ${
+                        className={`transition flex items-center justify-between p-2 rounded-lg ${
                           isActive
                             ? isPersonalSection
                               ? "bg-personalCare/50 text-white!"
@@ -323,7 +479,14 @@ export default function Navbar() {
                 })}
 
                 {(isBabySection || isPersonalSection) && (
-                  <div className="pt-4 mt-2 border-t border-zinc-100">
+                  <motion.div
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: 0.1 + filteredMenuItems.length * 0.1,
+                    }}
+                    className="pt-4 mt-2 border-t border-zinc-100"
+                  >
                     <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-3 px-2">
                       Switch to
                     </p>
@@ -366,19 +529,33 @@ export default function Navbar() {
                         className="text-zinc-400"
                       />
                     </Link>
-                  </div>
+                  </motion.div>
                 )}
 
                 <div className="pt-4 border-t border-zinc-100">
                   <div className="flex flex-col gap-4">
-                    <div className="flex items-center gap-3 text-zinc-600">
+                    <motion.div
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        delay: 0.1 + (filteredMenuItems.length + 1) * 0.1,
+                      }}
+                      className="flex items-center gap-3 text-zinc-600"
+                    >
                       <Icon icon="mdi:headset" width={20} />
                       <span className="text-sm">Customer Support</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-zinc-600">
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        delay: 0.1 + (filteredMenuItems.length + 2) * 0.1,
+                      }}
+                      className="flex items-center gap-3 text-zinc-600"
+                    >
                       <Icon icon="logos:whatsapp-icon" width={20} />
                       <span className="text-sm">+977 9876543210</span>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               </div>
@@ -392,7 +569,7 @@ export default function Navbar() {
         variants={tabNavVariants}
         animate={isVisible ? "visible" : "hidden"}
         initial="visible"
-        className="lg:hidden fixed bottom-0 w-full z-50 bg-transparent border-t border-zinc-200 py2"
+        className="lg:hidden fixed bottom-0 w-full z-50 bg-transparent border-t border-zinc-200"
       >
         <div className="flex justify-between items-center w-full bg-white">
           {mobileMenuItems.map((item) => {
@@ -408,31 +585,49 @@ export default function Navbar() {
               <Link
                 key={item.label}
                 href={item.href}
-                className={`relative flex flex-col items-center justify-center gap-1 rounded-full hover:bg-zinc-100 transition px-6 py-2`}
+                className={cn(
+                  "relative flex items-center justify-center gap-1 rounded-full hover:bg-zinc-100 transition px-4 py-4",
+                  isActive
+                    ? isPersonalSection
+                      ? "bg-ternary/30 py-2"
+                      : "bg-babyCare/50 py-2"
+                    : "",
+                )}
               >
                 <Icon
                   icon={item.icon}
-                  width="24"
-                  height="24"
+                  width="28"
+                  height="28"
                   className={`text-2xl ${
                     finalIsActive
                       ? isPersonalSection
                         ? "text-personalCare"
-                        : "text-babyCare"
-                      : ""
+                        : "text-foreground"
+                      : "text-zinc-400"
                   }`}
                 />
-                <span
-                  className={`text-sm whitespace-nowrap font-medium relative ${
-                    finalIsActive
-                      ? isPersonalSection
-                        ? "text-personalCare"
-                        : "text-babyCare"
-                      : ""
-                  }`}
-                >
-                  {item.label}
-                </span>
+                {isActive && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className={cn(
+                      "h-0.5 w-[60%] rounded-full",
+                      isPersonalSection ? "bg-personalCare" : "bg-foreground",
+                    )}
+                  />
+                )}
+                {isActive && (
+                  <span
+                    className={`text-sm whitespace-nowrap font-medium relative ${
+                      finalIsActive
+                        ? isPersonalSection
+                          ? "text-personalCare"
+                          : "text-foreground"
+                        : ""
+                    }`}
+                  >
+                    {item.label}
+                  </span>
+                )}
                 {/* {item.badge !== undefined && item.badge > 0 && (
                   <span className="absolute top-0 right-0 w-5 h-5 text-xs rounded-full flex items-center justify-center">
                     {item.badge}

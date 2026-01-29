@@ -9,7 +9,6 @@ export const clothingProducts: Product[] = [
     reviews: 156,
     image: "/images/clothings/Co-OrdSet-Fruit-Punch.png",
     category: "Baby Clothing",
-    inStock: true,
     variants: [
       {
         id: 1,
@@ -45,7 +44,6 @@ export const clothingProducts: Product[] = [
     reviews: 156,
     image: "/images/clothings/Co-OrdSet-Fruit-Punch.png",
     category: "Baby Clothing",
-    inStock: true,
     variants: [
       {
         id: 1,
@@ -81,7 +79,6 @@ export const clothingProducts: Product[] = [
     reviews: 156,
     image: "/images/clothings/Co-OrdSet-Fruit-Punch.png",
     category: "Baby Clothing",
-    inStock: true,
     variants: [
       {
         id: 1,
@@ -117,7 +114,6 @@ export const clothingProducts: Product[] = [
     reviews: 156,
     image: "/images/clothings/Co-OrdSet-Fruit-Punch.png",
     category: "Baby Clothing",
-    inStock: true,
     variants: [
       {
         id: 1,

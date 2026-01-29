@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ProductCard from "../common-ui/ProductCard";
+import Image from "next/image";
 import { clothingProducts } from "@/constants/babyClothes";
 import { strollerRockerProducts } from "@/constants/strollerRockerProduct";
 import type { Product as ClothingProduct } from "@/type/babyClothesType";
@@ -13,6 +14,15 @@ const ProductList = () => {
     "clothing",
   );
 
+  const tabs = [
+    { id: "clothing", label: "Clothing", icon: "/icons/clothes.png" },
+    {
+      id: "stroller",
+      label: "Strollers & Rockers",
+      icon: "/icons/stroller.png",
+    },
+  ] as const;
+
   const products =
     activeTab === "clothing"
       ? (clothingProducts as unknown as ClothingProduct[])
@@ -22,26 +32,37 @@ const ProductList = () => {
     <section className="container lg:min-h-screen mx-auto py-8 px-4 sm:px-6 lg:px-6 max-w-7xl">
       {/* Tabs */}
       <div className="flex gap-4 mb-8 pt-4 justify-center">
-        <button
-          onClick={() => setActiveTab("clothing")}
-          className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-            activeTab === "clothing"
-              ? "bg-foreground text-white shadow-lg"
-              : "bg-zinc-100 text-foreground hover:bg-zinc-200"
-          }`}
-        >
-          Clothings
-        </button>
-        <button
-          onClick={() => setActiveTab("stroller")}
-          className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-            activeTab === "stroller"
-              ? "bg-foreground text-white shadow-lg"
-              : "bg-zinc-100 text-foreground hover:bg-zinc-200"
-          }`}
-        >
-          Strollers & Rockers
-        </button>
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`px-4 lg:px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 ${
+              activeTab === tab.id
+                ? "bg-foreground text-white shadow-lg"
+                : "bg-zinc-100 text-foreground hover:bg-zinc-200"
+            }`}
+          >
+            <div className="relative w-6 h-6 shrink-0">
+              <Image
+                src={tab.icon}
+                alt={tab.label}
+                fill
+                className={`object-contain transition-all duration-300 ${
+                  activeTab === tab.id ? "brightness-0 invert" : ""
+                }`}
+              />
+            </div>
+            {activeTab === tab.id && (
+              <motion.span
+                initial={{ opacity: 0, width: 0 }}
+                animate={{ opacity: 1, width: "auto" }}
+                className="overflow-hidden whitespace-nowrap"
+              >
+                {tab.label}
+              </motion.span>
+            )}
+          </button>
+        ))}
       </div>
 
       <motion.div

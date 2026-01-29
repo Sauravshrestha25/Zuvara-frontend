@@ -20,6 +20,7 @@ import type {
   Product as PersonalProduct,
   Variant as PersonalVariant,
 } from "@/type/personalCareProductType";
+import { useMediaQuery } from "react-responsive";
 
 type ProductType =
   | BabyProduct
@@ -48,6 +49,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     null,
   );
   const { variants } = product;
+  const isSmallerDevice = useMediaQuery({ maxWidth: 1000 });
 
   // Type assertion since variants structure might differ slightly or just be compatible
   // We assume Variant structure is compatible enough for this UI across types
@@ -74,7 +76,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     >
       <div
         onClick={handleCardClick}
-        className={`group h-full flex flex-col bg-white rounded-2xl border border-transparent overflow-hidden transition-all duration-400 relative cursor-pointer ${
+        className={`group h-full flex flex-col rounded-lg lg:rounded-2xl border border-zinc-100 overflow-hidden transition-all duration-400 relative cursor-pointer p-1 md:p-1.5 lg:p-2 ${
           activeTab === "baby"
             ? "hover:border-foreground"
             : activeTab === "personal"
@@ -84,7 +86,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       >
         {/* Best Seller Badge */}
         <div
-          className={`absolute top-3 left-3 z-10 bg-white px-2 py-1 rounded text-xs font-medium shadow-sm ${
+          className={`absolute top-2 lg:top-3 left-2 lg:left-3 z-10 px-2 py-1 rounded text-xs font-medium shadow-sm ${
             activeTab === "personal" ? "text-personalCare" : "text-foreground"
           }`}
         >
@@ -92,27 +94,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Product Image Container */}
-        <div className="relative aspect-square overflow-hidden h-40 md:h-60 lg:h-72 shrink-0">
+        <div className="relative aspect-square overflow-hidden h-40 md:h-60 lg:h-72 shrink-0 bg-zinc-100 rounded-md lg:rounded-lg">
           <Image
             src={selectedVariant?.image || product.image}
             alt={product.name}
             fill
-            className="object-contain transition-transform duration-300"
+            className="object-contain transition-transform duration-300 p-4"
           />
-
-          {/* Stock Status */}
-          {!product.inStock && (
-            <div className="absolute inset-0 bg-foreground/70 flex items-center justify-center">
-              <span className="text-white font-semibold text-sm">
-                Out of Stock
-              </span>
-            </div>
-          )}
         </div>
 
-        {/* Variant Thumbnails - Below Image */}
-        {variants && variants.length > 0 && (
-          <div className="px-3 py-2 bg-zinc-100 border-t border-zinc-100 w-full">
+        {/* Variant Thumbnails for desktop - Below Image */}
+        {!isSmallerDevice && variants && variants.length > 0 && (
+          <div className="px-3 py-2 w-full">
             <div className="flex gap-2 items-center justify-start lg:justify-center overflow-x-auto w-full">
               <div className="hidden lg:flex items-center justify-center pt-2">
                 {variants && variants.length > 0 && (
@@ -169,16 +162,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
         )}
 
         {/* Product Info */}
-        <div className="flex-1 p-4 flex flex-col bg-zinc-100">
+        <div className="flex-1 pt-2 lg:pt-3 flex flex-col bg-white">
           {/* Name */}
           <h3 className="text-sm lg:text-base font-semibold text-zinc-900 mb-2 line-clamp-2">
             {product.name}
           </h3>
 
-          {/* Minimal View details text (not a link anymore, just a hint) */}
-          <p className="text-xs text-zinc-500 group-hover:text-zinc-900 font-medium transition-colors">
-            View details →
-          </p>
+          {!isSmallerDevice && (
+            <p className="text-xs text-zinc-500 group-hover:text-zinc-900 font-medium transition-colors">
+              View details →
+            </p>
+          )}
         </div>
       </div>
     </motion.div>

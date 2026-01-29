@@ -31,7 +31,7 @@ const SectionHeading = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className={`${alignClasses} mb-4 ${className}`}
+      className={`${alignClasses} mb-4 lg:space-y-2 ${className}`}
     >
       <h2
         className={`text-2xl lg:text-4xl font-semibold text-foreground font-poppins ${titleClassName}`}
@@ -45,7 +45,7 @@ const SectionHeading = ({
       </h2>
       {description && (
         <p
-          className={`text-lg text-zinc-600 text-center max-w-2xl mt-2 mx-auto ${descClassName}`}
+          className={`text-lg text-zinc-600 text-center max-w-2xl mx-auto ${descClassName}`}
         >
           {description}
         </p>

@@ -9,7 +9,6 @@ export const strollerRockerProducts: Product[] = [
     image: "/images/strollerRocker/rocker1.png",
     rating: 4.8,
     reviews: 42,
-    inStock: true,
     variants: [
       {
         id: 1,
@@ -36,7 +35,6 @@ export const strollerRockerProducts: Product[] = [
     image: "/images/strollerRocker/stroller-blue-1.png",
     rating: 4.5,
     reviews: 28,
-    inStock: true,
     variants: [
       {
         id: 1,

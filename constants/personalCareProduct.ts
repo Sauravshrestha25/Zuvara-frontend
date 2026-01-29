@@ -8,9 +8,8 @@ export const personalCareProducts: Product[] = [
     rating: 4.8,
     reviews: 423,
     productImage: "/images/personalCare/period-panties.png",
-    image: "/images/personalCare/period-panties-pack-s.png",
+    image: "/images/personalCare/period-panties-pack.png",
     category: "Sanitary Pads",
-    inStock: true,
     variants: [
       {
         id: 1,
@@ -98,9 +97,8 @@ export const personalCareProducts: Product[] = [
     rating: 4.8,
     reviews: 423,
     productImage: "/images/personalCare/sanitary-pad.png",
-    image: "/images/personalCare/sanitary-pads-pack-s.png",
+    image: "/images/personalCare/sanitary-pads-pack.png",
     category: "Sanitary Pads",
-    inStock: true,
     variants: [
       {
         id: 1,
@@ -188,9 +186,8 @@ export const personalCareProducts: Product[] = [
     rating: 4.8,
     reviews: 423,
     productImage: "/images/personalCare/sanitary-pad.png",
-    image: "/images/personalCare/sanitary-pads-pack-s.png",
+    image: "/images/personalCare/sanitary-pads-pack.png",
     category: "Sanitary Pads",
-    inStock: true,
     variants: [
       {
         id: 1,

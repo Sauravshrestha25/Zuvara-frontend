@@ -7,10 +7,18 @@ import { Icon } from "@iconify/react";
 import { useSection } from "@/app/providers/SectionProvider";
 import { cn } from "@/lib/utils";
 import { contactLists, socialLinks } from "@/constants";
+import { use, useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 export default function Footer() {
   const { activeSection } = useSection();
   const isPersonal = activeSection === "personal";
+  const isSmallerDevice = useMediaQuery({ maxWidth: 1000 });
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const footerSections = [
     // {
@@ -70,7 +78,10 @@ export default function Footer() {
         },
         {
           label: "Baby Products",
-          href: "/babyCareProduct",
+          href:
+            isMounted && isSmallerDevice
+              ? "/babyCareProductMobile"
+              : "/babyCareProduct",
         },
         {
           label: "Baby Gear",
@@ -90,13 +101,13 @@ export default function Footer() {
 
   return (
     <footer>
-      <div className="container mx-auto px-4 lg:px-6 max-w-7xl pt-8 pb-8 lg:pb-0 lg:pt-16">
+      <div className="container mx-auto px-4 lg:px-6 max-w-7xl pt-8 pb-16 lg:pb-0 lg:pt-16">
         {/* Section Switcher */}
-        <div className="flex justify-center my-8">
+        <div className="flex justify-center my-4 lg:my-8 w-full">
           <Link
             href={!isPersonal ? "/personalCare" : "/babyCare"}
             className={cn(
-              "group flex items-center gap-4 p-3 pr-6 rounded-2xl transition-all duration-300 border bg-white/60 backdrop-blur-sm hover:bg-white/80 hover:shadow-lg hover:-translate-y-1",
+              "group flex items-center gap-4 p-3 rounded-2xl transition-all duration-300 border bg-white/60 backdrop-blur-sm hover:bg-white/80 hover:shadow-lg hover:-translate-y-1 w-full lg:w-fit",
               isPersonal ? "border-personalCare/50" : "border-babyCare/50",
             )}
           >
@@ -106,13 +117,12 @@ export default function Footer() {
                 isPersonal ? "bg-personalCare" : "bg-babyCare",
               )}
             >
-              <Icon
-                icon={
-                  !isPersonal
-                    ? "material-symbols:face-retouching-natural-rounded"
-                    : "mingcute:baby-fill"
+              <img
+                src={
+                  isPersonal ? "/icons/xl.png" : "/icons/sanitary-napkin.png"
                 }
-                width="28"
+                alt=""
+                className={cn("size-8", isPersonal ? "invert" : "")}
               />
             </div>
             <div className="flex-1">
@@ -125,7 +135,10 @@ export default function Footer() {
             </div>
             <Icon
               icon="icon-park-outline:switch"
-              className="text-zinc-500 group-hover:translate-x-1 transition-transform"
+              className={cn(
+                "group-hover:translate-x-1 transition-transform",
+                isPersonal ? "text-personalCare" : "text-foreground",
+              )}
               width={24}
             />
           </Link>
@@ -135,7 +148,7 @@ export default function Footer() {
           className={cn(
             "flex flex-col gap-2 text-center md:text-left md:flex-row items-center justify-between rounded-lg md:rounded-full p-4 md:p-2",
             isPersonal
-              ? "bg-ternary text-zinc-200"
+              ? "bg-ternary text-white"
               : "bg-linear-to-l from-foreground to-secondary text-white",
           )}
         >
@@ -157,37 +170,39 @@ export default function Footer() {
         </div>
 
         {/* Newsletter & Contact Section */}
-        <div className="py-8 grid grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* quick links */}
-          <div className="">
-            {footerSections.map((section, index) => (
-              <div key={index}>
-                <h3
-                  className={cn(
-                    "text-sm lg:text-base font-semibold mb-2 lg:mb-4",
-                    isPersonal ? "text-personalCare" : "text-foreground",
-                  )}
-                >
-                  {section.title}
-                </h3>
-                <ul className="space-y-1 lg:space-y-2">
-                  {section.links.map((link, linkIndex) => (
-                    <li key={linkIndex}>
-                      <Link
-                        href={link.href}
-                        className={cn(
-                          "text-sm lg:text-base hover:text-foreground! hover:underline! transition whitespace-nowrap",
-                          isPersonal ? "text-zinc-600!" : "text-zinc-600!",
-                        )}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          {!isSmallerDevice && (
+            <div className="">
+              {footerSections.map((section, index) => (
+                <div key={index}>
+                  <h3
+                    className={cn(
+                      "text-sm lg:text-base font-semibold mb-2 lg:mb-4",
+                      isPersonal ? "text-personalCare" : "text-foreground",
+                    )}
+                  >
+                    {section.title}
+                  </h3>
+                  <ul className="space-y-1 lg:space-y-2">
+                    {section.links.map((link, linkIndex) => (
+                      <li key={linkIndex}>
+                        <Link
+                          href={link.href}
+                          className={cn(
+                            "text-sm lg:text-base hover:text-foreground! hover:underline! transition whitespace-nowrap",
+                            isPersonal ? "text-zinc-600!" : "text-zinc-600!",
+                          )}
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )}
           {/* Visit Us */}
           <div>
             <h3
@@ -198,10 +213,12 @@ export default function Footer() {
             >
               Visit Us
             </h3>
-            <div className="space-y-3">
+            <div className="flex flex-row lg:flex-col gap-4">
               {contactLists.slice(0, 2).map((contact) => (
                 <div key={contact.id} className="">
-                  <p>{contact.title}</p>
+                  <p className="font-semibold lg:font-normal">
+                    {contact.title}
+                  </p>
                   <Link href={contact.link}>
                     <p className="text-sm hover:underline">{contact.desc}</p>
                   </Link>

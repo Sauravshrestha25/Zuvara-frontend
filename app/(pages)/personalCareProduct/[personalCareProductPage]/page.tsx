@@ -60,34 +60,36 @@ const PersonalCareProductDetailPage = () => {
   }
 
   return (
-    <div className="min-h-screen pt-4 lg:pt-12 pb-16">
+    <div className="min-h-screen pt-4 lg:pt-12 lg:pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        {/* Back Button */}
-        <button
-          onClick={() => router.back()}
-          className="group flex items-center gap-2 text-zinc-500 hover:text-white hover:bg-ternary transition-colors mb-3 lg:mb-6 px-2 py-1 rounded-full font-bold text-sm lg:tracking-widest"
-        >
-          <div className="rounded-full transition-colors">
-            <ArrowLeft size={16} />
-          </div>
-          Back
-        </button>
-
-        {/* Breadcrumbs */}
-        <nav className="hidden lg:flex items-center gap-2 text-sm text-zinc-700 mb-8 overflow-x-auto whitespace-nowrap pb-2">
-          <Link href="/" className="hover:text-foreground transition-colors">
-            Home
-          </Link>
-          <ChevronRight size={14} />
-          <Link
-            href="/personalCareProduct"
-            className="hover:text-foreground transition-colors"
+        {isSmallerDevice ? (
+          // {/* Back Button */}
+          <button
+            onClick={() => router.back()}
+            className="group flex items-center gap-2 text-zinc-500 hover:text-white hover:bg-ternary transition-colors mb-3 lg:mb-6 px-2 py-1 rounded-full font-bold text-sm lg:tracking-widest"
           >
-            Personal Care
-          </Link>
-          <ChevronRight size={14} />
-          <span className="text-ternary font-medium">{product.name}</span>
-        </nav>
+            <div className="rounded-full transition-colors">
+              <ArrowLeft size={16} />
+            </div>
+            Back
+          </button>
+        ) : (
+          // {/* Breadcrumbs */}
+          <nav className="hidden lg:flex items-center gap-2 text-sm text-zinc-700 mb-8 overflow-x-auto whitespace-nowrap pb-2">
+            <Link href="/" className="hover:text-foreground transition-colors">
+              Home
+            </Link>
+            <ChevronRight size={14} />
+            <Link
+              href="/personalCareProduct"
+              className="hover:text-foreground transition-colors"
+            >
+              Personal Care
+            </Link>
+            <ChevronRight size={14} />
+            <span className="text-ternary font-medium">{product.name}</span>
+          </nav>
+        )}
 
         <div className="flex gap-4 lg:gap-8">
           {/* Left Column: Image Area */}
@@ -105,18 +107,11 @@ const PersonalCareProductDetailPage = () => {
                 className="object-contain p-4 md:p-12 transition-all duration-500"
                 priority
               />
-              {!product.inStock && (
-                <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] flex items-center justify-center">
-                  <span className="px-6 py-3 bg-red-500 text-white font-bold rounded-full shadow-lg">
-                    OUT OF STOCK
-                  </span>
-                </div>
-              )}
             </motion.div>
           </div>
 
           {/* Right Column: Product Info */}
-          <div className="w-1/2 flex flex-col justify-center lg:justify-start">
+          <div className="w-1/2 flex flex-col">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -126,12 +121,6 @@ const PersonalCareProductDetailPage = () => {
                 <span className="px-3 py-1 bg-ternary text-zinc-100 rounded-full">
                   {product.category}
                 </span>
-                {product.inStock && (
-                  <span className="px-3 py-1 bg-green-50 text-green-700 rounded-full flex items-center gap-1">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                    In Stock
-                  </span>
-                )}
               </div>
 
               <h1 className="text-xl md:text-4xl lg:text-6xl font-black text-zinc-900 mb-3 lg:mb-6 leading-tight tracking-tight">

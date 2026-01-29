@@ -53,4 +53,67 @@ const contactLists = [
   },
 ];
 
-export { socialLinks, contactLists };
+const blogLists = [
+  {
+    id: 1,
+    title: "Essential Baby Care Tips for New Parents",
+    desc: "A comprehensive guide on how to keep your newborn happy, healthy, and comfortable during their first few months.",
+    image: "/images/baby/baby23.png",
+    category: "Parenting",
+    author: "Lana Steiner",
+    authorImage: "/images/authors/author1.png",
+    date: "18 Jan 2024",
+  },
+  {
+    id: 2,
+    title: "Choosing the Right Fabric for Baby Clothes",
+    desc: "Why organic cotton is the best choice for your baby's sensitive skin and how to spot high-quality materials.",
+    image: "/images/baby/baby21.png",
+    category: "Clothing",
+    author: "Jonathan Wills",
+    authorImage: "/images/authors/author2.png",
+    date: "19 Jan 2024",
+  },
+  {
+    id: 3,
+    title: "The Importance of 360 Elasticity in Diapers",
+    desc: "How flexible waistbands prevent leakages and give your baby the freedom to move and explore without discomfort.",
+    image: "/images/baby/baby22.png",
+    category: "Diapering",
+    author: "Eve Wilkins",
+    authorImage: "/images/authors/author3.png",
+    date: "20 Jan 2024",
+  },
+  {
+    id: 4,
+    title: "Mastering the Art of Night-time Comfort",
+    desc: "Tips for establishing a soothing bedtime routine and ensuring your baby stays dry throughout the night.",
+    image: "/images/baby/baby27.png",
+    category: "Sleep",
+    author: "Lana Steiner",
+    authorImage: "/images/authors/author1.png",
+    date: "21 Jan 2024",
+  },
+  {
+    id: 5,
+    title: "Safe and Smooth Travel with Your Infant",
+    desc: "What to look for in a travel-friendly stroller and how to pack efficiently for a stress-free trip with your little one.",
+    image: "/images/baby/baby20.png",
+    category: "Travel",
+    author: "Jonathan Wills",
+    authorImage: "/images/authors/author2.png",
+    date: "22 Jan 2024",
+  },
+  {
+    id: 6,
+    title: "Skin Protection: Preventing Diaper Rashes",
+    desc: "Simple daily habits and product choices that act as a shield against skin irritation for your baby.",
+    image: "/images/baby/baby24.png",
+    category: "Health",
+    author: "Eve Wilkins",
+    authorImage: "/images/authors/author3.png",
+    date: "23 Jan 2024",
+  },
+];
+
+export { socialLinks, contactLists, blogLists };

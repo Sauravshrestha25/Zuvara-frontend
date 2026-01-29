@@ -62,10 +62,10 @@ const HeroSection = () => {
   );
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative lg:min-h-screen flex lg:items-center overflow-hidden">
       <div
         ref={containerRef}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 flex flex-col lg:flex-row lg:items-center"
+        className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 flex flex-col lg:flex-row lg:items-center pt-4 md:pt-0"
       >
         <div className="lg:w-1/2">
           <motion.div
