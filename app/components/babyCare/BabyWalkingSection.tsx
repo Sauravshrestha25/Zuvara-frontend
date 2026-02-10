@@ -33,7 +33,7 @@ const whyUsLists = [
 
 const BabyWalkingSection = () => {
   return (
-    <div className="relative w-screen bg-babyCare/40 py-4">
+    <div className="relative w-screen bg-babyCare/20 py-4">
       <section className="overflow-hidden flex flex-col lg:flex-row px-4 sm:px-6 lg:px-6 mx-auto! max-w-7xl">
         <div className="w-full space-y-4 lg:space-y-0">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full">

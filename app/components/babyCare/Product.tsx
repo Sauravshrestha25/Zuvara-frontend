@@ -36,7 +36,7 @@ const Product = () => {
   return (
     <>
       {/* <BigImage /> */}
-      <section className="h-fit md:h-[40vh] lg:h-[60vh] xl:h-[50vh] lg:bg-babyCare/40 flex items-end relative">
+      <section className="h-fit md:h-[40vh] lg:h-[60vh] xl:h-[50vh] lg:bg-babyCare/20 flex items-end relative">
         {/* top curve border */}
         {!isMobile && (
           <div className="custom-shape-divider-top">

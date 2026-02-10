@@ -11,6 +11,7 @@ import { contactLists, socialLinks } from "@/constants";
 import { use, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import FooterLogo from "./FooterLogo";
+import CrawlingBaby from "./CrawlingBaby";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -96,20 +97,20 @@ export default function Footer() {
             />
           </Link>
         </div>
-
         <div
           className={cn(
-            "flex flex-col gap-2 text-center md:text-left md:flex-row items-center justify-between rounded-lg md:rounded-full p-4 md:p-2",
+            "relative flex flex-col gap-2 text-center md:text-left md:flex-row items-center justify-between rounded-lg md:rounded-full p-4 md:p-2",
             isPersonal
               ? "bg-ternary text-white"
               : "bg-linear-to-l from-foreground to-secondary text-white",
           )}
         >
+          <CrawlingBaby />
           <h3 className="text-xl md:pl-4">
             Zuvara would be the perfect choice for your baby care needs!
           </h3>
           <Link
-            href="/shop"
+            href="/babyCareProduct"
             className={cn(
               "bg-white px-4 py-2 rounded-full font-semibold hover:text-white! transition flex items-center gap-2",
               isPersonal
@@ -118,7 +119,7 @@ export default function Footer() {
             )}
           >
             <Icon icon="bitcoin-icons:cart-filled" width="24" height="24" />
-            Shop Now
+            View Products
           </Link>
         </div>
 

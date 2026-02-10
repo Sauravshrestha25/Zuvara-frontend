@@ -208,13 +208,20 @@ const StrollerRockerProductDetailPage = () => {
                         <button
                           key={v.id}
                           onClick={() => setSelectedVariant(v)}
-                          className={`group relative block p-2 lg:p-4 rounded-2xl transition-all duration-300 ${
+                          className={`group relative block p-2 rounded-2xl transition-all duration-300 ${
                             selectedVariant?.id === v.id
                               ? "bg-foreground text-white"
                               : "hover:border-zinc-300 text-zinc-600 bg-zinc-50"
                           }`}
                         >
-                          <div className="flex flex-col gap-1 items-center">
+                          <div className="flex gap-2 items-center">
+                            <Image
+                              src={v.image}
+                              alt={v.color}
+                              width={40}
+                              height={40}
+                              className="object-contain bg-white rounded-xl"
+                            />
                             <span className="font-bold text-sm lg:text-base leading-none mb-1 text-center">
                               {v.color}
                             </span>

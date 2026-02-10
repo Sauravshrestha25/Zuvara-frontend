@@ -1,65 +1,72 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import Image from "next/image";
 
 const CrawlingBaby = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [bottomPosition, setBottomPosition] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { margin: "-50px", once: true });
 
   useEffect(() => {
+    if (!isInView) return;
+
     let timeoutId: NodeJS.Timeout;
 
     const showBaby = () => {
-      // Random bottom position within a small range to make it look "randomly" on the screen but still at the bottom
-      // Using a range from 0 to 10% of the screen height
-      setBottomPosition(Math.floor(Math.random() * 10));
-
       setIsVisible(true);
 
-      // Duration of animation is 8s, we hide after it finishes
       setTimeout(() => {
         setIsVisible(false);
-      }, 15000);
+      }, 25000);
 
-      // Random interval between 15-20 seconds to appear again
       const nextInterval =
-        Math.floor(Math.random() * (20000 - 15000 + 1)) + 15000;
-      timeoutId = setTimeout(showBaby, nextInterval + 15000); // Add duration to interval
+        Math.floor(Math.random() * (30000 - 25000 + 1)) + 25000;
+      timeoutId = setTimeout(showBaby, nextInterval + 25000);
     };
 
-    // Start the first appearance after a short initial delay
-    const initialTimeout = setTimeout(showBaby, 10000);
+    const initialTimeout = setTimeout(showBaby, 500);
 
     return () => {
       clearTimeout(initialTimeout);
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, []);
+  }, [isInView]);
 
   return (
-    <div className="absolute inset-0 w-full h-full pointer-events-none z-999 overflow-hidden">
+    <div
+      ref={containerRef}
+      className="absolute inset-x-0 top-0 w-full pointer-events-none z-100"
+    >
       <AnimatePresence>
         {isVisible && (
           <motion.div
             key="crawling-baby"
             initial={{ left: "-100px" }}
             animate={{ left: "100%" }}
-            transition={{ duration: 15, ease: "linear" }}
+            transition={{ duration: 30, ease: "linear" }}
+            viewport={{ once: true }}
             style={{
-              bottom: `${bottomPosition}%`,
               minWidth: "max-content",
             }}
-            className="absolute bottom-0 h-20 lg:h-44 w-auto pointer-events-none"
+            className="absolute -top-12 lg:-top-16 h-12 lg:h-20 w-auto pointer-events-none"
           >
-            <video
-              src="/videos/babyCrawling.mp4"
+            <Image
+              src="/videos/crawling.gif"
+              alt="Crawling Baby"
+              width={100}
+              height={100}
+              className="h-full w-auto object-contain"
+            />
+            {/* <video
+              src="/videos/babyCrawling3.webm"
               autoPlay
               muted
               loop
               playsInline
               className="h-full w-auto object-contain"
-            />
+            /> */}
           </motion.div>
         )}
       </AnimatePresence>

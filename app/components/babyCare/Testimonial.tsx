@@ -66,7 +66,7 @@ const Testimonial = () => {
 
   return (
     <section
-      className="relative bg-babyCare/40 py-4 lg:py-8 min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative bg-babyCare/20 py-4 lg:py-8 min-h-screen flex items-center justify-center overflow-hidden"
       style={{
         clipPath: "ellipse(100% 100% at 50% 100%)",
       }}
