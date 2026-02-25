@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Facebook, Instagram, Music, MessageCircle } from "lucide-react";
+import {  Music, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { useSection } from "@/app/providers/SectionProvider";
 import { cn } from "@/lib/utils";
 import { contactLists, socialLinks } from "@/constants";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import FooterLogo from "./FooterLogo";
 import CrawlingBaby from "./CrawlingBaby";
@@ -53,9 +53,9 @@ export default function Footer() {
 
   return (
     <footer
-      className={cn(isPersonal ? "bg-personalCare/10" : "bg-babyCare/20")}
+      className={cn(isPersonal ? "bg-personalCare/10" : "bg-babyCare")}
     >
-      <div className="container mx-auto px-4 lg:px-6 max-w-7xl pt-8 pb-16 lg:pb-0">
+      <div className="container mx-auto px-4 lg:px-0 w-[90%] pt-8 pb-16 lg:pb-0">
         {/* Section Switcher */}
         <div className="flex justify-center my-4 lg:my-8 w-full">
           <Link

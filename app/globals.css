@@ -19,10 +19,6 @@
   --babyCare: #bcddc4;
   --personalCare: #8200db;
   --ternary: #9352bf;
-  --font-geist-sans: "Poppins", sans-serif;
-  --montserrat: "Montserrat", sans-serif;
-
-  --font-geist-mono: "JetBrains Mono", monospace;
 }
 
 @theme inline {
@@ -38,6 +34,8 @@
   --font-montserrat: var(--montserrat);
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
+  --font-secondary: var(--font-montserrat);
+  --font-primary: var(--font-cormorant);
 
   @keyframes accordion-down {
     from {
@@ -72,7 +70,7 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Poppins", sans-serif;
+  font-family: var(--font-montserrat);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* transition: background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1); */

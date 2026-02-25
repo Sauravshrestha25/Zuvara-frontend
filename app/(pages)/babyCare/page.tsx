@@ -9,21 +9,35 @@ import Testimonial from "@/app/components/babyCare/Testimonial";
 import WhyChoose from "@/app/components/babyCare/why-choose";
 import AboutSection from "@/app/components/babyCare/AboutSection";
 import BabyWalkingSection from "@/app/components/babyCare/BabyWalkingSection";
+import ChildCareStepSection from "@/app/components/babyCare/ChildCareStepSection";
+import Blog from "@/app/components/babyCare/Blog";
+import ZuvyBabyModel from "@/app/components/babyCare/ZuvyBabyModel";
 
 export default function Home() {
   return (
     <main className="">
       <HeroSection />
-      <Testimonial />
-      <AboutSection />
-      <BabyWalkingSection />
-      {/* <ZuvyBabyModel /> */}
-      {/* <WhyChoose /> */}
-      {/* <LeftRight /> */}
-      <VideoSection />
+
+      <WhyChoose />
+
       <Product />
-      {/* <ChildCareStepSection /> */}
-      {/* <Blog /> */}
+
+      {/* <ZuvyBabyModel /> */}
+
+      {/* <BabyWalkingSection /> */}
+
+      {/* <LeftRight /> */}
+
+      <VideoSection />
+
+      <Testimonial />
+      {/* <AboutSection /> */}
+
+      <ChildCareStepSection />
+
+
+      <Blog />
+
       <CTA />
     </main>
   );

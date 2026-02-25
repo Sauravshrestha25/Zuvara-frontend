@@ -70,38 +70,11 @@ const CTA = () => {
   //   { scope: sectionRef, dependencies: [] },
   // );
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setSubscribed(true);
-      setEmail("");
-      setTimeout(() => setSubscribed(false), 3000);
-    }
-  };
 
   return (
     <section ref={sectionRef} className="relative w-full overflow-hidden">
-      {/* <div
-        ref={leftLeafRef}
-        className="absolute top-0 left-0 w-[150%] h-full z-10 pointer-events-none"
-      >
-        <img
-          src="/images/leftLeaf.png"
-          alt=""
-          className="w-full h-full object-contain"
-        />
-      </div>
-      <div
-        ref={rightLeafRef}
-        className="absolute top-0 right-0 w-[150%] h-full z-10 pointer-events-none"
-      >
-        <img
-          src="/images/rightLeaf.png"
-          alt=""
-          className="w-full h-full object-contain"
-        />
-      </div> */}
-      <div className="relative lg:bg-babyCare/20 h-auto md:h-[45vh] lg:h-[60vh] lg:py-8">
+
+      <div className="relative lg:bg-babyCare h-auto md:h-[45vh] lg:h-[60vh] lg:py-8">
         {/* top curve border */}
         <div className="custom-shape-divider-top hidden lg:block">
           <svg
@@ -116,70 +89,48 @@ const CTA = () => {
             ></path>
           </svg>
         </div>
-        <div
-          ref={contentRef}
-          className="container w-full h-full flex items-center rounded-xl lg:rounded-none"
-        >
-          <div className="overflow-hidden">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-end">
-              {/* Content */}
-              <div className="p-4 lg:py-24 lg:pl-36">
-                <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3">
-                  Discover Amazing
-                </p>
-                <h2 className="text-3xl lg:text-4xl font-semibold text-foreground mb-3 font-poppins leading-[0.9] lg:leading-none">
-                  Get notified about latest{" "}
-                  <span className="text-[#8cd700] italic">
-                    offers & updates
-                  </span>
-                </h2>
-                <p className="text-zinc-700 text-sm lg:text-base mb-4 lg:mb-6 leading-relaxed">
-                  Be aware of all discounts and bargains! Don&apos;t miss your
-                  benefits!
-                  <span className="ml-1">😊</span>
-                </p>
+    <div
+  ref={contentRef}
+  className="container w-full h-full flex items-center rounded-xl lg:rounded-none bg-babyCare "
+>
+  <div className="overflow-hidden w-[90%] mx-auto">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-end">
+      
+      {/* Content */}
+      <div className="p-4 lg:py-24 ">
+        <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3">
+          Premium Baby Comfort
+        </p>
 
-                {/* Email Input */}
-                <form onSubmit={handleSubscribe} className="relative">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-2 border border-foreground rounded-full text-sm focus:outline-none focus:border-zinc-600"
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="absolute top-1/2 -translate-y-1/2 right-1 bg-white border border-zinc-300 hover:bg-zinc-50 text-zinc-900 hover:text-[#8cd700] font-semibold px-6 py-1.5 rounded-full transition-all text-sm flex items-center gap-2"
-                  >
-                    <Mail size={16} />
-                    Subscribe
-                  </button>
-                </form>
+        <h2 className="text-3xl lg:text-4xl font-semibold text-foreground mb-4 font-poppins leading-[0.95] lg:leading-none">
+          Gentle care for your baby&apos;s{" "}
+          <span className="text-[#8cd700] italic">softest moments</span>
+        </h2>
 
-                {/* Success Message */}
-                {subscribed && (
-                  <p className="mt-3 text-sm text-green-600 font-semibold">
-                    ✓ Thank you for subscribing!
-                  </p>
-                )}
-              </div>
+        <p className="text-zinc-700 text-sm lg:text-base mb-8 leading-relaxed max-w-md">
+          Crafted with ultra-soft, breathable materials to keep your baby
+          comfortable, protected, and happy all day long.
+        </p>
 
-              {/* Image */}
-              <div className="relative h-64 md:h-full min-h-64 hidden lg:block">
-                <Image
-                  src="/images/baby/baby31.png"
-                  alt="Zuvara Diapers"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-                {/* <ZuvyBabyModel /> */}
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* CTA Button */}
+        <button className="bg-[#45685E] hover:bg-[#3a5a52] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-lg">
+          Shop Premium Diapers
+        </button>
+      </div>
+
+      {/* Image */}
+      <div className="relative h-64 md:h-full min-h-64 hidden lg:block">
+        <Image
+          src="/images/baby/baby31.png"
+          alt="Premium Baby Care"
+          fill
+          className="object-contain"
+          priority
+        />
+      </div>
+    </div>
+  </div>
+</div>
 
         {/* bottom curve border */}
         {/* <div className="custom-shape-divider-bottom">

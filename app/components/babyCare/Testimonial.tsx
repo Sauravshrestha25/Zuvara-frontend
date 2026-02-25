@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import SectionHeading from "../common-ui/SectionHeading";
 import { useMediaQuery } from "react-responsive";
+import CrawlingBaby from "../shared/CrawlingBaby";
 
 const Testimonial = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -66,12 +67,13 @@ const Testimonial = () => {
 
   return (
     <section
-      className="relative bg-babyCare/20 py-4 lg:py-8 min-h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        clipPath: "ellipse(100% 100% at 50% 100%)",
-      }}
+      className="relative bg-babyCare py-4 lg:py-8 min-h-screen flex items-center justify-center overflow-hidden"
+      // style={{
+      //   clipPath: "ellipse(100% 100% at 50% 100%)",
+      // }}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-7xl">
+     
+      <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-[90%]">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -80,9 +82,11 @@ const Testimonial = () => {
           viewport={{ once: true }}
           className="mb-4 md:mb-8 flex justify-center items-start md:items-center gap-4 flex-col lg:flex-row"
         >
+         
+          
           <SectionHeading
             title="What"
-            highlight="Nepali Mothers Say"
+            highlight=" Mothers Say"
             description="Real reviews from real mothers who trust Zuvara"
             align={isSmallerDevice ? "left" : "center"}
             descClassName="text-left lg:text-center"
@@ -171,13 +175,13 @@ const Testimonial = () => {
                       className={`h-2 rounded-full transition-all duration-300 ${
                         index === currentIndex
                           ? "bg-[#8cd700] w-8"
-                          : "bg-zinc-300 w-2"
+                          : "bg-zinc-100 w-2"
                       }`}
                       aria-label={`Go to testimonial ${index + 1}`}
                     />
                   ))}
                 </div>
-
+ 
                 <button
                   onClick={goToNext}
                   className="p-3 rounded-full border border-[#8cd700] hover:bg-[#8cd700] hover:text-white transition-all duration-300 flex items-center justify-center"
@@ -192,8 +196,16 @@ const Testimonial = () => {
               </p>
             </div>
           </motion.div>
+         
+
+          
+         
         </div>
+          <div className="relative">
+ <CrawlingBaby/>
+          </div>
       </div>
+    
     </section>
   );
 };

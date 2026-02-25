@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import React, { useState, useEffect, useMemo } from "react";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { babyCareProducts } from "@/constants/babyCareProduct";
 import type { Product, Variant } from "@/type/babyCareProductType";
-import { ChevronRight, ArrowLeft } from "lucide-react";
+import { ChevronRight, ArrowLeft, ArrowRight } from "lucide-react";
 import FaqSection from "@/app/components/common-ui/FaqSection";
 import { useMediaQuery } from "react-responsive";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import DescSection from "@/app/components/babyCareProductPage/DescSection";
 import ProductFeature from "@/app/components/babyCareProductPage/ProductFeature";
 import ReviewSection from "@/app/components/babyCareProductPage/ReviewSection";
@@ -18,250 +18,310 @@ import HeroSection from "@/app/components/babyCareProductPage/HeroSection";
 import ProductCloseViewSection from "@/app/components/babyCareProductPage/ProductCloseViewSection";
 import ProductVideoSection from "@/app/components/babyCareProductPage/ProductVideoSection";
 
+/* ───────────────────────── THEME ───────────────────────── */
+
+type Theme = {
+  name: string;
+  bg: string;
+  fg: string;
+  pageBg: string;
+  pageText: string;
+  subtleText: string;
+  cardBg: string;
+  cardBorder: string;
+  divider: string;
+  headingColor: string;
+  starColor: string;
+  tagBg: string;
+  tagFg: string;
+  variantBorder: string;
+  navText: string;
+  nextBtnBg: string;
+  nextBtnText: string;
+  glowColor: string;
+};
+
+const THEMES: Theme[] = [
+  {
+    name: "yellow",
+    bg: "#d97706",
+    fg: "#ffffff",
+    pageBg: "#fffbeb",
+    pageText: "#1c1917",
+    subtleText: "#78716c",
+    cardBg: "#fef3c7",
+    cardBorder: "#fde68a",
+    divider: "#fde68a",
+    headingColor: "#92400e",
+    starColor: "#f59e0b",
+    tagBg: "#d97706",
+    tagFg: "#ffffff",
+    variantBorder: "#d97706",
+    navText: "#92400e",
+    nextBtnBg: "#d97706",
+    nextBtnText: "#ffffff",
+    glowColor: "#fbbf24",
+  },
+  {
+    name: "purple",
+    bg: "#7c3aed",
+    fg: "#ffffff",
+    pageBg: "#f5f3ff",
+    pageText: "#1e1b4b",
+    subtleText: "#6b7280",
+    cardBg: "#ede9fe",
+    cardBorder: "#ddd6fe",
+    divider: "#ddd6fe",
+    headingColor: "#5b21b6",
+    starColor: "#7c3aed",
+    tagBg: "#7c3aed",
+    tagFg: "#ffffff",
+    variantBorder: "#7c3aed",
+    navText: "#5b21b6",
+    nextBtnBg: "#7c3aed",
+    nextBtnText: "#ffffff",
+    glowColor: "#a78bfa",
+  },
+  {
+    name: "blue",
+    bg: "#1d4ed8",
+    fg: "#ffffff",
+    pageBg: "#eff6ff",
+    pageText: "#1e3a5f",
+    subtleText: "#4b5563",
+    cardBg: "#dbeafe",
+    cardBorder: "#bfdbfe",
+    divider: "#bfdbfe",
+    headingColor: "#1e40af",
+    starColor: "#2563eb",
+    tagBg: "#1d4ed8",
+    tagFg: "#ffffff",
+    variantBorder: "#1d4ed8",
+    navText: "#1e40af",
+    nextBtnBg: "#1d4ed8",
+    nextBtnText: "#ffffff",
+    glowColor: "#60a5fa",
+  },
+];
+
+/* ───────────────────────── COMPONENT ───────────────────────── */
+
 const ProductDetailPage = () => {
   const params = useParams();
   const router = useRouter();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
-  const [activeTab, setActiveTab] = useState("information");
-  // const [showFullDescription, setShowFullDescription] = useState(false);
+  const searchParams = useSearchParams();
+
   const isSmallerDevice = useMediaQuery({ maxWidth: 1000 });
 
-  useEffect(() => {
-    const productSlug = params.babyCareProductPage;
-    const foundProduct = babyCareProducts.find((p) => p.slug === productSlug);
+  /* ───────── Theme from URL ───────── */
 
-    if (foundProduct) {
-      setProduct(foundProduct);
-      if (foundProduct.variants && foundProduct.variants.length > 0) {
-        setSelectedVariant(foundProduct.variants[0]);
-      }
-    }
-  }, [params.babyCareProductPage]);
+  const rawTheme = Number(searchParams.get("theme") ?? "0");
+  const themeIndex = isNaN(rawTheme) ? 0 : rawTheme % THEMES.length;
+  const theme = THEMES[themeIndex];
+
+  /* ───────── Product Derived (NO STATE) ───────── */
+
+  const productSlug = params.babyCareProductPage as string;
+
+  const product: Product | null = useMemo(() => {
+    return (
+      babyCareProducts.find((p) => p.slug === productSlug) || null
+    );
+  }, [productSlug]);
+
+  /* ───────── Variant State (UI Only) ───────── */
+
+  const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
+
+  /* Safe reset — NO synchronous render blocking */
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setSelectedVariant(product?.variants?.[0] ?? null);
+    }, 0);
+
+    return () => clearTimeout(timeout);
+  }, [productSlug, product?.variants]);
+
+  /* ───────── Next Product ───────── */
+
+  function handleNextProduct() {
+    const currentIndex = babyCareProducts.findIndex(
+      (p) => p.slug === productSlug
+    );
+
+    const nextIndex =
+      currentIndex === -1
+        ? 0
+        : (currentIndex + 1) % babyCareProducts.length;
+
+    const nextThemeIndex = (themeIndex + 1) % THEMES.length;
+    const nextSlug = babyCareProducts[nextIndex].slug;
+
+    router.push(`/babyCareProduct/${nextSlug}?theme=${nextThemeIndex}`);
+  }
+
+  /* ───────── Not Found ───────── */
 
   if (!product) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-white px-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center"
-        >
-          <h2 className="text-3xl font-bold text-zinc-900 mb-4">
-            Product Not Found
-          </h2>
-          <p className="text-zinc-600 mb-8">
-            The product you are looking for doesn't exist or has been removed.
-          </p>
-          <Link
-            href="/babyCareProduct"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-zinc-900 text-white rounded-full font-medium hover:bg-zinc-800 transition-all shadow-sm"
-          >
-            <ArrowLeft size={18} />
-            Back to Products
-          </Link>
-        </motion.div>
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ backgroundColor: theme.pageBg }}
+      >
+        <h2 style={{ color: theme.pageText }}>
+          Product Not Found
+        </h2>
       </div>
     );
   }
+
+  const themedProduct: Product = {
+    ...product,
+    background: theme.bg,
+    foreground: theme.fg,
+  };
+
+  /* ───────── Render ───────── */
 
   return (
     <div
       className="min-h-screen lg:pb-16"
       style={
         {
-          "--product-bg": product.background || "#18181b",
-          "--product-fg": product.foreground || "#ffffff",
+          backgroundColor: theme.pageBg,
+          color: theme.pageText,
+          "--product-bg": theme.bg,
+          "--product-fg": theme.fg,
+          "--product-glow": theme.glowColor,
+          "--card-bg": theme.cardBg,
+          "--card-border": theme.cardBorder,
+          "--divider": theme.divider,
+          "--heading-color": theme.headingColor,
+          "--subtle-text": theme.subtleText,
         } as React.CSSProperties
       }
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative h-auto">
-        {/* {isSmallerDevice ? (
-          <button
-            onClick={() => router.back()}
-            className="lg:hidden group flex items-center gap-2 text-zinc-500 hover:text-white hover:bg-foreground transition-colors mb-3 lg:mb-6 px-2 py-1 rounded-full font-bold text-sm lg:tracking-widest"
-          >
-            <div className="rounded-full transition-colors">
+      <div className="container mx-auto px-4 max-w-7xl">
+
+        {/* ─── Top Bar ─── */}
+
+        <div className="flex items-center justify-between py-6">
+          {isSmallerDevice ? (
+            <button
+              type="button"
+              onClick={() => router.back()}
+              className="flex items-center gap-2"
+              style={{ color: theme.navText }}
+            >
               <ArrowLeft size={16} />
-            </div>
-            Back
+              Back
+            </button>
+          ) : (
+            <nav className="flex items-center gap-2 text-sm">
+              <Link href="/">Home</Link>
+              <ChevronRight size={14} />
+              <Link href="/babyCareProduct">Baby Care</Link>
+              <ChevronRight size={14} />
+              <span style={{ color: theme.bg }}>
+                {product.name}
+              </span>
+            </nav>
+          )}
+
+          <button
+            type="button"
+            onClick={handleNextProduct}
+            className="flex items-center gap-2 px-4 py-2 rounded-full z-10000"
+            style={{
+              backgroundColor: theme.nextBtnBg,
+              color: theme.nextBtnText,
+            }}
+          >
+            Next
+            <ArrowRight size={16} />
           </button>
-        ) : (
-          <nav className="hidden lg:flex items-center gap-2 text-sm text-zinc-700 mb-4 overflow-x-auto whitespace-nowrap">
-            <Link href="/" className="hover:text-foreground transition-colors">
-              Home
-            </Link>
-            <ChevronRight size={14} />
-            <Link
-              href="/babyCareProduct"
-              className="hover:text-foreground transition-colors"
-            >
-              Baby Care
-            </Link>
-            <ChevronRight size={14} />
-            <span className="text-foreground font-medium">{product.name}</span>
-          </nav>
-        )} */}
-        <div className="">
-          <HeroSection product={product} />
         </div>
 
-        <div
-          id="product-info"
-          className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8 relative scroll-mt-16"
-        >
-          {/* Left Column: Image Gallery */}
-          <div className="w-full lg:w-1/2 flex flex-col gap-4">
-            <motion.div
-              layoutId={`product-image-${product.id}`}
-              className="relative w-full aspect-square bg-white rounded-3xl overflow-hidden border border-zinc-200"
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedVariant?.id || "default"}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative w-full h-full"
-                >
-                  <Image
-                    src={selectedVariant?.image || "/placeholder.png"}
-                    alt={product.name}
-                    fill
-                    className="object-contain p-8 lg:p-16"
-                    priority
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </motion.div>
-          </div>
+        {/* ─── Hero ─── */}
 
-          {/* Right Column: Product Info */}
-          <div className="w-full lg:w-1/2">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-col gap-6"
-            >
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-4">
-                  <span className="text-[10px] lg:text-xs font-bold uppercase lg:tracking-wider whitespace-nowrap px-3 py-1 bg-(--product-bg) text-(--product-fg) rounded-full">
-                    {product.category}
-                  </span>
-                  <div className="w-fit flex items-center gap-1 text-xs lg:text-sm font-bold">
-                    <span>{product.rating}</span>
-                    <Icon
-                      icon="ic:round-star"
-                      className="size-5 text-yellow-500"
-                    />
-                  </div>
-                </div>
-                <h1 className="text-xl md:text-2xl lg:text-4xl font-semibold leading-tight tracking-tight">
-                  {product.name}
-                </h1>
-                <p className="space-y-4 text-zinc-600 text-sm lg:text-base leading-relaxed">
-                  {product.subDesc1}
-                </p>
-              </div>
+        <HeroSection product={themedProduct} />
 
-              {/* Thumbnails of Other Variants */}
-              <div className="">
-                <span className="text-[10px] lg:text-xs font-black text-zinc-400 uppercase tracking-widest block mb-1">
-                  Available Products
-                </span>
-                {product.variants && product.variants.length > 1 && (
-                  <div className="flex gap-3 overflow-x-auto py-2 px-1 scrollbar-hide">
-                    {product.variants.map((v) => (
-                      <button
-                        key={v.id}
-                        onClick={() => setSelectedVariant(v)}
-                        aria-label={`Select ${v.size || v.color || "variant"}`}
-                        title={`Select ${v.size || v.color || "variant"}`}
-                        className={`relative size-20 lg:size-24 shrink-0 rounded-2xl overflow-hidden border-2 transition-all duration-300 ${
-                          selectedVariant?.id === v.id
-                            ? "border-(--product-bg) ring-2 ring-(--product-bg)/20 ring-offset-2"
-                            : "border-zinc-100 hover:border-zinc-300 bg-white"
-                        }`}
-                      >
-                        <Image
-                          src={v.image}
-                          alt={`${product.name} - ${v.size || v.color}`}
-                          fill
-                          className="object-contain p-2"
-                        />
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+        {/* ─── Image + Info ─── */}
 
-              {/* Selected Variant Data (Size, Weight, etc.) */}
-              {selectedVariant && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {selectedVariant.size && (
-                    <div className="bg-zinc-50 border border-zinc-100 p-3 lg:p-4 rounded-2xl">
-                      <span className="text-[10px] lg:text-xs font-black text-zinc-400 uppercase tracking-widest block mb-1">
-                        Size
-                      </span>
-                      <span className="text-lg lg:text-xl font-black text-zinc-900">
-                        {selectedVariant.size}
-                      </span>
-                    </div>
-                  )}
-                  {selectedVariant.weight && (
-                    <div className="bg-zinc-50 border border-zinc-100 p-3 lg:p-4 rounded-2xl">
-                      <span className="text-[10px] lg:text-xs font-black text-zinc-400 uppercase tracking-widest block mb-1">
-                        Body Weight
-                      </span>
-                      <span className="text-lg lg:text-xl font-black text-zinc-900">
-                        {selectedVariant.weight}{" "}
-                        <span className="text-sm font-bold text-zinc-500">
-                          kg
-                        </span>
-                      </span>
-                    </div>
-                  )}
-                  {selectedVariant.color && (
-                    <div className="bg-zinc-50 border border-zinc-100 p-3 lg:p-4 rounded-2xl">
-                      <span className="text-[10px] lg:text-xs font-black text-zinc-400 uppercase tracking-widest block mb-1">
-                        Variant
-                      </span>
-                      <span className="text-lg lg:text-xl font-black text-zinc-900">
-                        {selectedVariant.color}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )}
-            </motion.div>
-          </div>
-        </div>
-        <div className="mt-8 lg:mt-16">
-          <div className="py-4 md:py-8 w-full">
+        <div className="flex flex-col lg:flex-row gap-10 mt-12">
+
+          {/* Image */}
+
+          <div className="w-full lg:w-1/2 aspect-square relative">
             <AnimatePresence mode="wait">
               <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4, ease: "circOut" }}
+                key={selectedVariant?.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
               >
-                <DescSection product={product} />
-                <ProductCloseViewSection product={product} />
-                <ProductVideoSection product={product} />
-                <ProductFeature product={product} />
-                <ReviewSection product={product} />
-                <FaqSection
-                  product={product}
-                  questionColor="text-zinc-900"
-                  faqs={product.faqs}
+                <Image
+                  src={selectedVariant?.image || "/placeholder.png"}
+                  alt={product.name}
+                  fill
+                  className="object-contain"
                 />
               </motion.div>
             </AnimatePresence>
           </div>
+
+          {/* Info */}
+
+          <div className="w-full lg:w-1/2 space-y-6">
+
+            <h1 className="text-3xl font-bold">
+              {product.name}
+            </h1>
+
+            <p>{product.subDesc1}</p>
+
+            {/* Variants */}
+
+            {(product.variants?.length ?? 0) > 1 && (
+              <div className="flex gap-4 flex-wrap">
+                {product.variants!.map((v) => (
+                  <button
+                    key={v.id}
+                    type="button"
+                    onClick={() => setSelectedVariant(v)}
+                    className="border rounded-xl p-2"
+                  >
+                    <Image
+                      src={v.image}
+                      alt="variant"
+                      width={70}
+                      height={70}
+                      className="object-contain"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+
+          </div>
         </div>
+
+        {/* ─── Sections ─── */}
+
+        <div className="mt-20 space-y-16">
+          <DescSection product={themedProduct} />
+          <ProductCloseViewSection product={themedProduct} />
+          <ProductVideoSection product={themedProduct} />
+          <ProductFeature product={themedProduct} />
+          <ReviewSection product={themedProduct} theme={theme} />
+          <FaqSection
+            product={themedProduct}
+            questionColor={theme.headingColor}
+            answerColor={theme.subtleText}
+            faqs={product.faqs}
+          />
+        </div>
+
       </div>
     </div>
   );

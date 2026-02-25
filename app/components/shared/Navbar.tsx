@@ -260,7 +260,7 @@ export default function Navbar() {
         initial="visible"
         className="hidden lg:block fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md border-b border-zinc-200 "
       >
-        <div className="px-4 sm:px-6 lg:px-6 max-w-7xl mx-auto">
+        <div className="px-4 sm:px-6 lg:px-6 max-w-[90%] mx-auto">
           <div className="flex flex-col justify-between items-center h-auto gap-4 py-3">
             {/* Logo - Left */}
             <div className="flex items-center justify-between w-full relative">
