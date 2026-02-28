@@ -9,7 +9,8 @@ export default function PagesLayout({
 }) {
   return (
     <>
-      <NavbarNew />
+      {/* <NavbarNew /> */}
+      <Navbar/>
       <main className="min-h-screen">{children}</main>
       <Footer />
     </>

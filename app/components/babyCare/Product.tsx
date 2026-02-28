@@ -42,8 +42,8 @@ const Product = () => {
             Premium Collection
           </p>
 
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-zinc-600 mb-3 leading-tight lg:leading-none font-poppins">
-            Discover our <span className="text-[#8cd700] italic">complete range</span> of products
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-[#45685e] mb-3 leading-tight lg:leading-none font-poppins">
+            Discover our complete range of products
           </h2>
 
           <p className="hidden md:block text-zinc-600 text-sm lg:text-base leading-relaxed max-w-md">
@@ -63,7 +63,7 @@ const Product = () => {
         </div>
 
         {/* Background Brand Text */}
-        <div className="hidden lg:block absolute right-0 -top-32 z-0 pointer-events-none text-zinc-200 font-extrabold">
+        <div className="hidden lg:block absolute right-0 -top-32 z-0 pointer-events-none text-[#45685e] font-extrabold">
           <h2 className="text-[140px] xl:text-[180px] uppercase leading-none opacity-60">
             zuvara
           </h2>
@@ -119,7 +119,7 @@ const Product = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10 pb-10"
+            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3  gap-4 mt-10 pb-10"
           >
             {products.map((product, index) => (
               <ProductCard

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import {  Cormorant_Garamond, Montserrat } from "next/font/google";
+import {  Cormorant_Garamond, Montserrat, Amatic_SC } from "next/font/google";
 import "./globals.css";
 import { LenisProvider } from "./providers/LenisProvider";
 
@@ -7,6 +7,12 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
 });
+
+const amaticSc = Amatic_SC({
+  weight: ["400","700"],
+  variable: "--font-amatic",
+  subsets: ["latin"]
+})
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -35,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${cormorant.variable} ${montserrat.variable} antialiased text-zinc-900 overflow-x-hidden! `}
+        className={`${cormorant.variable} ${montserrat.variable} ${amaticSc.variable} antialiased text-zinc-900 overflow-x-hidden! `}
       >
         <LenisProvider>
           <SectionProvider>

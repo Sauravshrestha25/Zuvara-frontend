@@ -4,8 +4,6 @@ import { Accordion, Accordions } from "../ui/accordion";
 
 interface FaqSectionProps {
   faqs?: FAQ[];
-  // Now accepts any valid CSS color string (hex, rgb, etc.)
-  // instead of Tailwind class names so the theme can pass hex values.
   questionColor?: string;
   answerColor?: string;
   product: Product;
@@ -27,8 +25,8 @@ const FaqSection = ({
   const rightColumn = faqs.slice(half);
 
   return (
-    <section className="py-4 lg:py-8">
-      <div className="flex flex-col gap-2 items-center mb-4">
+    <section className="py-4 lg:py-8 ">
+      <div className="flex flex-col gap-2 items-center justify-center mb-4">
         <h2
           className="text-lg lg:text-3xl font-semibold"
           style={{ color: headingColor }}
@@ -40,8 +38,8 @@ const FaqSection = ({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
-        <div className="flex flex-col">
+      <div className="grid grid-cols-1  w-2xl mx-auto">
+        <div className="flex flex-col ">
           <Accordions
             type="single"
             className="w-full border-none bg-transparent shadow-none divide-y-0"
@@ -52,11 +50,8 @@ const FaqSection = ({
                 id={`faq-left-${index}`}
                 title={faq.question}
                 className="border-b border-zinc-100 lg:last:border-0"
-                // Pass the color as a style override via a data attribute or
-                // inline approach; since Accordion likely renders a <button>,
-                // we use a wrapper style trick here.
                 triggerClassName=""
-                triggerStyle={{ color: headingColor }}
+                triggerStyle={{ color: headingColor, colorProperty: headingColor }}
               >
                 <p
                   className="text-sm lg:text-base lg:leading-relaxed whitespace-pre-line"
@@ -80,7 +75,7 @@ const FaqSection = ({
                 title={faq.question}
                 className="border-b border-zinc-100 last:border-0"
                 triggerClassName=""
-                triggerStyle={{ color: headingColor }}
+                triggerStyle={{ color: headingColor, colorProperty: headingColor }}
               >
                 <p
                   className="leading-relaxed whitespace-pre-line"

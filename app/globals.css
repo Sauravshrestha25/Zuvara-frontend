@@ -32,6 +32,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-montserrat: var(--montserrat);
+  --font-amatic: var(--font-amatic);
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --font-secondary: var(--font-montserrat);
@@ -127,8 +128,9 @@ button {
 }
 
 .custom-shape-divider-top .shape-fill {
-  fill: #ffffff;
+  fill: #fff;
 }
+
 
 /** For tablet devices **/
 @media (min-width: 768px) and (max-width: 1023px) {
