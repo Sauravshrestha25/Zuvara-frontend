@@ -36,11 +36,11 @@ export default function Home() {
       </div>
 
       <div className="flex items-center gap-3 lg:gap-4 pt-4 lg:pt-6">
-        <div className="bg-[#45685e]/20 font-amatic font-bold text-[96px] text-black px-4 lg:px-5 py-2.5 lg:py-3 rounded-full  lg:text-lg  shadow-md">
+        <div className="bg-[#45685e]/20  font-medium text-[96px] text-black px-4 lg:px-5 py-2.5 lg:py-3 rounded-full  lg:text-xs  shadow-md">
           10K+
         </div>
 
-        <p className="text-gray-600 text-lg font-medium font-amatic lg:text-4xl">
+        <p className="text-gray-600 text-lg font-medium  lg:text-lg">
           Happy Customers
         </p>
       </div>
@@ -70,10 +70,10 @@ export default function Home() {
   </div>
 
   {/* ================= RIGHT SIDEBAR ================= */}
-  <div className="relative w-full lg:w-1/3 bg-gradient-to-b from-[#45685e]/90 to-[#45685e] flex flex-col justify-center items-center mt-10 lg:mt-0">
+  <div className="relative w-full lg:w-1/3 bg-linear-to-b from-[#45685e]/90 to-[#45685e] flex flex-col justify-center items-center mt-10 lg:mt-0">
 
     {/* Sidebar content */}
-    <div className="absolute right-6 lg:right-20 space-y-6 lg:space-y-10 top-20 lg:top-auto">
+    <div className="absolute right-6 lg:right-5 space-y-6 lg:space-y-10 top-20 lg:top-auto">
       {[
         "Supreme Diaper",
         "Premium Softness",

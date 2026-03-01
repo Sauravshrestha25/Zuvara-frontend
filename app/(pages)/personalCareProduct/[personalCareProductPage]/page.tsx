@@ -9,7 +9,6 @@ import { personalCareProducts } from "@/constants/personalCareProduct";
 import type { Product, Variant } from "@/type/personalCareProductType";
 import { ChevronRight, Star, Check, ArrowLeft } from "lucide-react";
 import { useMediaQuery } from "react-responsive";
-import FaqSection from "@/app/components/common-ui/FaqSection";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const PersonalCareProductDetailPage = () => {

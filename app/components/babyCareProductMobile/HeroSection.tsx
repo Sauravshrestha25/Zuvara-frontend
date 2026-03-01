@@ -8,6 +8,17 @@ import { babyCareProducts } from "@/constants/babyCareProduct";
 import { clothingProducts } from "@/constants/babyClothes";
 import { strollerRockerProducts } from "@/constants/strollerRockerProduct";
 
+type SearchItemType = "baby-care" | "clothing" | "stroller";
+
+type SearchItem = {
+  id: string | number;
+  name: string;
+  category: string;
+  image: string;
+  type: SearchItemType;
+  href: string;
+};
+
 const featuredProductLists = [
   {
     id: 1,
@@ -32,7 +43,7 @@ const featuredProductLists = [
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<SearchItem[]>([]);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
@@ -49,17 +60,17 @@ const HeroSection = () => {
       const allProducts = [
         ...babyCareProducts.map((p) => ({
           ...p,
-          type: "baby-care",
+          type: "baby-care" as const,
           href: `/babyCareProduct/${p.slug}`,
         })),
         ...clothingProducts.map((p) => ({
           ...p,
-          type: "clothing",
+          type: "clothing" as const,
           href: `/clothing/${p.slug}`,
         })),
         ...strollerRockerProducts.map((p) => ({
           ...p,
-          type: "stroller",
+          type: "stroller" as const,
           href: `/strollerRockerProduct/${p.slug}`,
         })),
       ];

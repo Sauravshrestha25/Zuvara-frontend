@@ -50,7 +50,6 @@ export default function Navbar() {
   const topBarRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLAnchorElement>(null);
   const handRef = useRef<HTMLImageElement>(null);
-  const logoTlRef = useRef<gsap.core.Timeline | null>(null);
   const randomTimerRef = useRef<number | null>(null);
   const isPlayingRef = useRef<boolean>(false);
 
@@ -91,7 +90,7 @@ export default function Navbar() {
     gsap
       .timeline({
         onComplete: () => {
-          gsap.set(hand, { display: "none", autoAlpha: 1 });
+          gsap.set(hand, { display: "none", autoAlpha: 1, repeat: 3 });
           isPlayingRef.current = false;
         },
       })
@@ -356,7 +355,7 @@ export default function Navbar() {
                 className="flex items-center shrink-0"
               >
                 <Image
-                  src="/logo.png"
+                  src="/logo/logo.png"
                   alt="Zuvara Logo"
                   width={90}
                   height={90}
@@ -418,7 +417,7 @@ export default function Navbar() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        className="absolute top-full right-0 mt-4 w-[300px] bg-white rounded-2xl shadow-xl border border-zinc-100 overflow-hidden z-[60]"
+                        className="absolute top-full right-0 mt-4 w-75 bg-white rounded-2xl shadow-xl border border-zinc-100 overflow-hidden z-60"
                       >
                         <div className="p-2 space-y-1">
                           {filteredProducts.map((product) => (

@@ -71,7 +71,7 @@ const HeroSection = () => {
         <div className="lg:w-1/2">
           <Title
             title="Everyday Baby"
-            highligher="Care Essentials."
+            highlighter="Care Essentials."
             desc="Diapers, wipes, and gentle care products meticulously designed to
               keep your baby clean, comfortable, and remarkably happy."
           />

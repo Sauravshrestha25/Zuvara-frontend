@@ -5,6 +5,7 @@ import { Check, ChevronRight, LinkIcon } from "lucide-react";
 import {
   forwardRef,
   type ComponentPropsWithoutRef,
+  type CSSProperties,
   useState,
   useEffect,
 } from "react";
@@ -71,8 +72,10 @@ export const Accordion = forwardRef<
   Omit<ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>, "value"> & {
     title: string;
     triggerClassName?: string;
+    triggerStyle?: CSSProperties;
   }
->(({ title, className, triggerClassName, id, children, ...props }, ref) => {
+>(
+  ({ title, className, triggerClassName, triggerStyle, id, children, ...props }, ref) => {
   return (
     <AccordionPrimitive.Item
       ref={ref}
@@ -89,6 +92,7 @@ export const Accordion = forwardRef<
             "flex flex-1 items-center gap-2 p-4 text-start",
             triggerClassName,
           )}
+          style={triggerStyle}
         >
           <ChevronRight className="-ms-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-[state=open]/accordion:rotate-90" />
           {title}
@@ -101,6 +105,7 @@ export const Accordion = forwardRef<
       </AccordionPrimitive.Content>
     </AccordionPrimitive.Item>
   );
-});
+  },
+);
 
 Accordion.displayName = "Accordion";
