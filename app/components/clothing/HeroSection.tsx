@@ -1,10 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import Button from "../common-ui/Button";
 import Title from "../shared/Title";
 
 const HeroSection = () => {
@@ -15,7 +13,7 @@ const HeroSection = () => {
         <div className="w-full lg:w-1/2 z-10">
           <Title
             title="Cozy Comfort"
-            highligher="Stylish Look"
+            highlighter="Stylish Look"
             desc="Soft, breathable, and durable clothing designed for your baby's
             every move. From playtime to naptime, we've got them covered."
           />

@@ -38,7 +38,7 @@ const HeroSection = () => {
           </motion.div> */}
           <Title
             title="Ultimate Comfort"
-            highligher="Zero Leakage."
+            highlighter="Zero Leakage."
             desc="Experience our ultra-thin sanitary pads and period panties designed
             for maximum absorption and breathable softness."
           />

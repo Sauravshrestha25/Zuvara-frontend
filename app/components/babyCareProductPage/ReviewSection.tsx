@@ -127,7 +127,7 @@ export default function ReviewSection({
           className="text-xl md:text-3xl font-extrabold tracking-tight"
           style={{ color: headingColor }}
         >
-          The Zuvara Community
+Reviews
         </h2>
         <p className="text-sm md:text-base" style={{ color: subtleText }}>
           Real stories from parents like you.

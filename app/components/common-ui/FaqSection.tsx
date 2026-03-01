@@ -51,7 +51,7 @@ const FaqSection = ({
                 title={faq.question}
                 className="border-b border-zinc-100 lg:last:border-0"
                 triggerClassName=""
-                triggerStyle={{ color: headingColor, colorProperty: headingColor }}
+                triggerStyle={{ color: headingColor }}
               >
                 <p
                   className="text-sm lg:text-base lg:leading-relaxed whitespace-pre-line"
@@ -75,7 +75,7 @@ const FaqSection = ({
                 title={faq.question}
                 className="border-b border-zinc-100 last:border-0"
                 triggerClassName=""
-                triggerStyle={{ color: headingColor, colorProperty: headingColor }}
+                triggerStyle={{ color: headingColor }}
               >
                 <p
                   className="leading-relaxed whitespace-pre-line"
