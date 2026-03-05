@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 
 type Section = "baby" | "personal" | "none";
 
@@ -21,28 +21,28 @@ export const SectionProvider = ({ children }: { children: React.ReactNode }) => 
     return "none";
   };
 
-  const [activeSection, setActiveSection] = useState<Section>(() =>
-    getSectionFromPath(pathname),
-  );
+  const getSectionFromCookie = (): Section => {
+    const cookies = document.cookie.split("; ");
+    const sectionCookie = cookies.find((c) => c.startsWith("zuvara-section="));
+    const saved = sectionCookie?.split("=")[1];
+    return saved === "baby" || saved === "personal" ? saved : "none";
+  };
+
+  const currentSection = getSectionFromPath(pathname);
+  const activeSection =
+    currentSection !== "none"
+      ? currentSection
+      : pathname === "/"
+        ? "none"
+        : getSectionFromCookie();
 
   useEffect(() => {
-    const currentSection = getSectionFromPath(pathname);
     if (currentSection !== "none") {
-      setActiveSection(currentSection);
       document.cookie = `zuvara-section=${currentSection}; path=/; max-age=31536000`;
     } else if (pathname === "/") {
-      setActiveSection("none");
       document.cookie = "zuvara-section=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    } else {
-      // Rehydrate from cookies for neutral pages
-      const cookies = document.cookie.split("; ");
-      const sectionCookie = cookies.find((c) => c.startsWith("zuvara-section="));
-      if (sectionCookie) {
-        const saved = sectionCookie.split("=")[1] as Section;
-        if (saved) setActiveSection(saved);
-      }
     }
-  }, [pathname]);
+  }, [currentSection, pathname]);
 
   return (
     <SectionContext.Provider value={{ activeSection }}>

@@ -19,15 +19,14 @@ const ProductCloseViewSection = ({ product, theme }: ProductCloseViewProps) => {
   const accentColor = theme.accent || product.background;
 
   return (
-      <section className="relative px-2 py-8 lg:px-4 lg:py-10 overflow-hidden [perspective:1200px]">
-        <div
-          className="pointer-events-none absolute inset-x-10 top-8 h-24 rounded-full blur-3xl"
-          style={{ backgroundColor: hexToRgba(accentColor, 0.14) }}
-        />
+      <section
+        className="relative px-6 py-20 lg:px-10 overflow-hidden"
+        style={{ backgroundColor: hexToRgba(theme.pageBg, 0.4) }}
+      >
         <div className="mx-auto max-w-7xl">
 
           {/* Header - Setting the technical context */}
-          <div className="text-center mb-10 space-y-3 fx-rise">
+          <div className="text-center mb-16 space-y-3">
             <span className="text-[10px] font-black uppercase tracking-[0.3em]" style={{ color: hexToRgba(accentColor, 0.55) }}>
               Engineering Spotlight
             </span>
@@ -36,7 +35,7 @@ const ProductCloseViewSection = ({ product, theme }: ProductCloseViewProps) => {
             </h2>
           </div>
 
-          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
             {/* LEFT FEATURES: Visual Pointers Left */}
             <div className="lg:col-span-3 space-y-12 lg:space-y-24 order-2 lg:order-1">
@@ -50,7 +49,7 @@ const ProductCloseViewSection = ({ product, theme }: ProductCloseViewProps) => {
                   >
                     {/* Icon Container */}
                     <div
-                      className="fx-float shrink-0 size-14 lg:size-16 rounded-2xl border flex items-center justify-center p-3 shadow-sm transition-all group-hover:shadow-md group-hover:scale-110"
+                      className="shrink-0 size-14 lg:size-16 rounded-2xl border flex items-center justify-center p-3 shadow-sm transition-all group-hover:shadow-md group-hover:scale-110"
                       style={{
                         backgroundColor: hexToRgba(theme.pageBg, 0.86),
                         borderColor: `${theme.border}66`,
@@ -84,11 +83,11 @@ const ProductCloseViewSection = ({ product, theme }: ProductCloseViewProps) => {
                   style={{ backgroundColor: accentColor }}
               />
 
-              <div className="fx-rise relative z-10 w-full max-w-sm lg:max-w-md mx-auto transform transition-transform duration-700 hover:scale-105">
+              <div className="relative z-10 w-full max-w-sm lg:max-w-md mx-auto transform transition-transform duration-700 hover:scale-105">
                 <img
                     src={product.image}
                     alt={product.name}
-                    className="fx-parallax w-full h-auto object-contain drop-shadow-[0_50px_80px_rgba(0,0,0,0.15)]"
+                    className="w-full h-auto object-contain drop-shadow-[0_50px_80px_rgba(0,0,0,0.15)]"
                 />
 
                 {/* Technical Scan Lines Decor */}
@@ -100,7 +99,7 @@ const ProductCloseViewSection = ({ product, theme }: ProductCloseViewProps) => {
 
               {/* Bottom Label */}
               <div
-                className="fx-rise mt-8 px-5 py-2 rounded-full border backdrop-blur-sm shadow-sm"
+                className="mt-8 px-5 py-2 rounded-full border backdrop-blur-sm shadow-sm"
                 style={{
                   borderColor: `${theme.border}66`,
                   backgroundColor: hexToRgba(theme.pageBg, 0.72),
@@ -124,7 +123,7 @@ const ProductCloseViewSection = ({ product, theme }: ProductCloseViewProps) => {
                   >
                     {/* Icon Container */}
                     <div
-                      className="fx-float shrink-0 size-14 lg:size-16 rounded-2xl border flex items-center justify-center p-3 shadow-sm transition-all group-hover:shadow-md group-hover:scale-110"
+                      className="shrink-0 size-14 lg:size-16 rounded-2xl border flex items-center justify-center p-3 shadow-sm transition-all group-hover:shadow-md group-hover:scale-110"
                       style={{
                         backgroundColor: hexToRgba(theme.pageBg, 0.86),
                         borderColor: `${theme.border}66`,

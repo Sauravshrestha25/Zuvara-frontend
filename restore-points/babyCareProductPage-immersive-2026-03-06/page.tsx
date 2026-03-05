@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import { babyCareProducts } from "@/constants/babyCareProduct";
 import type { Product } from "@/type/babyCareProductType";
@@ -14,8 +14,6 @@ import CarePromiseSection from "@/app/components/babyCareProductPage/CarePromise
 import FaqAndCloseViewSection from "@/app/components/babyCareProductPage/FaqAndCloseViewSection";
 import { hexToRgba } from "@/app/components/babyCareProductPage/theme";
 import type { ThemePreset } from "@/app/components/babyCareProductPage/theme";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const moodboardImages = [
   "/images/diaper/supreme-diaper/feature.png",
@@ -113,111 +111,24 @@ export default function Page() {
     products.findIndex((item) => item.slug === slug)
   );
   const [activeIdx, setActiveIdx] = useState(initialIndex);
-  const rootRef = useRef<HTMLElement | null>(null);
-  const active =
-    products.length > 0
-      ? products[clampIndex(activeIdx, products.length)]
-      : product || babyCareProducts[0];
-  const theme = themePresets[clampIndex(activeIdx, themePresets.length)];
-  const heroPackSrc = active ? pickHeroPack(active) : "";
-  const variants = active?.variants || [];
-  const highlights = (active?.highlights || []).slice(0, 4);
 
-  useLayoutEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const ctx = gsap.context(() => {
-      const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
-
-      gsap.to(".theme-orb", {
-        y: -30,
-        x: 20,
-        duration: 6,
-        yoyo: true,
-        repeat: -1,
-        stagger: 0.35,
-        ease: "sine.inOut",
-      });
-
-      const sections = gsap.utils.toArray<HTMLElement>(".immersive-section");
-      sections.forEach((section) => {
-        const rises = section.querySelectorAll(".fx-rise");
-        const floats = section.querySelectorAll(".fx-float");
-        const parallax = section.querySelectorAll(".fx-parallax");
-
-        if (rises.length) {
-          gsap.fromTo(
-            rises,
-            { opacity: 0, y: 36 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.9,
-              stagger: 0.08,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: section,
-                start: "top 78%",
-                once: true,
-              },
-            }
-          );
-        }
-
-        if (floats.length) {
-          gsap.to(floats, {
-            yPercent: -4,
-            stagger: 0.12,
-            ease: "none",
-            scrollTrigger: {
-              trigger: section,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1,
-            },
-          });
-        }
-
-        if (parallax.length && isDesktop) {
-          gsap.to(parallax, {
-            yPercent: -5,
-            scale: 1.01,
-            ease: "none",
-            scrollTrigger: {
-              trigger: section,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.2,
-            },
-          });
-        }
-      });
-    }, rootRef);
-
-    return () => ctx.revert();
-  }, [active?.id, theme.accent]);
-
-  if (!product || !active) {
+  if (!product) {
     return <ProductNotFound />;
   }
 
+  const active =
+    products.length > 0 ? products[clampIndex(activeIdx, products.length)] : product;
+  const heroPackSrc = pickHeroPack(active);
+  const theme = themePresets[clampIndex(activeIdx, themePresets.length)];
+
+  const variants = active.variants || [];
+  const highlights = (active.highlights || []).slice(0, 4);
+
   return (
     <main
-      ref={rootRef}
       className="relative overflow-hidden text-zinc-800 transition-colors duration-500 antialiased"
       style={{ backgroundColor: theme.pageBg }}
     >
-      <div
-        className="theme-orb pointer-events-none absolute -top-24 -left-16 h-64 w-64 rounded-full blur-3xl"
-        style={{ backgroundColor: hexToRgba(theme.accent, 0.2) }}
-      />
-      <div
-        className="theme-orb pointer-events-none absolute top-[30rem] -right-20 h-72 w-72 rounded-full blur-3xl"
-        style={{ backgroundColor: hexToRgba(theme.chipBg, 0.44) }}
-      />
-      <div
-        className="theme-orb pointer-events-none absolute top-[90rem] left-1/4 h-80 w-80 rounded-full blur-3xl"
-        style={{ backgroundColor: hexToRgba(theme.accent, 0.14) }}
-      />
       <div
         className="pointer-events-none absolute inset-x-0 top-[36rem] h-[44rem]"
         style={{
