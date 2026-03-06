@@ -10,85 +10,45 @@ interface FaqSectionProps {
 }
 
 const FaqSection = ({
-  faqs = [],
-  questionColor,
-  answerColor,
-  product,
-}: FaqSectionProps) => {
+                      faqs = [],
+                      questionColor,
+                      answerColor,
+                      product,
+                    }: FaqSectionProps) => {
   if (faqs.length === 0) return null;
 
-  const headingColor = questionColor || product.background || "#000000";
+  const headingColor = questionColor || product.background || "#17181c";
   const bodyColor = answerColor || "#52525b";
 
-  const half = Math.ceil(faqs.length / 2);
-  const leftColumn = faqs.slice(0, half);
-  const rightColumn = faqs.slice(half);
-
   return (
-    <section className="py-4 lg:py-8 ">
-      <div className="flex flex-col gap-2 items-center justify-center mb-4">
-        <h2
-          className="text-lg lg:text-3xl font-semibold"
-          style={{ color: headingColor }}
-        >
-          Frequently Asked Questions
-        </h2>
-        <p className="lg:text-lg leading-relaxed" style={{ color: bodyColor }}>
-          Everything you need to know about this product.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1  w-2xl mx-auto">
-        <div className="flex flex-col ">
-          <Accordions
-            type="single"
-            className="w-full border-none bg-transparent shadow-none divide-y-0"
+    <div className="space-y-4">
+      <Accordions type="single" className="w-full space-y-3 [perspective:1200px]">
+        {faqs.map((faq, index) => (
+          <Accordion
+            key={index}
+            id={`faq-${index}`}
+            title={faq.question}
+            className="fx-rise overflow-hidden rounded-2xl border px-4 md:px-5 transition-transform duration-500 hover:-translate-y-1"
+            triggerClassName="py-4 text-left text-sm font-semibold md:text-base hover:no-underline"
+            triggerStyle={{ color: headingColor }}
+            style={{
+              borderColor: `${headingColor}33`,
+              backgroundColor: `${headingColor}08`,
+              boxShadow: `0 14px 30px ${headingColor}14`,
+            }}
           >
-            {leftColumn.map((faq, index) => (
-              <Accordion
-                key={index}
-                id={`faq-left-${index}`}
-                title={faq.question}
-                className="border-b border-zinc-100 lg:last:border-0"
-                triggerClassName=""
-                triggerStyle={{ color: headingColor }}
+            <div className="pb-4 pt-1">
+              <p
+                className="whitespace-pre-line text-sm leading-relaxed md:text-base"
+                style={{ color: bodyColor }}
               >
-                <p
-                  className="text-sm lg:text-base lg:leading-relaxed whitespace-pre-line"
-                  style={{ color: bodyColor }}
-                >
-                  {faq.answer}
-                </p>
-              </Accordion>
-            ))}
-          </Accordions>
-        </div>
-        <div className="flex flex-col">
-          <Accordions
-            type="single"
-            className="w-full border-none bg-transparent shadow-none divide-y-0"
-          >
-            {rightColumn.map((faq, index) => (
-              <Accordion
-                key={index}
-                id={`faq-right-${index}`}
-                title={faq.question}
-                className="border-b border-zinc-100 last:border-0"
-                triggerClassName=""
-                triggerStyle={{ color: headingColor }}
-              >
-                <p
-                  className="leading-relaxed whitespace-pre-line"
-                  style={{ color: bodyColor }}
-                >
-                  {faq.answer}
-                </p>
-              </Accordion>
-            ))}
-          </Accordions>
-        </div>
-      </div>
-    </section>
+                {faq.answer}
+              </p>
+            </div>
+          </Accordion>
+        ))}
+      </Accordions>
+    </div>
   );
 };
 
