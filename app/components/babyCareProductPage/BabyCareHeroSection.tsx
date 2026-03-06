@@ -2,7 +2,7 @@ import type { Product } from "@/type/babyCareProductType";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowDown, Check, ChevronLeft, ChevronRight } from "lucide-react";
 
 type ThemePreset = {
   accent: string;
@@ -25,7 +25,8 @@ type BabyCareHeroSectionProps = {
 };
 
 const bodyText = "text-sm md:text-base leading-relaxed text-zinc-700";
-const tinyLabel = "text-[11px] md:text-xs font-semibold uppercase tracking-[0.14em]";
+const tinyLabel =
+  "text-[11px] md:text-xs font-semibold uppercase tracking-[0.14em]";
 
 export default function BabyCareHeroSection({
   active,
@@ -43,12 +44,12 @@ export default function BabyCareHeroSection({
       animate={{ backgroundColor: theme.pageBg }}
       transition={{ duration: 0.45, ease: "easeOut" }}
     >
-      <div className="relative mx-auto max-w-7xl px-6 pt-8 pb-10 md:pt-10 md:pb-14">
+      <div className="relative mx-auto max-w-7xl pt-8 pb-10 md:pt-10 md:pb-14">
         <div className="relative mt-10">
           <div className="flex justify-between">
             <div>
               <h1
-                className="text-6xl leading-[0.95] tracking-tight"
+                className="text-5xl font-semibold leading-[0.95] tracking-tight"
                 style={{ color: theme.accent }}
               >
                 Love begins
@@ -57,7 +58,7 @@ export default function BabyCareHeroSection({
               </h1>
             </div>
 
-            <div className="pt-2">
+            <div className="py-2">
               <div className="flex -space-x-3">
                 {[
                   "/images/baby/baby29.png",
@@ -70,7 +71,12 @@ export default function BabyCareHeroSection({
                     className="relative h-12 w-12 rounded-full border-2 overflow-hidden bg-white"
                     style={{ borderColor: theme.pageBg, zIndex: 10 - idx }}
                   >
-                    <Image src={avatar} alt="Parent" fill className="object-cover" />
+                    <Image
+                      src={avatar}
+                      alt="Parent"
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                 ))}
                 <div
@@ -80,14 +86,18 @@ export default function BabyCareHeroSection({
                   +
                 </div>
               </div>
-              <p className="mt-4 text-sm md:text-base text-zinc-600">Loved by 5,000 happy parents</p>
+              <p className="mt-4 text-sm md:text-base text-zinc-600">
+                Loved by 5,000+ happy parents
+              </p>
 
-              <button
-                className="mt-8 h-14 md:h-16 rounded-full text-white text-xl md:text-sm px-4 font-semibold tracking-wide"
-                style={{ backgroundColor: theme.accent }}
-              >
-                SHOP NOW
-              </button>
+              <Link href="/products">
+                <button
+                  className="mt-8 py-3 px-6 rounded-full text-white text-xl md:text-sm font-semibold tracking-wide"
+                  style={{ backgroundColor: theme.accent }}
+                >
+                  Inquiry Now
+                </button>
+              </Link>
             </div>
           </div>
 
@@ -114,67 +124,100 @@ export default function BabyCareHeroSection({
         </div>
 
         <div
-          className="relative mt-8 h-107.5 md:h-100 overflow-hidden rounded-[36px] px-6 pt-16 pb-24 md:pt-20 transition-colors duration-500"
+          className="relative h-107.5 md:h-100 overflow-hidden rounded-4xl px-6 lg:px-10 pt-16 pb:8 md:pb-16 md:pt-20 lg:pt-30 transition-colors duration-500"
           style={{ backgroundColor: theme.containerBg }}
         >
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute -left-24 top-10 h-56 w-56 rounded-full bg-white/35" />
-            <div className="absolute right-8 -top-24 h-56 w-56 rounded-full bg-white/35" />
-            <div className="absolute right-28 -bottom-32 h-64 w-64 rounded-full bg-white/35" />
+            <div className="absolute -left-24 top-10 h-56 w-56 rounded-full bg-white/20" />
+            <div className="absolute right-8 -top-24 h-56 w-56 rounded-full bg-white/20" />
+            <div className="absolute right-28 -bottom-32 h-64 w-64 rounded-full bg-white/20" />
           </div>
 
-          <div className="relative grid items-center gap-6 lg:grid-cols-[1fr_380px_1fr]">
-            <div>
-              <p className={`max-w-xs ${bodyText}`}>
-                Every cuddle, every giggle, every tiny moment matters. Our care products protect the softness
-                you never want to lose.
+          <div className="w-full relative flex justify-between items-end gap-6 ">
+            <div className="w-full ">
+              <p className={`max-w-xs ${bodyText} font-medium`}>
+                Every cuddle, every giggle, every tiny moment matters. Our care
+                products protect the softness you never want to lose.
               </p>
-              <Link href="#" className="mt-4 inline-flex items-center gap-2 font-semibold" style={{ color: theme.accent }}>
-                LEARN MORE <ChevronRight size={16} />
+              <Link
+                href="#touch"
+                className="mt-4 inline-flex items-center gap-2 font-semibold"
+                style={{ color: theme.accent }}
+              >
+                Find more details <ArrowDown size={16} />
               </Link>
             </div>
-
-            <div className="text-zinc-700 space-y-3 lg:pt-14">
-              <p className={tinyLabel}>Pure ingredients.</p>
-              <p className={tinyLabel}>Pure comfort.</p>
-              <p className={tinyLabel}>Designed for delicate skin.</p>
-            </div>
-
-            <div className="min-h-27 md:min-h-32 flex flex-col justify-center">
+            <div className="w-full flex flex-col justify-end items-center">
               <h2
-                className="max-w-[16ch] wrap text-[clamp(2rem,3.8vw,3.25rem)] leading-[1.02] line-clamp-2 font-semibold"
+                className="text-nowrap text-2xl leading-[1.02] line-clamp-2 font-semibold"
                 style={{ color: theme.accent }}
               >
                 {active.name}
               </h2>
-              <p className="mt-2 text-base md:text-lg text-zinc-600">{active.category}</p>
+              <p className="mt-2 text-base md:text-sm font-medium text-zinc-600">
+                {active.category}
+              </p>
+            </div>
+            <div className="w-full text-zinc-700 space-y-4 lg:pt-14">
+              <div className="w-2/3 mx-auto">
+                <div className="flex items-center gap-3">
+                  <Check
+                    size={18}
+                    style={{ color: theme.accent }}
+                    strokeWidth={3}
+                  />
+                  <span className="text-base font-medium">
+                    Pure ingredients.
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Check
+                    size={18}
+                    style={{ color: theme.accent }}
+                    strokeWidth={3}
+                  />
+                  <span className="text-base font-medium">Pure comfort.</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Check
+                    size={18}
+                    style={{ color: theme.accent }}
+                    strokeWidth={3}
+                  />
+                  <span className="text-base font-medium">
+                    Designed for delicate skin.
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
-
+          {/* Prev and Next Buttons */}
           <div className="flex items-center justify-center pt-4">
-            <div className="inline-flex justify-self-center items-center gap-3 rounded-full bg-white/40 px-4 py-2">
+            <div className="inline-flex justify-self-center items-center gap-3 py-2">
               <button
                 type="button"
                 onClick={onPrev}
-                className="h-10 w-20 rounded-full border bg-white/70 grid place-items-center"
+                className=" px-6 py-3 font-medium hover:bg-white/20 rounded-full border bg-white/70 flex items-center justify-center gap-2"
                 style={{ borderColor: theme.border, color: theme.accent }}
                 aria-label="Previous product"
               >
                 <ChevronLeft size={18} />
+                Prev
               </button>
               <button
                 type="button"
                 onClick={onNext}
-                className="h-10 w-20 rounded-full border bg-white/70 grid place-items-center"
+                className=" px-6 py-3 font-medium hover:bg-white/20 rounded-full border bg-white/70 flex items-center justify-center gap-2"
                 style={{ borderColor: theme.border, color: theme.accent }}
                 aria-label="Next product"
               >
+                Next
                 <ChevronRight size={18} />
               </button>
             </div>
           </div>
 
-          <div className="absolute left-0 -right-6 bottom-0 z-20 flex start justify-start">
+          {/* <div className="absolute left-0 -right-6 bottom-0 z-20 flex start justify-start">
             <div className="flex pl-2 gap-1 bg-gray-100 rounded-tr-2xl py-2 pr-2">
               {products.map((p, i) => {
                 const isActive = p.id === active.id;
@@ -186,16 +229,23 @@ export default function BabyCareHeroSection({
                     className="relative h-16 w-16 overflow-hidden rounded-2xl border transition hover:opacity-90"
                     style={{
                       borderColor: isActive ? theme.accent : theme.border,
-                      boxShadow: isActive ? `0 0 0 2px ${theme.accent}40` : undefined,
+                      boxShadow: isActive
+                        ? `0 0 0 2px ${theme.accent}40`
+                        : undefined,
                     }}
                   >
-                    <Image src={pickHeroPack(p)} alt={p.name} fill className="object-contain p-2" />
+                    <Image
+                      src={pickHeroPack(p)}
+                      alt={p.name}
+                      fill
+                      className="object-contain p-2"
+                    />
                   </button>
                 );
               })}
             </div>
             <div className="hidden md:block" />
-          </div>
+          </div> */}
         </div>
       </div>
     </motion.section>

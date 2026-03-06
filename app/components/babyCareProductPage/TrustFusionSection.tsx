@@ -13,44 +13,150 @@ type TrustFusionSectionProps = {
   comparisonRows: ComparisonRow[];
 };
 
-const sectionTitle = "text-[clamp(1.8rem,3.4vw,2.8rem)] font-semibold tracking-tight leading-[1.08]";
+// const sectionTitle =
+//   "text-[clamp(1.8rem,3.4vw,2.8rem)] font-semibold tracking-tight leading-[1.08]";
 
-export default function TrustFusionSection({ theme, comparisonRows }: TrustFusionSectionProps) {
+export default function TrustFusionSection({
+  theme,
+  comparisonRows,
+}: TrustFusionSectionProps) {
   return (
     <section className="immersive-section relative px-6 py-14 lg:px-10 lg:py-16">
       <div
         className="pointer-events-none absolute left-1/2 top-6 h-44 w-60 -translate-x-1/2 rounded-full blur-3xl"
         style={{ backgroundColor: hexToRgba(theme.accent, 0.12) }}
       />
-      <div className="mx-auto max-w-5xl space-y-7 [perspective:1200px]">
+
+      <div className="mx-auto max-w-7xl perspective-1200px flex gap-6">
         <article
           className="fx-rise fx-float rounded-3xl border p-5 md:p-6"
           style={{
             borderColor: `${theme.border}66`,
-            backgroundColor: hexToRgba(theme.sectionTint, 0.56),
-            boxShadow: `0 18px 42px ${hexToRgba(theme.accent, 0.1)}`,
+            backgroundColor: hexToRgba(theme.accent, 1),
           }}
         >
           <div className="flex items-start gap-4 md:items-center">
-            <div className="h-11 w-11 overflow-hidden rounded-full border" style={{ borderColor: `${theme.border}66` }}>
-              <Image src="/images/baby/baby15.png" alt="Sarah M." width={44} height={44} className="h-full w-full object-cover" />
+            <div
+              className="h-11 w-11 overflow-hidden rounded-full border"
+              style={{
+                borderColor: `${theme.border}66`,
+              }}
+            >
+              <Image
+                src="/images/baby/baby15.png"
+                alt="Sarah M."
+                width={44}
+                height={44}
+                className="h-full w-full object-cover"
+              />
             </div>
             <div>
-              <p className="text-sm font-semibold" style={{ color: theme.accent }}>Sarah M. · Verified Parent</p>
-              <p className="mt-1 text-sm md:text-base italic" style={{ color: hexToRgba(theme.accent, 0.78) }}>
-                &quot;Finally, a night where I didn&apos;t wake up to a leak. Zuvara feels like a soft hug that works.&quot;
+              <p
+                className="text-sm font-semibold"
+                style={{ color: theme.chipBg }}
+              >
+                Sarah M. · Verified Parent
+              </p>
+              <p
+                className="mt-1 text-sm md:text-base italic"
+                style={{ color: hexToRgba(theme.chipBg, 0.78) }}
+              >
+                &quot;Finally, a night where I didn&apos;t wake up to a leak.
+                Zuvara feels like a soft hug that works.&quot;
               </p>
             </div>
           </div>
         </article>
-
+        <article
+          className="fx-rise fx-float rounded-3xl border p-5 md:p-6"
+          style={{
+            borderColor: `${theme.border}66`,
+            backgroundColor: hexToRgba(theme.pageBg, 1),
+          }}
+        >
+          <div className="flex items-start gap-4 md:items-center">
+            <div
+              className="h-11 w-11 overflow-hidden rounded-full border"
+              style={{ borderColor: `${theme.border}66` }}
+            >
+              <Image
+                src="/images/baby/baby15.png"
+                alt="Sarah M."
+                width={44}
+                height={44}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div>
+              <p
+                className="text-sm font-semibold"
+                style={{ color: theme.accent }}
+              >
+                Sarah M. · Verified Parent
+              </p>
+              <p
+                className="mt-1 text-sm md:text-base italic"
+                style={{ color: hexToRgba(theme.accent, 0.78) }}
+              >
+                &quot;Finally, a night where I didn&apos;t wake up to a leak.
+                Zuvara feels like a soft hug that works.&quot;
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div className="w-7xl mx-auto mt-12 space-y-8">
         <div className="fx-rise">
-          <h2 className={sectionTitle} style={{ color: theme.accent }}>
-            Why Zuvara Wins
+          <h2
+            className="text-3xl lg:text-5xl font-bold tracking-tight"
+            style={{ color: hexToRgba(theme.accent, 0.9) }}
+          >
+            Why Zuvara
+            <span className="font-light italic opacity-60"> Wins</span>
           </h2>
-          <p className="mt-2 text-sm" style={{ color: hexToRgba(theme.accent, 0.68) }}>
+          <p
+            className="mt-2 text-sm font-medium"
+            style={{ color: hexToRgba(theme.accent, 0.68) }}
+          >
             A quick side-by-side look at the care your baby deserves.
           </p>
+        </div>
+
+        <div
+          className="flex justify-center items-center rounded-4xl px-4"
+          style={{ backgroundColor: hexToRgba(theme.containerBg, 0.2) }}
+        >
+          <div className="left">
+            <h2
+              className="text-8xl font-bold uppercase"
+              style={{ color: hexToRgba(theme.accent, 0.6) }}
+            >
+              Zuvara
+            </h2>
+          </div>
+          <div className="Center ">
+            <div className="flex ">
+              <Image
+                src="/images/diaper/zuvara-diaper.png"
+                alt="Sarah M."
+                width={1000}
+                height={1000}
+                className="h-150 w-full object-cover"
+              />
+              <Image
+                src="/images/diaper/normal-diaper.png"
+                alt="Sarah M."
+                width={1000}
+                height={1000}
+                className="h-150 w-full object-cover -ml-0.5 border-l-2"
+              />
+            </div>
+          </div>
+          <div className="right">
+            <h2 className="text-8xl font-bold uppercase text-zinc-500/50">
+              Ordinary
+            </h2>
+          </div>
         </div>
 
         <div
@@ -58,7 +164,6 @@ export default function TrustFusionSection({ theme, comparisonRows }: TrustFusio
           style={{
             borderColor: `${theme.border}66`,
             backgroundColor: hexToRgba(theme.pageBg, 0.9),
-            boxShadow: `0 24px 48px ${hexToRgba(theme.accent, 0.1)}`,
           }}
         >
           <div
@@ -75,18 +180,29 @@ export default function TrustFusionSection({ theme, comparisonRows }: TrustFusio
           </div>
 
           {comparisonRows.map((row, idx) => (
+            <div
+              key={row.label}
+              className="fx-float grid grid-cols-12 items-center px-4 py-3 text-sm"
+              style={{
+                borderTop: idx === 0 ? "none" : `1px solid ${theme.border}33`,
+              }}
+            >
               <div
-                key={row.label}
-                className="fx-float grid grid-cols-12 items-center px-4 py-3 text-sm"
-                style={{ borderTop: idx === 0 ? "none" : `1px solid ${theme.border}33` }}
+                className="col-span-6 font-medium"
+                style={{ color: hexToRgba(theme.accent, 0.82) }}
               >
-              <div className="col-span-6 font-medium" style={{ color: hexToRgba(theme.accent, 0.82) }}>
                 {row.label}
               </div>
-              <div className="col-span-3 text-center font-semibold" style={{ color: theme.accent }}>
+              <div
+                className="col-span-3 text-center font-semibold"
+                style={{ color: theme.accent }}
+              >
                 {row.zuvara}
               </div>
-              <div className="col-span-3 text-center" style={{ color: hexToRgba(theme.accent, 0.62) }}>
+              <div
+                className="col-span-3 text-center"
+                style={{ color: hexToRgba(theme.accent, 0.7) }}
+              >
                 {row.ordinary}
               </div>
             </div>

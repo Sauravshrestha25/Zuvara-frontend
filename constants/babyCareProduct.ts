@@ -9,7 +9,7 @@ const DEFAULT_REVIEW = {
   userName: "Zuvara Customer",
   userInitial: "ZC",
   rating: 5,
-  comment: "Great quality and gentle on baby’s skin.",
+  comment: "Great quality and gentle on baby's skin.",
   date: "2024-01-01",
 };
 
@@ -17,12 +17,12 @@ const DEFAULT_FAQ = [
   {
     question: "Is this product safe for babies?",
     answer:
-        "Yes. This product is designed for delicate baby skin and is made with baby-safe materials. Please follow the usage instructions on the pack.",
+      "Yes. This product is designed for delicate baby skin and is made with baby-safe materials. Please follow the usage instructions on the pack.",
   },
   {
     question: "How should I store this product?",
     answer:
-        "Store in a cool, dry place away from direct sunlight. Ensure the pack is sealed properly after use.",
+      "Store in a cool, dry place away from direct sunlight. Ensure the pack is sealed properly after use.",
   },
 ];
 
@@ -54,7 +54,8 @@ function normalizeProduct(p: Product): Product {
 
     // images
     heroImage: p.heroImage ?? p.image ?? "/images/placeholder.png",
-    heroImage2: p.heroImage2 ?? p.heroImage ?? p.image ?? "/images/placeholder.png",
+    heroImage2:
+      p.heroImage2 ?? p.heroImage ?? p.image ?? "/images/placeholder.png",
     image: p.image ?? p.heroImage ?? "/images/placeholder.png",
 
     // rating
@@ -81,32 +82,33 @@ function normalizeProduct(p: Product): Product {
 
     // variants
     variants:
-        Array.isArray(p.variants) && p.variants.length
-            ? p.variants.map((v, idx) => ({
-              ...DEFAULT_VARIANT,
-              ...v,
-              id: v.id ?? idx + 1,
-              image: v.image ?? DEFAULT_VARIANT.image,
-              icon: v.icon ?? DEFAULT_VARIANT.icon,
-              size: v.size ?? DEFAULT_VARIANT.size,
-              weight: v.weight ?? "",
-            }))
-            : [{ ...DEFAULT_VARIANT }],
+      Array.isArray(p.variants) && p.variants.length
+        ? p.variants.map((v, idx) => ({
+            ...DEFAULT_VARIANT,
+            ...v,
+            id: v.id ?? idx + 1,
+            image: v.image ?? DEFAULT_VARIANT.image,
+            icon: v.icon ?? DEFAULT_VARIANT.icon,
+            size: v.size ?? DEFAULT_VARIANT.size,
+            weight: v.weight ?? "",
+          }))
+        : [{ ...DEFAULT_VARIANT }],
 
     // reviewsData
     reviewsData:
-        Array.isArray(p.reviewsData) && p.reviewsData.length
-            ? p.reviewsData
-            : [{ ...DEFAULT_REVIEW }],
+      Array.isArray(p.reviewsData) && p.reviewsData.length
+        ? p.reviewsData
+        : [{ ...DEFAULT_REVIEW }],
 
     // faqs
     faqs: Array.isArray(p.faqs) && p.faqs.length ? p.faqs : DEFAULT_FAQ,
 
     // productCloseView
     productCloseView:
-        Array.isArray((p as any).productCloseView) && (p as any).productCloseView.length
-            ? (p as any).productCloseView
-            : DEFAULT_CLOSE_VIEW,
+      Array.isArray((p as any).productCloseView) &&
+      (p as any).productCloseView.length
+        ? (p as any).productCloseView
+        : DEFAULT_CLOSE_VIEW,
   };
 }
 
@@ -160,13 +162,13 @@ const rawBabyCareProducts: Product[] = [
     ],
     description: "Get ready for a dry, leak-free adventure ahead!",
     subDesc1:
-        "Say goodbye to worries over rashes, heaviness, and leakage with Zuvara Supreme Diapers! Your baby deserves the best, and these diapers deliver unparalleled comfort and protection.",
+      "Say goodbye to worries over rashes, heaviness, and leakage with Zuvara Supreme Diapers! Your baby deserves the best, and these diapers deliver unparalleled comfort and protection.",
     subDesc2:
-        "Crafted to be the thinnest diapers on the market, Zuvara Supreme Diapers prioritize your baby’s well-being. Dermatologically and Pediatrician tested, they’re gentle on even the most sensitive skin types. Plus, they’re completely chemical-free, with 0% Parabens, Latex, Fragrance, Phthalates, and Chlorine.",
+      "Crafted to be the thinnest diapers on the market, Zuvara Supreme Diapers prioritize your baby’s well-being. Dermatologically and Pediatrician tested, they’re gentle on even the most sensitive skin types. Plus, they’re completely chemical-free, with 0% Parabens, Latex, Fragrance, Phthalates, and Chlorine.",
     subDesc3:
-        "Breathable pores ensure air circulation, acting as a shield against rashes, while the leak-proof design and 12-hour super absorbency guarantee uninterrupted playtime and sleep. The 360-degree elasticity provides freedom of movement, preventing discomfort during exploration and discovery.",
+      "Breathable pores ensure air circulation, acting as a shield against rashes, while the leak-proof design and 12-hour super absorbency guarantee uninterrupted playtime and sleep. The 360-degree elasticity provides freedom of movement, preventing discomfort during exploration and discovery.",
     subDesc4:
-        "Zuvara Supreme Diapers also feature a handy wetness indicator, changing color when it’s time for a change, ensuring your baby stays dry and comfortable. Give your little one the gift of a happy diaper journey with Zuvara, the premium choice for discerning parents in Nepal.",
+      "Zuvara Supreme Diapers also feature a handy wetness indicator, changing color when it’s time for a change, ensuring your baby stays dry and comfortable. Give your little one the gift of a happy diaper journey with Zuvara, the premium choice for discerning parents in Nepal.",
     highlights: [
       "Extra soft breathable outer layer",
       "12-hour leak protection",
@@ -181,7 +183,7 @@ const rawBabyCareProducts: Product[] = [
         userInitial: "AS",
         rating: 5,
         comment:
-            "This has completely changed our diaper routine. No more leaks at night!",
+          "This has completely changed our diaper routine. No more leaks at night!",
         date: "2024-01-15",
       },
       {
@@ -190,7 +192,7 @@ const rawBabyCareProducts: Product[] = [
         userInitial: "MK",
         rating: 4,
         comment:
-            "Very soft and absorbent. Highly recommended for sensitive skin.",
+          "Very soft and absorbent. Highly recommended for sensitive skin.",
         date: "2024-01-20",
       },
     ],
@@ -198,12 +200,12 @@ const rawBabyCareProducts: Product[] = [
       {
         question: "Are Supreme Diapers safe to be used by my baby?",
         answer:
-            "Only pure water-based inks are utilized on our Zuvara Supreme Diapers, making them completely safe and secure to be used by babies daily. Zuvara Diapers are the softest disposable diapers and breathable pores to ensure air can easily pass through and work as a rash guard for your baby’s safety.",
+          "Only pure water-based inks are utilized on our Zuvara Supreme Diapers, making them completely safe and secure to be used by babies daily. Zuvara Diapers are the softest disposable diapers and breathable pores to ensure air can easily pass through and work as a rash guard for your baby’s safety.",
       },
       {
         question: "How does the wetness indicator work in Supreme Diapers?",
         answer:
-            "Wetness indicators are a convenient way to indicate the time to change your baby’s diaper. Each Diaper comes with 3 wetness indicator lines on them. These lines turn from yellow to blue whenever your baby pees/poops",
+          "Wetness indicators are a convenient way to indicate the time to change your baby’s diaper. Each Diaper comes with 3 wetness indicator lines on them. These lines turn from yellow to blue whenever your baby pees/poops",
       },
       {
         question: "How can I pick the right size of diaper for my baby?",
@@ -216,19 +218,19 @@ const rawBabyCareProducts: Product[] = [
       },
       {
         question:
-            "How to dispose off Supreme diapers?Is there a wetness indicator?",
+          "How to dispose off Supreme diapers?Is there a wetness indicator?",
         answer:
-            "Zuvara diapers come with disposable tape so that you can dispose of the diapers with utmost hygiene and care. The soiled diapers can be conveniently wrapped and sealed using disposable tape.",
+          "Zuvara diapers come with disposable tape so that you can dispose of the diapers with utmost hygiene and care. The soiled diapers can be conveniently wrapped and sealed using disposable tape.",
       },
       {
         question: "Are Supreme Diapers safe to be used by my baby?",
         answer:
-            "Only pure water-based inks are used on our Zuvara Diapers making it completely safe to be used by babies on daily basis. Zuvara Diaper also has breathable pores to ensure air can easily pass through and act as a rash guard for your baby’s safety.",
+          "Only pure water-based inks are used on our Zuvara Diapers making it completely safe to be used by babies on daily basis. Zuvara Diaper also has breathable pores to ensure air can easily pass through and act as a rash guard for your baby’s safety.",
       },
       {
         question: "Do Supreme Diapers have an expiry date?",
         answer:
-            "Yes, our Zuvara Diapers do have an expiry date. You can keep our baby diapers for up to 3 years without worry. We strongly recommend storing Feather diapers in a cool and dry environment for hygienic reasons.",
+          "Yes, our Zuvara Diapers do have an expiry date. You can keep our baby diapers for up to 3 years without worry. We strongly recommend storing Feather diapers in a cool and dry environment for hygienic reasons.",
       },
     ],
     featureImage: "/images/diaper/supreme-diaper/feature.png",
@@ -237,7 +239,7 @@ const rawBabyCareProducts: Product[] = [
     featureImageDesc: "10s fast Absorption, Keep 12 Hours Dry",
     featureTitle: "Absorbs 15x its weight in liquid",
     featureDesc:
-        "Zuvara Premium Care Pants have super-absorbent gel absorbs the liquid to lock it away from your baby’s skin and prevent wetness from transferring to your baby’s bed or clothes.",
+      "Zuvara Premium Care Pants have super-absorbent gel absorbs the liquid to lock it away from your baby’s skin and prevent wetness from transferring to your baby’s bed or clothes.",
     features: [
       "Upgraded softbess for a cloud of touch and skin-friendly pampering",
       "Visibly thin, like it's not worn, the butt feel relaxed",
@@ -327,7 +329,7 @@ const rawBabyCareProducts: Product[] = [
         userInitial: "AS",
         rating: 5,
         comment:
-            "This has completely changed our diaper routine. No more leaks at night!",
+          "This has completely changed our diaper routine. No more leaks at night!",
         date: "2024-01-15",
       },
       {
@@ -336,7 +338,7 @@ const rawBabyCareProducts: Product[] = [
         userInitial: "MK",
         rating: 4,
         comment:
-            "Very soft and absorbent. Highly recommended for sensitive skin.",
+          "Very soft and absorbent. Highly recommended for sensitive skin.",
         date: "2024-01-20",
       },
     ],
@@ -344,12 +346,12 @@ const rawBabyCareProducts: Product[] = [
       {
         question: "Are Feather Diapers safe to be used by my baby?",
         answer:
-            "Only pure water-based inks are utilized on our Zuvara Feather Diapers, making them completely safe and secure to be used by babies daily. Zuvara Diapers are the softest disposable diapers and breathable pores to ensure air can easily pass through and work as a rash guard for your baby’s safety.",
+          "Only pure water-based inks are utilized on our Zuvara Feather Diapers, making them completely safe and secure to be used by babies daily. Zuvara Diapers are the softest disposable diapers and breathable pores to ensure air can easily pass through and work as a rash guard for your baby’s safety.",
       },
       {
         question: "How does the wetness indicator work in Feather Diapers?",
         answer:
-            "Wetness indicators are a convenient way to indicate the time to change your baby’s diaper. Each Diaper comes with 3 wetness indicator lines on them. These lines turn from yellow to blue whenever your baby pees/poops",
+          "Wetness indicators are a convenient way to indicate the time to change your baby’s diaper. Each Diaper comes with 3 wetness indicator lines on them. These lines turn from yellow to blue whenever your baby pees/poops",
       },
       {
         question: "How can I pick the right size of diaper for my baby?",
@@ -363,27 +365,27 @@ const rawBabyCareProducts: Product[] = [
       },
       {
         question:
-            "How to dispose off Feather diapers?Is there a wetness indicator?",
+          "How to dispose off Feather diapers?Is there a wetness indicator?",
         answer:
-            "Zuvara diapers come with disposable tape so that you can dispose of the diapers with utmost hygiene and care. The soiled diapers can be conveniently wrapped and sealed using disposable tape.",
+          "Zuvara diapers come with disposable tape so that you can dispose of the diapers with utmost hygiene and care. The soiled diapers can be conveniently wrapped and sealed using disposable tape.",
       },
       {
         question: "Are Feather Diapers safe to be used by my baby?",
         answer:
-            "Only pure water-based inks are used on our Zuvara Diapers making it completely safe to be used by babies on daily basis. Zuvara Diaper also has breathable pores to ensure air can easily pass through and act as a rash guard for your baby’s safety.",
+          "Only pure water-based inks are used on our Zuvara Diapers making it completely safe to be used by babies on daily basis. Zuvara Diaper also has breathable pores to ensure air can easily pass through and act as a rash guard for your baby’s safety.",
       },
       {
         question: "Do Feather Diapers have an expiry date?",
         answer:
-            "Yes, our Zuvara Diapers do have an expiry date. You can keep our baby diapers for up to 3 years without worry. We strongly recommend storing Feather diapers in a cool and dry environment for hygienic reasons.",
+          "Yes, our Zuvara Diapers do have an expiry date. You can keep our baby diapers for up to 3 years without worry. We strongly recommend storing Feather diapers in a cool and dry environment for hygienic reasons.",
       },
     ],
     description:
-        "Feather Diaper Tape technology provides a lightweight yet secure fit for newborns.",
+      "Feather Diaper Tape technology provides a lightweight yet secure fit for newborns.",
     featureImage: "/images/diaper/supreme-diaper/feature.png",
     featureTitle: "Absorbs 15x its weight in liquid",
     featureDesc:
-        "Zuvara Premium Care Pants have super-absorbent gel absorbs the liquid to lock it away from your baby’s skin and prevent wetness from transferring to your baby’s bed or clothes.",
+      "Zuvara Premium Care Pants have super-absorbent gel absorbs the liquid to lock it away from your baby’s skin and prevent wetness from transferring to your baby’s bed or clothes.",
     features: [
       "Upgraded softbess for a cloud of touch and skin-friendly pampering",
       "Visibly thin, like it's not worn, the butt feel relaxed",
@@ -422,7 +424,7 @@ const rawBabyCareProducts: Product[] = [
       },
     ],
     description:
-        "Feather Diaper Tape technology provides a lightweight yet secure fit for newborns.",
+      "Feather Diaper Tape technology provides a lightweight yet secure fit for newborns.",
     highlights: [
       "Feather-light materials",
       "Magic tape re-fastening system",
@@ -443,7 +445,7 @@ const rawBabyCareProducts: Product[] = [
     featureImage: "/images/diaper/supreme-diaper/feature.png",
     featureTitle: "Reliable Absorption for Everyday Use",
     featureDesc:
-        "Zuvara Value Series Diapers absorb up to 10x their weight in liquid (based on diaper weight and total absorbing capacity), keeping your baby dry, fresh, and comfortable all day long. The breathable core locks moisture away, preventing leaks and rashes, perfect for daily wear and active playtime.",
+      "Zuvara Value Series Diapers absorb up to 10x their weight in liquid (based on diaper weight and total absorbing capacity), keeping your baby dry, fresh, and comfortable all day long. The breathable core locks moisture away, preventing leaks and rashes, perfect for daily wear and active playtime.",
     features: [
       "Wetness Indicator",
       "Soft Inner Core",
@@ -509,23 +511,23 @@ const rawBabyCareProducts: Product[] = [
     ],
     description: "Get ready for a dry, leak-free adventure ahead!",
     subDesc1:
-        "Say goodbye to worries over rashes, heaviness, and leakage with Zuvara Supreme Diapers! Your baby deserves the best, and these diapers deliver unparalleled comfort and protection.",
+      "Say goodbye to worries over rashes, heaviness, and leakage with Zuvara Supreme Diapers! Your baby deserves the best, and these diapers deliver unparalleled comfort and protection.",
     subDesc2:
-        "Crafted to be the thinnest diapers on the market, Zuvara Supreme Diapers prioritize your baby’s well-being. Dermatologically and Pediatrician tested, they’re gentle on even the most sensitive skin types. Plus, they’re completely chemical-free, with 0% Parabens, Latex, Fragrance, Phthalates, and Chlorine.",
+      "Crafted to be the thinnest diapers on the market, Zuvara Supreme Diapers prioritize your baby’s well-being. Dermatologically and Pediatrician tested, they’re gentle on even the most sensitive skin types. Plus, they’re completely chemical-free, with 0% Parabens, Latex, Fragrance, Phthalates, and Chlorine.",
     subDesc3:
-        "Breathable pores ensure air circulation, acting as a shield against rashes, while the leak-proof design and 12-hour super absorbency guarantee uninterrupted playtime and sleep. The 360-degree elasticity provides freedom of movement, preventing discomfort during exploration and discovery.",
+      "Breathable pores ensure air circulation, acting as a shield against rashes, while the leak-proof design and 12-hour super absorbency guarantee uninterrupted playtime and sleep. The 360-degree elasticity provides freedom of movement, preventing discomfort during exploration and discovery.",
     subDesc4:
-        "Zuvara Supreme Diapers also feature a handy wetness indicator, changing color when it’s time for a change, ensuring your baby stays dry and comfortable. Give your little one the gift of a happy diaper journey with Zuvara, the premium choice for discerning parents in Nepal.",
+      "Zuvara Supreme Diapers also feature a handy wetness indicator, changing color when it’s time for a change, ensuring your baby stays dry and comfortable. Give your little one the gift of a happy diaper journey with Zuvara, the premium choice for discerning parents in Nepal.",
     faqs: [
       {
         question: "Are Value Diapers safe to be used by my baby?",
         answer:
-            "Only pure water-based inks are utilized on our Zuvara Value Diapers, making them completely safe and secure to be used by babies daily. Zuvara Diapers are the softest disposable diapers and breathable pores to ensure air can easily pass through and work as a rash guard for your baby’s safety.",
+          "Only pure water-based inks are utilized on our Zuvara Value Diapers, making them completely safe and secure to be used by babies daily. Zuvara Diapers are the softest disposable diapers and breathable pores to ensure air can easily pass through and work as a rash guard for your baby’s safety.",
       },
       {
         question: "How does the wetness indicator work in Value Diapers?",
         answer:
-            "Wetness indicators are a convenient way to indicate the time to change your baby’s diaper. Each Diaper comes with 3 wetness indicator lines on them. These lines turn from yellow to blue whenever your baby pees/poops",
+          "Wetness indicators are a convenient way to indicate the time to change your baby’s diaper. Each Diaper comes with 3 wetness indicator lines on them. These lines turn from yellow to blue whenever your baby pees/poops",
       },
       {
         question: "How can I pick the right size of diaper for my baby?",
@@ -541,25 +543,25 @@ Choose the size that best matches your baby’s weight for a snug, comfortable f
       },
       {
         question:
-            "How to dispose off Value diapers?Is there a wetness indicator?",
+          "How to dispose off Value diapers?Is there a wetness indicator?",
         answer:
-            "Zuvara diapers come with disposable tape so that you can dispose of the diapers with utmost hygiene and care. The soiled diapers can be conveniently wrapped and sealed using disposable tape.",
+          "Zuvara diapers come with disposable tape so that you can dispose of the diapers with utmost hygiene and care. The soiled diapers can be conveniently wrapped and sealed using disposable tape.",
       },
       {
         question: "Are Value Diapers safe to be used by my baby?",
         answer:
-            "Only pure water-based inks are used on our Zuvara Diapers making it completely safe to be used by babies on daily basis. Zuvara Diaper also has breathable pores to ensure air can easily pass through and act as a rash guard for your baby’s safety.",
+          "Only pure water-based inks are used on our Zuvara Diapers making it completely safe to be used by babies on daily basis. Zuvara Diaper also has breathable pores to ensure air can easily pass through and act as a rash guard for your baby’s safety.",
       },
       {
         question: "Do Value Diapers have an expiry date?",
         answer:
-            "Yes, our Zuvara Diapers do have an expiry date. You can keep our baby diapers for up to 3 years without worry. We strongly recommend storing Feather diapers in a cool and dry environment for hygienic reasons.",
+          "Yes, our Zuvara Diapers do have an expiry date. You can keep our baby diapers for up to 3 years without worry. We strongly recommend storing Feather diapers in a cool and dry environment for hygienic reasons.",
       },
     ],
     featureImage: "/images/diaper/supreme-diaper/feature.png",
     featureTitle: "Reliable Absorption for Everyday Use",
     featureDesc:
-        "Zuvara Value Series Diapers absorb up to 10x their weight in liquid (based on diaper weight and total absorbing capacity), keeping your baby dry, fresh, and comfortable all day long. The breathable core locks moisture away, preventing leaks and rashes, perfect for daily wear and active playtime.",
+      "Zuvara Value Series Diapers absorb up to 10x their weight in liquid (based on diaper weight and total absorbing capacity), keeping your baby dry, fresh, and comfortable all day long. The breathable core locks moisture away, preventing leaks and rashes, perfect for daily wear and active playtime.",
     features: [
       "Wetness Indicator",
       "Soft Inner Core",
@@ -579,7 +581,7 @@ Choose the size that best matches your baby’s weight for a snug, comfortable f
     image: "/images/diaper/supreme-diaper/diaper.png",
     category: "Cotton Tissue",
     description:
-        "Our Moisturising Tissue is infused with natural aloe and vitamin E to soothe even the most sensitive skin. ",
+      "Our Moisturising Tissue is infused with natural aloe and vitamin E to soothe even the most sensitive skin. ",
     highlights: [
       "Each wipe is made with a touch of cotton for softness",
       "Hypoallergenic and fragrance free",
@@ -604,32 +606,32 @@ Choose the size that best matches your baby’s weight for a snug, comfortable f
       {
         question: "What are Zuvara Baby Cotton Tissue?",
         answer:
-            "Zuvara Baby Cotton Tissue is a premium-quality product made from soft and gentle cotton, designed specifically for the delicate skin of babies. It offers a luxurious exfoliating experience without causing harm and ensures thorough cleansing while preventing irritation. These tissues are multipurpose, serving as makeup removers, facial cleansers, bath towels, washcloths, and more, making them essential for baby’s skin care and hygiene.",
+          "Zuvara Baby Cotton Tissue is a premium-quality product made from soft and gentle cotton, designed specifically for the delicate skin of babies. It offers a luxurious exfoliating experience without causing harm and ensures thorough cleansing while preventing irritation. These tissues are multipurpose, serving as makeup removers, facial cleansers, bath towels, washcloths, and more, making them essential for baby’s skin care and hygiene.",
       },
       {
         question: "Are Zuvara Cotton Tissue hypoallergenic and fragrance free?",
         answer:
-            "Yes, Zuvara Baby Cotton Tissue is hypoallergenic and fragrance-free, making it safe and gentle for use on delicate baby skin.",
+          "Yes, Zuvara Baby Cotton Tissue is hypoallergenic and fragrance-free, making it safe and gentle for use on delicate baby skin.",
       },
       {
         question: "How do Zuvara Baby Cotton Tissue clean?",
         answer:
-            "Zuvara Baby Cotton Tissue effectively cleans by utilizing its soft and absorbent cotton material to gently lift away dirt, impurities, and excess oils from the skin’s surface. Its high-quality construction ensures a thorough yet gentle cleansing experience, leaving the skin feeling fresh, clean, and rejuvenated.",
+          "Zuvara Baby Cotton Tissue effectively cleans by utilizing its soft and absorbent cotton material to gently lift away dirt, impurities, and excess oils from the skin’s surface. Its high-quality construction ensures a thorough yet gentle cleansing experience, leaving the skin feeling fresh, clean, and rejuvenated.",
       },
       {
         question: "Do Zuvara Tissue have an expiration date?",
         answer:
-            "Like all Cotton Tissue, our Baby Cotton Tissue have an expiration date. We recommend opening within 24 months of the production date and using the pack within one month of opening. The production date and expiration date is printed on the back of the pack.",
+          "Like all Cotton Tissue, our Baby Cotton Tissue have an expiration date. We recommend opening within 24 months of the production date and using the pack within one month of opening. The production date and expiration date is printed on the back of the pack.",
       },
       {
         question: "Why should I use Zuvara Tissue on my new born baby’s skin?",
         answer:
-            "In short, Zuvara Baby Cotton Tissue is ideal for your newborn because it’s gentle, hypoallergenic, fragrance-free, and prevents irritation. Its soft texture ensures effective yet comfortable cleansing, and its versatility makes it a handy addition to your baby care routine.",
+          "In short, Zuvara Baby Cotton Tissue is ideal for your newborn because it’s gentle, hypoallergenic, fragrance-free, and prevents irritation. Its soft texture ensures effective yet comfortable cleansing, and its versatility makes it a handy addition to your baby care routine.",
       },
       {
         question: "Are Zuvara Tissue reusable?",
         answer:
-            "Zuvara Tissue is typically designed for single-use purposes to maintain hygiene and prevent the spread of germs. While some may opt to reuse them, it’s essential to consider hygiene factors and potential contamination risks, especially for baby care. If you’re looking for reusable options, consider using washable and reusable cotton cloths specifically designed for baby care routines. Always prioritize hygiene and safety when caring for your baby’s delicate skin.",
+          "Zuvara Tissue is typically designed for single-use purposes to maintain hygiene and prevent the spread of germs. While some may opt to reuse them, it’s essential to consider hygiene factors and potential contamination risks, especially for baby care. If you’re looking for reusable options, consider using washable and reusable cotton cloths specifically designed for baby care routines. Always prioritize hygiene and safety when caring for your baby’s delicate skin.",
       },
     ],
   },
@@ -646,9 +648,9 @@ Choose the size that best matches your baby’s weight for a snug, comfortable f
     category: "Wipes",
     description: "Wipes that are skin friendly !!",
     subDesc1:
-        "Water wipes Natural & Pure Tissue with soft and silky feel. Made with purified water, that contains 99% water. Each wipe is made with a touch of cotton for softness.Hypoallergenic and Fragrance free. Formulated without alcohol, parabens or phthalates. Gentle wipes for newborn and up.",
+      "Water wipes Natural & Pure Tissue with soft and silky feel. Made with purified water, that contains 99% water. Each wipe is made with a touch of cotton for softness.Hypoallergenic and Fragrance free. Formulated without alcohol, parabens or phthalates. Gentle wipes for newborn and up.",
     subDesc2:
-        "Safe for cleaning full body including bottom, hand, and face. Enclosable packs keep wipes moist. Satisfaction guarantee.",
+      "Safe for cleaning full body including bottom, hand, and face. Enclosable packs keep wipes moist. Satisfaction guarantee.",
     highlights: [
       "Made with purified water, container 99% water",
       "Each wipe is made with a touch of cotton for softness",
@@ -674,32 +676,32 @@ Choose the size that best matches your baby’s weight for a snug, comfortable f
       {
         question: "What are Zuvara water Wipes?",
         answer:
-            "Zuvara Wipes are the world’s purest baby water wipes. Our baby wet wipes contain 99.9% water and are safe to use on delicate newborn babies’ skin.",
+          "Zuvara Wipes are the world’s purest baby water wipes. Our baby wet wipes contain 99.9% water and are safe to use on delicate newborn babies’ skin.",
       },
       {
         question: "Are Zuvara Wipes hypoallergenic and fragrance free?",
         answer:
-            "Yes. Our baby water wipes don’t contain any artificial fragrance and are considered hypoallergenic.",
+          "Yes. Our baby water wipes don’t contain any artificial fragrance and are considered hypoallergenic.",
       },
       {
         question: "How do Zuvara Wipes clean?",
         answer:
-            "Our baby water wipes contain water. Water is nature’s natural cleanser and moisturizer which is why healthcare professionals recommend cotton wool and water for baby wipes. It also helps to maintain good skin condition.",
+          "Our baby water wipes contain water. Water is nature’s natural cleanser and moisturizer which is why healthcare professionals recommend cotton wool and water for baby wipes. It also helps to maintain good skin condition.",
       },
       {
         question: "Do Zuvara Wipes have an expiration date?",
         answer:
-            "Like all wet wipes, our water wipes have an expiration date. We recommend opening within 24 months of the production date and using the pack within one month of opening. The production date and expiration date is printed on the back of the pack.",
+          "Like all wet wipes, our water wipes have an expiration date. We recommend opening within 24 months of the production date and using the pack within one month of opening. The production date and expiration date is printed on the back of the pack.",
       },
       {
         question: "Why should I use Zuvara Wipes on my new born baby’s skin?",
         answer:
-            "When a baby is born, its skin is much thinner than an adult’s. Because of this, healthcare professionals recommend you use cotton wool and water OR Water Wipes baby water wipes. Our baby water wipes are a fresh product that contain 99.9% water so they are suitable on newborn babies’ skin.",
+          "When a baby is born, its skin is much thinner than an adult’s. Because of this, healthcare professionals recommend you use cotton wool and water OR Water Wipes baby water wipes. Our baby water wipes are a fresh product that contain 99.9% water so they are suitable on newborn babies’ skin.",
       },
       {
         question: "Are Zuvara Wipes reusable?",
         answer:
-            "No, Zuvara Wipes are not reusable and should be disposed of correctly after use.",
+          "No, Zuvara Wipes are not reusable and should be disposed of correctly after use.",
       },
     ],
   },
@@ -709,4 +711,5 @@ Choose the size that best matches your baby’s weight for a snug, comfortable f
  * Final export:
  * ✅ every product now has every field (via normalizeProduct)
  */
-export const babyCareProducts: Product[] = rawBabyCareProducts.map(normalizeProduct);
+export const babyCareProducts: Product[] =
+  rawBabyCareProducts.map(normalizeProduct);

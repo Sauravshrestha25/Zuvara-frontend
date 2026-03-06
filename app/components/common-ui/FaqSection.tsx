@@ -10,11 +10,11 @@ interface FaqSectionProps {
 }
 
 const FaqSection = ({
-                      faqs = [],
-                      questionColor,
-                      answerColor,
-                      product,
-                    }: FaqSectionProps) => {
+  faqs = [],
+  questionColor,
+  answerColor,
+  product,
+}: FaqSectionProps) => {
   if (faqs.length === 0) return null;
 
   const headingColor = questionColor || product.background || "#17181c";
@@ -22,7 +22,10 @@ const FaqSection = ({
 
   return (
     <div className="space-y-4">
-      <Accordions type="single" className="w-full space-y-3 [perspective:1200px]">
+      <Accordions
+        type="single"
+        className="w-full space-y-3 [perspective-distant]"
+      >
         {faqs.map((faq, index) => (
           <Accordion
             key={index}
@@ -34,12 +37,11 @@ const FaqSection = ({
             style={{
               borderColor: `${headingColor}33`,
               backgroundColor: `${headingColor}08`,
-              boxShadow: `0 14px 30px ${headingColor}14`,
             }}
           >
             <div className="pb-4 pt-1">
               <p
-                className="whitespace-pre-line text-sm leading-relaxed md:text-base"
+                className="whitespace-pre-line text-sm font-medium leading-relaxed md:text-base"
                 style={{ color: bodyColor }}
               >
                 {faq.answer}
