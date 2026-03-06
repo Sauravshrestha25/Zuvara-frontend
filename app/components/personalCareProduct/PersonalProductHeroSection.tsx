@@ -1,41 +1,33 @@
-import type { Product } from "@/type/babyCareProductType";
+import type { Product } from "@/type/personalCareProductType";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowDown, Check, ChevronLeft, ChevronRight } from "lucide-react";
+import type { ThemePreset } from "@/app/components/personalCareProduct/theme";
 
-type ThemePreset = {
-  accent: string;
-  pageBg: string;
-  containerBg: string;
-  border: string;
-  chipBg: string;
-  sectionTint: string;
-};
-
-type BabyCareHeroSectionProps = {
+type PersonalProductHeroSectionProps = {
   active: Product;
   products: Product[];
   heroPackSrc: string;
+  heroAvatars: string[];
   theme: ThemePreset;
   onPrev: () => void;
   onNext: () => void;
   onSelectProduct: (index: number) => void;
-  pickHeroPack: (product: Product) => string;
 };
 
 const bodyText = "text-sm md:text-base leading-relaxed text-zinc-700";
-const tinyLabel =
-  "text-[11px] md:text-xs font-semibold uppercase tracking-[0.14em]";
 
-export default function BabyCareHeroSection({
+export default function PersonalProductHeroSection({
   active,
-  products,
+  products: _products,
   heroPackSrc,
+  heroAvatars,
   theme,
   onPrev,
   onNext,
-}: BabyCareHeroSectionProps) {
+}: PersonalProductHeroSectionProps) {
+  void _products;
   return (
     <motion.section
       className="relative overflow-hidden"
@@ -50,28 +42,23 @@ export default function BabyCareHeroSection({
                 className="text-5xl font-semibold leading-[0.95] tracking-tight"
                 style={{ color: theme.accent }}
               >
-                Love begins
+                Comfort begins
                 <br />
-                with a touch
+                with confidence
               </h1>
             </div>
 
             <div className="py-2">
               <div className="flex -space-x-3">
-                {[
-                  "/images/baby/baby29.png",
-                  "/images/baby/baby24.png",
-                  "/images/baby/baby31.png",
-                  "/images/baby/baby30.png",
-                ].map((avatar, idx) => (
+                {heroAvatars.map((avatar, idx) => (
                   <div
-                    key={avatar}
+                    key={`${avatar}-${idx}`}
                     className="relative h-12 w-12 rounded-full border-2 overflow-hidden bg-white"
                     style={{ borderColor: theme.pageBg, zIndex: 10 - idx }}
                   >
                     <Image
                       src={avatar}
-                      alt="Parent"
+                      alt="Customer"
                       fill
                       className="object-cover"
                     />
@@ -85,12 +72,12 @@ export default function BabyCareHeroSection({
                 </div>
               </div>
               <p className="mt-4 text-sm md:text-base text-zinc-600">
-                Loved by 5,000+ happy parents
+                Trusted by 5,000+ women every month
               </p>
 
               <Link href="/products">
                 <button
-                  className="mt-8 py-3 px-6 rounded-full text-white text-xl md:text-sm font-semibold tracking-wide"
+                  className="mt-8 py-3 px-6 rounded-full text-white! text-xl md:text-sm font-semibold tracking-wide"
                   style={{ backgroundColor: theme.accent }}
                 >
                   Inquiry Now
@@ -134,8 +121,8 @@ export default function BabyCareHeroSection({
           <div className="w-full relative flex justify-between items-end gap-6 ">
             <div className="w-full ">
               <p className={`max-w-xs ${bodyText} font-medium`}>
-                Every cuddle, every giggle, every tiny moment matters. Our care
-                products protect the softness you never want to lose.
+                Every day asks a lot from you. Our personal care products are
+                designed to protect your comfort through work, rest, and sleep.
               </p>
               <Link
                 href="#touch"
@@ -165,7 +152,7 @@ export default function BabyCareHeroSection({
                     strokeWidth={3}
                   />
                   <span className="text-base font-medium">
-                    Pure ingredients.
+                    High absorbency support.
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
@@ -174,7 +161,7 @@ export default function BabyCareHeroSection({
                     style={{ color: theme.accent }}
                     strokeWidth={3}
                   />
-                  <span className="text-base font-medium">Pure comfort.</span>
+                  <span className="text-base font-medium">Cloud-soft comfort.</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Check
@@ -183,13 +170,12 @@ export default function BabyCareHeroSection({
                     strokeWidth={3}
                   />
                   <span className="text-base font-medium">
-                    Designed for delicate skin.
+                    Made for sensitive skin.
                   </span>
                 </div>
               </div>
             </div>
           </div>
-          {/* Prev and Next Buttons */}
           <div className="flex items-center justify-center pt-4">
             <div className="inline-flex justify-self-center items-center gap-3 py-2">
               <button
