@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
+import { ArrowUp } from "lucide-react";
 import { babyCareProducts } from "@/constants/babyCareProduct";
 import type { Product } from "@/type/babyCareProductType";
 import ProductNotFound from "@/app/components/babyCareProductPage/ProductNotFound";
@@ -16,6 +17,7 @@ import { hexToRgba } from "@/app/components/babyCareProductPage/theme";
 import type { ThemePreset } from "@/app/components/babyCareProductPage/theme";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ProductCloseViewSection from "@/app/components/babyCareProductPage/ProductCloseViewSection";
 
 const moodboardImages = [
   "/images/diaper/supreme-diaper/feature.png",
@@ -57,9 +59,9 @@ const comparisonRows = [
 
 const themePresets: ThemePreset[] = [
   {
-    accent: "#0f6d65",
+    accent: "#45685E",
     pageBg: "#f3f8f5",
-    containerBg: "#d9efee",
+    containerBg: "#BFDDCA",
     border: "#84aaa5",
     chipBg: "#d7ebe8",
     sectionTint: "#e7f4f1",
@@ -110,10 +112,11 @@ export default function Page() {
   const products = babyCareProducts;
   const initialIndex = Math.max(
     0,
-    products.findIndex((item) => item.slug === slug)
+    products.findIndex((item) => item.slug === slug),
   );
   const [activeIdx, setActiveIdx] = useState(initialIndex);
   const rootRef = useRef<HTMLElement | null>(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const active =
     products.length > 0
       ? products[clampIndex(activeIdx, products.length)]
@@ -122,6 +125,27 @@ export default function Page() {
   const heroPackSrc = active ? pickHeroPack(active) : "";
   const variants = active?.variants || [];
   const highlights = (active?.highlights || []).slice(0, 4);
+
+  useEffect(() => {
+    const handleVisibility = () => {
+      const footer = document.querySelector("footer");
+      const pastFirstScreen = window.scrollY > window.innerHeight;
+      const footerReached = footer
+        ? footer.getBoundingClientRect().top <= window.innerHeight
+        : false;
+
+      setShowScrollTop(pastFirstScreen && !footerReached);
+    };
+
+    handleVisibility();
+    window.addEventListener("scroll", handleVisibility, { passive: true });
+    window.addEventListener("resize", handleVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", handleVisibility);
+      window.removeEventListener("resize", handleVisibility);
+    };
+  }, []);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -159,7 +183,7 @@ export default function Page() {
                 start: "top 78%",
                 once: true,
               },
-            }
+            },
           );
         }
 
@@ -211,21 +235,21 @@ export default function Page() {
         style={{ backgroundColor: hexToRgba(theme.accent, 0.2) }}
       />
       <div
-        className="theme-orb pointer-events-none absolute top-[30rem] -right-20 h-72 w-72 rounded-full blur-3xl"
+        className="theme-orb pointer-events-none absolute top-120 -right-20 h-72 w-72 rounded-full blur-3xl"
         style={{ backgroundColor: hexToRgba(theme.chipBg, 0.44) }}
       />
       <div
-        className="theme-orb pointer-events-none absolute top-[90rem] left-1/4 h-80 w-80 rounded-full blur-3xl"
+        className="theme-orb pointer-events-none absolute top-360 left-1/4 h-80 w-80 rounded-full blur-3xl"
         style={{ backgroundColor: hexToRgba(theme.accent, 0.14) }}
       />
       <div
-        className="pointer-events-none absolute inset-x-0 top-[36rem] h-[44rem]"
+        className="pointer-events-none absolute inset-x-0 top-360 h-44"
         style={{
           background: `radial-gradient(ellipse at center, ${hexToRgba(theme.accent, 0.22)}, rgba(255,255,255,0))`,
         }}
       />
       <div
-        className="pointer-events-none absolute inset-x-0 top-[122rem] h-[40rem]"
+        className="pointer-events-none absolute inset-x-0 top-488 h-160"
         style={{
           background: `radial-gradient(ellipse at center, ${hexToRgba(theme.accent, 0.18)}, rgba(255,255,255,0))`,
         }}
@@ -243,8 +267,13 @@ export default function Page() {
       />
 
       <WhyTouchMattersSection theme={theme} />
+      <ProductCloseViewSection product={active} theme={theme} />
 
-      <ComfortDetailsSection theme={theme} highlights={highlights} moodboardImages={moodboardImages} />
+      <ComfortDetailsSection
+        theme={theme}
+        highlights={highlights}
+        moodboardImages={moodboardImages}
+      />
 
       <SizeGuideSection theme={theme} variants={variants} />
 
@@ -253,6 +282,25 @@ export default function Page() {
       <CarePromiseSection theme={theme} conceptImages={conceptImages} />
 
       <FaqAndCloseViewSection active={active} theme={theme} />
+
+      <button
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Scroll to top"
+        className={`fixed right-5 bottom-5 z-40 flex h-12 w-12 items-center justify-center rounded-full border shadow-[0_18px_32px_rgba(0,0,0,0.16)] transition-all duration-300 md:right-8 md:bottom-8 ${
+          showScrollTop
+            ? "pointer-events-auto translate-y-0 opacity-100"
+            : "pointer-events-none translate-y-4 opacity-0"
+        }`}
+        style={{
+          borderColor: `${theme.border}88`,
+          backgroundColor: hexToRgba(theme.pageBg, 0.92),
+          color: theme.accent,
+          boxShadow: `0 18px 32px ${hexToRgba(theme.accent, 0.2)}`,
+        }}
+      >
+        <ArrowUp size={18} strokeWidth={2.4} />
+      </button>
     </main>
   );
 }

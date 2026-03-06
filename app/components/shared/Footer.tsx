@@ -94,20 +94,20 @@ export default function Footer() {
             "relative flex flex-col gap-2 text-center md:text-left md:flex-row items-center justify-between rounded-lg md:rounded-full p-4 md:p-2",
             isPersonal
               ? "bg-ternary text-white"
-              : "bg-linear-to-l from-foreground to-secondary text-white",
+              : "bg-foreground text-babyCare",
           )}
         >
           <CrawlingBaby />
-          <h3 className="text-xl md:pl-4">
+          <h3 className="text-xl md:pl-4 font-medium">
             Zuvara would be the perfect choice for your baby care needs!
           </h3>
           <Link
             href="/babyCareProduct"
             className={cn(
-              "bg-white px-4 py-2 rounded-full font-semibold hover:text-white! transition flex items-center gap-2",
+              "bg-white px-4 py-2 rounded-full font-semibold transition flex items-center gap-2",
               isPersonal
-                ? "text-personalCare! hover:bg-personalCare"
-                : "text-foreground! hover:bg-[#45685e] hover:text-white",
+                ? "text-personalCare! hover:bg-white/70 hover:text-foreground"
+                : "text-foreground! hover:bg-babyCare hover:text-foreground",
             )}
           >
             <Icon icon="bitcoin-icons:cart-filled" width="24" height="24" />
@@ -166,7 +166,9 @@ export default function Footer() {
                     {contact.title}
                   </p>
                   <Link href={contact.link}>
-                    <p className="text-sm hover:underline w-60">{contact.desc}</p>
+                    <p className="text-sm hover:underline w-60">
+                      {contact.desc}
+                    </p>
                   </Link>
                 </div>
               ))}
@@ -218,25 +220,25 @@ export default function Footer() {
       </div>
       {/*  Image Div */}
 
-    <div className="relative  h-[50vh]   flex items-center justify-center overflow-hidden">
-
-  {/* Background Image */}
-  <div className="absolute mx-auto">
- <Image
-    src="/new/babiesplural.png"
-    width={1080}
-    height={400}
-    alt="Happy babies"
-    className="object-cover object-top"
-  />
-  </div>
-      {/* Bottom Copyright */}
-      <div className="absolute bottom-0 w-full mt-10 pt-2  text-sm text-[#45685e] py-4 px-6 flex flex-col md:flex-row justify-between gap-4">
-        <p>
-          © {new Date().getFullYear()} <span className="font-semibold">ZUVARA</span> — All rights reserved.
-        </p>
-         <div className="flex items-center gap-2">
-            Design and Developed by
+      <div className="relative  h-[50vh]   flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute mx-auto">
+          <Image
+            src="/new/babiesplural.png"
+            width={1080}
+            height={400}
+            alt="Happy babies"
+            className="object-cover object-top"
+          />
+        </div>
+        {/* Bottom Copyright */}
+        <div className="absolute bottom-0 w-full mt-10 pt-2  text-sm text-[#45685e] py-4 px-6 flex flex-col md:flex-row justify-between gap-4">
+          <p className="font-medium">
+            © {new Date().getFullYear()}{" "}
+            <span className="font-bold">ZUVARA</span> — All rights reserved.
+          </p>
+          <div className="flex items-center gap-2">
+            <p className="font-medium">Design and Developed by</p>
             <Link
               href="https://webxnepal.com/"
               target="_blank"
@@ -251,13 +253,12 @@ export default function Footer() {
               />
             </Link>
           </div>
+        </div>
       </div>
+      {/* </div> */}
 
-    </div>
-  {/* </div> */}
-
-  {/* Content */}
-  {/* // <div className="relative z-10 text-center px-6 max-w-xl">
+      {/* Content */}
+      {/* // <div className="relative z-10 text-center px-6 max-w-xl">
 
   //   <h2 className="text-4xl md:text-5xl font-semibold text-white mb-6">
   //     Subscribe to our newsletter
@@ -271,7 +272,7 @@ export default function Footer() {
   //     <div className="flex items-center bg-white/20 backdrop-blur-xl rounded-full p-2 shadow-xl border border-white/30">
 
   //       <input */}
-  {/* //         type="email"
+      {/* //         type="email"
   //         placeholder="Enter your email"
   //         className="flex-1 bg-transparent px-4 py-3 text-white placeholder-white/70 outline-none"
   //       />
@@ -285,9 +286,6 @@ export default function Footer() {
 
   //     </div>
   //   </form> */}
-
     </footer>
   );
 }
-
-
