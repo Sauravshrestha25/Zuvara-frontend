@@ -67,11 +67,9 @@ const HeroSection = () => {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ type: "spring", damping: 20, stiffness: 120 }}
                   className={cn(
-                    "z-30 p-5 md:p-6 rounded-[2rem] shadow-xl backdrop-blur-lg border mb-4 lg:absolute",
-                    // Desktop positioning: float it left of the image
+                    "z-30 p-5 md:p-6 rounded-4xl shadow-xl backdrop-blur-lg border mb-4 lg:absolute",
                     "lg:-top-16 lg:-left-32 lg:mb-0 lg:w-[320px]",
-                    // Mobile positioning: center it above
-                    "w-[90%] max-w-[350px] relative",
+                    "w-[90%] max-w-87.5 relative",
                     theme.bubble
                   )}
                 >
