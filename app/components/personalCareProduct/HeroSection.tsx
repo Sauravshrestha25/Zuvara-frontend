@@ -1,13 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
-import Button from "../common-ui/Button";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-svh overflow-hidden bg-linear-to-b from-personalCare/10 via-white to-white lg:h-screen">
+    <section className="relative min-h-svh overflow-hidden bg-personalCare/10 lg:h-screen">
       <div className="relative mx-auto flex min-h-svh w-[92%] max-w-7xl items-center py-22 sm:py-24 lg:h-full lg:py-8">
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center justify-center text-center">
           <div className="max-w-3xl">

@@ -28,7 +28,7 @@ export default function WhyZuvaraProductsSection({
   theme,
 }: WhyZuvaraProductsSectionProps) {
   return (
-    <section className="relative overflow-hidden px-4 py-8 md:px-0 md:py-20 bg-white">
+    <section className="relative overflow-hidden px-4 py-8 md:px-0 md:py-20 bg-personalCare/10">
       <div className="relative z-10 mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
           <span

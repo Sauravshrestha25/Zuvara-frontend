@@ -17,7 +17,7 @@ const featureLists: FeatureItem[] = [
 
 const WhyUsSection = () => {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden py-20">
+    <section className="relative min-h-screen w-full overflow-hidden py-20 bg-personalCare/10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-7xl flex flex-col items-center">
         <div className="mb-16 max-w-3xl text-center">
           <span className="inline-flex rounded-full border border-personalCare/20 bg-personalCare/6 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-personalCare">
