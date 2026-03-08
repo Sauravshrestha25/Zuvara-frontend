@@ -167,7 +167,7 @@ export default function Page() {
         const rises = section.querySelectorAll(".fx-rise");
         const floats = section.querySelectorAll(".fx-float");
         const parallax = section.querySelectorAll(".fx-parallax");
-      
+      //
         if (rises.length) {
           gsap.fromTo(
             rises,
