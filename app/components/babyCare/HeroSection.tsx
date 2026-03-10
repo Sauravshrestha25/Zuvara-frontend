@@ -7,8 +7,8 @@ import {  wave1Svg, wave2Svg } from "@/constants/svgs";
 
 export default function Home() {
   return (
-    <div className="relative h-[80vh] ">
-      <section className="relative flex flex-col lg:flex-row h-full  items-start pt-20 bg-white z-0">
+    <div className="relative h-[100svh] sm:h-[80vh] ">
+      <section className="relative flex flex-col lg:flex-row h-full  items-start pt-2 sm:pt-20 bg-white z-0">
         <div
           className="absolute -bottom-1 z-0 h-auto w-full [&>svg]:block [&>svg]:h-auto [&>svg]:w-full"
           dangerouslySetInnerHTML={{ __html: wave1Svg.markup }}
@@ -18,22 +18,13 @@ export default function Home() {
           dangerouslySetInnerHTML={{ __html: wave2Svg.markup }}
         />
         {/* Flower & Ferns */}
-        <div className="absolute bottom-4 left-[1%] sm:left-[20%] -z-20 sm:bottom-20 lg:bottom-30 [&>svg]:h-50 [&>svg]:w-50">
+        <div className="absolute bottom-4 left-[1%] sm:left-[20%] -z-20 sm:bottom-20 lg:bottom-24 [&>svg]:h-50 [&>svg]:w-50">
           {" "}
           <Image
             src="/waves/sunflower.gif"
             alt="flower"
             width={100}
             height={80}
-          ></Image>
-        </div>
-        <div className="absolute bottom-6 right-[6%] z-0 sm:bottom-18 lg:bottom-28 [&>svg]:h-50 [&>svg]:w-50">
-          {" "}
-          <Image
-            src="/waves/Rosita.gif"
-            alt="rose"
-            width={60}
-            height={40}
           ></Image>
         </div>
         <div className="absolute bottom-8 left-[30%] sm:left-[10%] z-10 sm:bottom-48 lg:bottom-16 ">
@@ -194,28 +185,62 @@ export default function Home() {
                 </button>
               </Link>
             </div>
+
+            <div className="mt-5 w-full sm:hidden">
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                className="relative w-80 aspect-square"
+              >
+                <Image
+                  src="/waves/babyBorder.svg"
+                  alt=""
+                  fill
+                  className="pointer-events-none absolute inset-0 z-20 object-contain"
+                />
+                <div className="absolute inset-[15%] z-10 overflow-hidden rounded-[20px]">
+                  <video
+                    src="/videos/babyPlaying.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
       {/* Bottom Waves */}
       <div></div>
-      <div className="relative bottom-0 w-full overflow-visible leading-none ">
+      <div className="relative bottom-0 w-full overflow-visible leading-none hidden sm:block">
         <div></div>
         <div className="absolute -bottom-5 left-4/5 z-30 -translate-x-4/5">
           <motion.div
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="bg-white rounded-[200px] p-4 lg:p-6 overflow-hidden relative border-4"
+            className="relative w-60 aspect-square lg:w-[380px]"
           >
-            <video
-              src="/videos/babyPlaying.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-60 lg:w-300 lg:h-120  object-cover"
+            <Image
+              src="/waves/babyBorder.svg"
+              alt=""
+              fill
+              className="pointer-events-none absolute inset-0 z-20 object-contain"
             />
+            <div className="absolute inset-[15%] z-10 overflow-hidden rounded-[24px]">
+              <video
+                src="/videos/babyPlaying.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="h-full w-full object-cover"
+              />
+            </div>
           </motion.div>
         </div>
       </div>
