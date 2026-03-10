@@ -1,277 +1,284 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
-import { useMediaQuery } from "react-responsive";
 
-type SectionId = "baby" | "personal";
+type DestinationId = "baby" | "personal";
+
+type Destination = {
+  id: DestinationId;
+  label: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  href: string;
+  color: string;
+  icon: string;
+  description: string;
+};
 
 export default function IntroPage() {
-  const [hoveredSection, setHoveredSection] = useState<SectionId | null>(null);
-  const isSmallerDevice = useMediaQuery({ maxWidth: 768 });
+  const [activeId, setActiveId] = useState<DestinationId>("baby");
 
-  const leftArrowPathRef = useRef<SVGPathElement>(null);
-  const rightArrowPathRef = useRef<SVGPathElement>(null);
+  const destinations: Destination[] = useMemo(
+    () => [
+      {
+        id: "baby",
+        label: "Baby Care",
+        title: "Baby Care",
+        subtitle: "Pure, Gentle, & Natural",
+        image: "/images/baby/baby32.png",
+        href: "/babyCare",
+        color: "var(--babyCare)",
+        icon: "/icons/xl.png",
+        description:
+          "Everything your little one needs for a happy, healthy start in life.",
+      },
+      {
+        id: "personal",
+        label: "Personal Care",
+        title: "Personal Care",
+        subtitle: "Self-Care Reimagined",
+        image: "/new/momnobg.png",
+        href: "/personalCare",
+        color: "var(--ternary)",
+        icon: "/icons/sanitary-napkin.png",
+        description:
+          "Premium essentials formulated to nourish your body and soul.",
+      },
+    ],
+    [],
+  );
 
-  useGSAP(() => {
-    if (leftArrowPathRef.current && rightArrowPathRef.current) {
-      const leftLength = leftArrowPathRef.current.getTotalLength();
-      const rightLength = rightArrowPathRef.current.getTotalLength();
-
-      const tl = gsap.timeline({ delay: 0.5 });
-
-      tl.set([leftArrowPathRef.current, rightArrowPathRef.current], {
-        strokeDasharray: (i) => (i === 0 ? leftLength : rightLength),
-        strokeDashoffset: (i) => (i === 0 ? leftLength : rightLength),
-        fillOpacity: 0,
-        opacity: 1,
-      })
-        .to([leftArrowPathRef.current, rightArrowPathRef.current], {
-          strokeDashoffset: 0,
-          duration: 1.5,
-          ease: "power2.inOut",
-          stagger: 0.1,
-        })
-        .to(
-          [leftArrowPathRef.current, rightArrowPathRef.current],
-          {
-            fillOpacity: 1,
-            duration: 0.6,
-            ease: "power2.out",
-          },
-          "-=0.3",
-        );
-    }
-  }, []);
-
-  const sections: {
-    id: SectionId;
-    title: string;
-    subtitle: string;
-    image: string;
-    href: string;
-    color: string;
-    icon: string;
-    description: string;
-  }[] = [
-    {
-      id: "baby",
-      title: "Baby Care",
-      subtitle: "Pure, Gentle, & Natural",
-      image: "/images/baby/baby32.png",
-      href: "/babyCare",
-      color: "var(--foreground)",
-      icon: "/icons/xl.png",
-      description:
-        "Everything your little one needs for a happy, healthy start in life.",
-    },
-    {
-      id: "personal",
-      title: "Personal Care",
-      subtitle: "Self-Care Reimagined",
-      image: "/new/momnobg.png",
-      href: "/personalCare",
-      color: "var(--personalCare)",
-      icon: "/icons/sanitary-napkin.png",
-      description:
-        "Premium essentials formulated to nourish your body and soul.",
-    },
-  ];
+  const activeDestination =
+    destinations.find((item) => item.id === activeId) ?? destinations[0];
 
   return (
-    <main className="min-h-screen w-full relative overflow-hidden flex flex-col items-center justify-center tracking-tight bg-babyCare pt-20">
-      {/* Nav / Logo */}
-      <nav className="bg-babyCare fixed top-0 w-full py-4 flex items-center justify-center z-50">
-        <Link href="/">
-          <Image src="/logo/logo.png" alt="Zuvara Logo" width={100} height={100} />
-        </Link>
-      </nav>
-
-      {/* Header Section */}
-      <div className="text-center mb-6 lg:mb-12 space-y-3 z-10">
-        <span className="font-bold text-green-100 ">Welcome to Zuvara</span>
-        <h1 className="text-2xl md:text-3xl font-black text-foreground uppercase tracking-tight">
-          Choose your destination
-        </h1>
-        <div className="w-12 h-1 bg-zinc-900 mx-auto rounded-full opacity-20" />
-      </div>
-
-      {/* Hero Section Split */}
-      <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center justify-center gap-8 relative z-10 pb-16">
-        {sections.map((section) => (
-          <Link
-            key={section.id}
-            href={section.href}
-            className="w-full lg:w-100 group relative"
-            onMouseEnter={() => setHoveredSection(section.id)}
-            onMouseLeave={() => setHoveredSection(null)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                backgroundColor:
-                  hoveredSection === section.id ? section.color : "#ffffff",
-              }}
-              transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-              className={`relative rounded-[2.5rem] overflow-hidden flex flex-col justify-between p-8 shadow-xl cursor-pointer z-10`}
+    <main
+      className={`relative min-h-screen overflow-hidden text-white transition-colors duration-300 ${
+        activeId === "baby" ? "bg-babyCare" : "bg-ternary/50"
+      }`}
+    >
+      {" "}
+      <Link href="/" className="absolute top-2 left-1/2 -translate-x-1/2">
+        <Image
+          src="/logo/logo.png"
+          alt="Zuvara Logo"
+          width={110}
+          height={110}
+          priority
+          className="h-auto w-auto"
+        />
+      </Link>
+      {/* Main content */}
+      <section className="relative z-20 mx-auto flex min-h-screen w-full max-w-360 flex-col justify-center px-5  md:px-8 lg:px-10">
+        <div className="flex flex-col items-center justify-center">
+          {/* Top Text content */}
+          <div className="max-w-240 text-center">
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-white"
             >
-              {/* Decorative Icon Background - Fixed Flashing with Motion */}
-              {/* {!isSmallerDevice && ( */}
-              <motion.div
-                animate={{
-                  opacity:
-                    hoveredSection === section.id
-                      ? isSmallerDevice
-                        ? 0.9
-                        : 0.9
-                      : 0.2,
-                  color: hoveredSection === section.id ? "#ffffff" : "#52525b", // zinc-600
-                }}
-                transition={{ duration: 0.4 }}
-                className="absolute bottom-6 lg:top-6 right-6 pointer-events-none"
-              >
-                {/* <Icon icon={section.icon} width="140" height="140" /> */}
-                <Image
-                  src={section.icon}
-                  alt={section.title}
-                  width={96}
-                  height={96}
-                  className="size-24 group-hover:invert"
-                />
-              </motion.div>
-              {/* )} */}
+              Welcome to Zuvara
+            </motion.p>
 
-              {/* Content */}
-              <div className="relative z-10 space-y-3">
-                {!isSmallerDevice && (
-                  <div
-                    className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border transition-colors duration-300 ${
-                      hoveredSection === section.id
-                        ? "bg-white/10 border-white/20"
-                        : "bg-zinc-50 border-zinc-100"
-                    }`}
-                  >
-                    <Icon
-                      icon={section.icon}
-                      className={`transition-colors duration-300 ${hoveredSection === section.id ? "text-white" : "text-zinc-600"}`}
-                    />
-                    <span
-                      className={`text-[8px] font-black uppercase tracking-wider transition-colors duration-300 ${
-                        hoveredSection === section.id
-                          ? "text-white/80"
-                          : "text-zinc-500"
-                      }`}
-                    >
-                      {section.subtitle}
-                    </span>
-                  </div>
-                )}
+            <motion.h1
+              key={activeDestination.id}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55 }}
+              className=" text-5xl  font-black uppercase leading-[0.9] tracking-[-0.04em] text-white sm:text-6xl md:text-5xl lg:text-[110px]"
+            >
+              {activeDestination.id === "baby" ? "baby care" : "Personal Care"}
+            </motion.h1>
 
-                <h2
-                  className={`text-3xl font-black leading-none transition-colors duration-300 ${
-                    hoveredSection === section.id
-                      ? "text-white"
-                      : "text-foreground"
-                  }`}
+            <motion.p
+              key={`${activeDestination.id}-desc`}
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.08 }}
+              className="mt-5  text-sm leading-7 text-white/80 md:text-base"
+            >
+              {activeDestination.id === "baby"
+                ? "Soft, safe, and thoughtfully made essentials for your little one."
+                : "Premium personal care designed for comfort, confidence, and daily ease."}
+            </motion.p>
+          </div>
+
+          {/* Mid cards */}
+          <div className="flex items-center justify-center gap-10">
+            {destinations.map((section) => {
+              const isActive = activeId === section.id;
+
+              return (
+                <Link
+                  key={section.id}
+                  href={section.href}
+                  className="group relative"
+                  onMouseEnter={() => setActiveId(section.id)}
                 >
-                  {isSmallerDevice
-                    ? section.title
-                    : section.title.split(" ")[0]}{" "}
-                  <br />
-                  <span
-                    className={`transition-colors duration-300 ${
-                      hoveredSection === section.id
-                        ? "text-white/60"
-                        : "text-zinc-300"
-                    }`}
-                  >
-                    {!isSmallerDevice && section.title.split(" ")[1]}
-                  </span>
-                </h2>
-
-                <p
-                  className={`max-w-70 text-sm font-medium leading-relaxed transition-colors duration-300 ${
-                    hoveredSection === section.id
-                      ? "text-white/80"
-                      : "text-zinc-500"
-                  }`}
-                >
-                  {section.description}
-                </p>
-
-                <div className="flex items-center gap-3 pt-2">
-                  <div
-                    className={`size-10 rounded-full flex items-center justify-center transition-all duration-500 ${
-                      hoveredSection === section.id
-                        ? "bg-white text-zinc-900 scale-110"
-                        : "text-white"
-                    }`}
-                    style={{
-                      backgroundColor:
-                        hoveredSection === section.id
-                          ? "#ffffff"
-                          : section.color,
+                  {/* Card */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95, y: 24 }}
+                    animate={{
+                      opacity: 1,
+                      scale: isActive ? 1.05 : 1,
+                      backgroundColor: isActive
+                        ? section.id === "baby"
+                          ? "rgba(69, 104, 94, 0.68)"
+                          : "rgba(130, 0, 219, 0.62)"
+                        : "rgba(255, 255, 255, 0.28)",
+                      borderColor: isActive
+                        ? "rgba(255,255,255,0.36)"
+                        : "rgba(255,255,255,0.45)",
                     }}
+                    transition={{
+                      duration: 0.4,
+                      ease: [0.23, 1, 0.32, 1],
+                    }}
+                    className="relative z-10 flex h-full w-90 flex-col justify-between overflow-hidden rounded-[2.5rem] border p-8 shadow-2xl backdrop-blur-xl"
                   >
-                    <Icon icon="solar:arrow-right-up-linear" width="20" />
-                  </div>
-                  <span
-                    className={`font-black text-[10px] uppercase tracking-wide transition-colors duration-300 ${
-                      hoveredSection === section.id
-                        ? "text-white"
-                        : "text-zinc-900"
+                    <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] border border-white/12" />
+                    <div className="pointer-events-none absolute inset-x-0 top-[48%] h-px bg-white/12" />
+                    <div className="pointer-events-none absolute bottom-[18%] left-[62%] top-[48%] w-px bg-white/8" />
+
+                    {/* Card Content */}
+                    <div className="relative z-10 space-y-3 ">
+                        <div className="flex justify-between">
+                          <div>
+                      <div
+                        className={`inline-flex items-center gap-2 rounded-2xl   py-1.5  bg-zinc-50"
+                        `}
+                      >
+                        <span
+                          className={`text-[10px] font-black uppercase tracking-wider ${
+                            isActive ? "text-white/85" : "text-zinc-500"
+                          }`}
+                        >
+                          {section.subtitle}
+                        </span>
+                      </div>
+
+                      <h2
+                        className={`text-3xl font-black leading-none ${
+                          isActive ? "text-white" : "text-foreground"
+                        }`}
+                      >
+                        {section.title.split(" ")[0]} <br />
+                        <span
+                          className={`${
+                            isActive ?  "text-white" : "text-zinc-100"
+                          }`}
+                        >
+                          {section.title.split(" ")[1]}
+                        </span>
+                      </h2>
+                      </div> {/* Icon Background */}
+                      <motion.div
+                        animate={{ opacity: isActive ? 0.9 : 0.25 }}
+                        transition={{ duration: 0.35 }}
+                        className=" pointer-events-none"
+                      >
+                        <Image
+                          src={section.icon}
+                          alt={section.title}
+                          width={96}
+                          height={96}
+                          className={`size-24 transition ${isActive ? "invert" : ""}`}
+                        />
+                      </motion.div>
+                     </div>
+
+                      <p
+                        className={`max-w-60 text-sm font-medium leading-relaxed ${
+                          isActive ? "text-white/80" : "text-zinc-500"
+                        }`}
+                      >
+                        {section.description}
+                      </p>
+
+                     
+
+                      <div className="flex w-full bg-white rounded-full justify-center gap-3  py-4 px-4">
+                        {/* <div
+                          className={`flex size-10 items-center justify-center rounded-full transition ${
+                            isActive
+                              ? "scale-105 bg-white text-zinc-900"
+                              : "text-zinc-500"
+                          }`}
+                          style={{
+                            backgroundColor: isActive
+                              ? section.color
+                              : "#fff",
+                          }}
+                        >
+                          <Icon icon="solar:arrow-right-up-linear" width="20" />
+                        </div> */}
+
+                        <span
+                          className={`text-sm font-bold uppercase  ${
+                            isActive ? "text-black" : "text-zinc-800"
+                          }`}
+                        >
+                          Visit Now
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Floating Image */}
+                  <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{
+                      scale: isActive ? 1 : 0,
+                      opacity: isActive ? 1 : 0,
+                      rotate: section.id === "baby" ? -10 : 10,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 260,
+                      damping: 20,
+                    }}
+                    className={`absolute z-0 pointer-events-none ${
+                      section.id === "baby"
+                        ? "bottom-10 -left-46 w-72"
+                        : "-bottom-6 -right-60 w-120"
                     }`}
                   >
-                    Visit Now
-                  </span>
-                </div>
-              </div>
-            </motion.div>
+                    <Image
+                      src={section.image}
+                      alt={section.title}
+                      width={640}
+                      height={480}
+                      className="w-full h-full object-contain"
+                    />
+                  </motion.div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
 
-            {!isSmallerDevice && (
-              <motion.div
-                initial={{
-                  scale: 0,
-                  opacity: 0,
-                  rotate: section.id === "baby" ? -10 : 10,
-                }}
-                animate={{
-                  scale: hoveredSection === section.id ? 1 : 0,
-                  opacity: hoveredSection === section.id ? 1 : 0,
-                  rotate: section.id === "baby" ? -10 : 10,
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 260,
-                  damping: 20,
-                }}
-                style={{ originX: 0.5, originY: 1 }}
-                className={`absolute z-0 pointer-events-none ${
-                  section.id === "baby"
-                    ? "bottom-6 -left-12 w-70"
-                    : "bottom-4 -right-12 w-160 h-120"
-                }`}
-              >
-                <Image
-                  src={section.image}
-                  alt={`${section.title} visual`}
-                  width={640}
-                  height={480}
-                  className="w-full h-full object-contain"
-                />
-              </motion.div>
-            )}
-          </Link>
-        ))}
-      </div>
+        {/* Bottom dots */}
+        <div className="mt-10 flex items-center justify-center gap-3">
+          {destinations.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              aria-label={item.label}
+              onClick={() => setActiveId(item.id)}
+              className={`h-3 w-3 rounded-full transition ${
+                activeId === item.id ? "bg-white" : "bg-white/35"
+              }`}
+            />
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
